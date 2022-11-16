@@ -1,0 +1,2233 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Signicat.SDK</name>
+    </assembly>
+    <members>
+        <member name="P:Signicat.SignicatResponse.ResponseJson">
+            <summary>
+            The raw JSON returned by Signicat.
+            </summary>
+        </member>
+        <member name="P:Signicat.SignicatResponse.RequestDate">
+            <summary>
+            The date and time at which the request was made.
+            </summary>
+        </member>
+        <member name="M:Signicat.Authentication.AuthenticationService.GetSession(System.String)">
+            <summary>
+            Retrieves the details of a single identification session.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.AuthenticationService.GetSessionAsync(System.String)">
+            <summary>
+            Retrieves the details of a single identification session.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.AuthenticationService.CreateSession(Signicat.Authentication.AuthenticationCreateOptions)">
+            <summary>
+            Creates a new identification session.
+            </summary>
+            <param name="authenticationCreateOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.AuthenticationService.CreateSessionAsync(Signicat.Authentication.AuthenticationCreateOptions)">
+            <summary>
+            Creates a new identification session.
+            </summary>
+            <param name="authenticationCreateOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.AllowedProviders">
+            <summary>
+            A list of eID providers that can be used for identification. If not specified, the user will be able to chose from all eIDs associated with your Signicat account.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.Language">
+            <summary>
+            The language to use for the identification process. Defaults to `en` (english).
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.Flow">
+            <summary>
+            The type of flow to use.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.RequestedAttributes">
+            <summary>
+            Request additional information about the user.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.CallbackUrls">
+            <summary>
+            Redirect settings when using the `redirect` flow.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.ExternalReference">
+            <summary>
+            Your external reference for the session.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.PrefilledInput">
+            <summary>
+            Prefilled input values.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.SessionLifetime">
+            <summary>
+            Lifetime of session in seconds.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationCreateOptions.ThemeId">
+            <summary>
+            Id for the Theme.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Id">
+            <summary>
+            The session's unique identifier.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.AuthenticationUrl">
+            <summary>
+            The URL to start the identification process. Only applicable to the `iframe` and `redirect` flows.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.AllowedProviders">
+            <summary>
+            A list of eID providers that can be used for identification. If not specified, the user will be able to chose from all eIDs associated with your Signicat account.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.ThemeId">
+            <summary>
+            Id for the Theme.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.AccountId">
+            <summary>
+            Signicat AccountId
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Language">
+            <summary>
+            The language to use for the identification process. Defaults to `en` (english).
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Flow">
+            <summary>
+            The type of flow to use.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.RequestedAttributes">
+            <summary>
+            Request additional information about the user.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.SessionLifetime">
+            <summary>
+            Lifetime of session in seconds.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.CallbackUrls">
+            <summary>
+            Redirect settings when using the `redirect` flow.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.ExternalReference">
+            <summary>
+            Your external reference for the session.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.PrefilledInput">
+            <summary>
+            Prefilled input values.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Status">
+            <summary>
+            The status of the identification session.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Provider">
+            <summary>
+            The eID provider used for identification.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Subject">
+            <summary>
+            Details about the identified user. Only available if session has status `success`.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.AuthenticationSession.Error">
+            <summary>
+            Error details.
+            </summary>
+        </member>
+        <member name="T:Signicat.Authentication.CallbackUrls">
+            <summary>
+            Redirect settings when using the `redirect` flow.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.CallbackUrls.SuccessUrl">
+            <summary>
+            The URL that the user is redirected to after a successful identification.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.CallbackUrls.AbortUrl">
+            <summary>
+            The URL that the user is redirected to if the session is aborted by the user.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.CallbackUrls.ErrorUrl">
+            <summary>
+            The URL that the user is redirected to if something goes wrong.
+            </summary>
+        </member>
+        <member name="T:Signicat.Authentication.Error">
+            <summary>
+            Error details.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Error.Message">
+            <summary>
+            An error message providing details about the error.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Error.Code">
+            <summary>
+            The error code reported.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Error.ProviderCode">
+            <summary>
+            The error code reported from the eID provider that was used.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Nin.Value">
+            <summary>
+            The value of Nin.
+            </summary>
+            <example>10109001290</example>
+        </member>
+        <member name="P:Signicat.Authentication.Nin.IssuingCountry">
+            <summary>
+            The issuing country of Nin.
+            </summary>
+            <example>NO</example>
+        </member>
+        <member name="P:Signicat.Authentication.Nin.Type">
+            <summary>
+            The type of Nin.
+            </summary>
+            <example>BIRTH</example>
+        </member>
+        <member name="T:Signicat.Authentication.PrefilledInput">
+            <summary>
+            Prefilled input values.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.PrefilledInput.Nin">
+            <summary>
+            Prefill the user's national identification number.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.PrefilledInput.Mobile">
+            <summary>
+            Prefill the user's mobile number. Must be prefixed with country code.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.PrefilledInput.DateOfBirth">
+            <summary>
+            Prefill the user's date of birth (YYYY-MM-DD). For Norwegian BankID on Mobile the DDMMYY format is also supported.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.PrefilledInput.Username">
+            <summary>
+            Prefill the user's username.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.PrefilledInput.Email">
+            <summary>
+            Prefill the user's email.
+            </summary>
+        </member>
+        <member name="T:Signicat.Authentication.Subject">
+            <summary>
+            Details about the identified user. Only available if session has status `success`.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.Id">
+            <summary>
+            The identifier of the subject.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.IdpId">
+            <summary>
+            The idp identifier of the subject.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.FirstName">
+            <summary>
+            First name.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.LastName">
+            <summary>
+            Last name.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.DateOfBirth">
+            <summary>
+            Date of birth.
+            </summary>
+        </member>
+        <member name="P:Signicat.Authentication.Subject.Nin">
+            <summary>
+            National identification number.
+            </summary>
+        </member>
+        <member name="M:Signicat.Authentication.IAuthenticationService.GetSession(System.String)">
+            <summary>
+            Retrieves the details of a single identification session.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.IAuthenticationService.GetSessionAsync(System.String)">
+            <summary>
+            Retrieves the details of a single identification session.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.IAuthenticationService.CreateSession(Signicat.Authentication.AuthenticationCreateOptions)">
+            <summary>
+            Creates a new identification session.
+            </summary>
+            <param name="authenticationCreateOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Authentication.IAuthenticationService.CreateSessionAsync(Signicat.Authentication.AuthenticationCreateOptions)">
+            <summary>
+            Creates a new identification session.
+            </summary>
+            <param name="authenticationCreateOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Signicat.Information.Address">
+            <summary>
+            Address of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Address.Street">
+            <summary>
+            Street address or PO box
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Address.PostalCode">
+            <summary>
+            Zip code / Postal code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Address.City">
+            <summary>
+            City or place
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Address.Country">
+            <summary>
+            Country codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ExtendedAddress.Type">
+            <summary>
+            Type of address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ExtendedAddress.StartDate">
+            <summary>
+            Start date of the address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ExtendedAddress.EndDate">
+            <summary>
+            End date of the address
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.AddressType.Unknown">
+            <summary>
+            Unknown address
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.AddressType.Registered">
+            <summary>
+            Address in official records
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.AddressType.Business">
+            <summary>
+            Principle place of business dealings and operations
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.AddressType.Postal">
+            <summary>
+            Postal address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Associate.Name">
+            <summary>
+            Name of the associate
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Associate.Association">
+            <summary>
+            Type of association
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Associate.Comments">
+            <summary>
+            Additional information / Detailed description
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Birth">
+            <summary>
+            Birth information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Birth.MonthOfBirth">
+            <summary>
+            Month of birth
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Birth.YearOfBirth">
+            <summary>
+            Year of birth
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Birth.DateOfBirth">
+            <summary>
+            Date of birth
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthority.ResponsibleOrgLocalizedName">
+            <summary>
+            Localized name of the responsible organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthority.ResponsibleOrgInternationalName">
+            <summary>
+            Name of the responsible organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthority.Website">
+            <summary>
+            Website
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.AuthorityCode">
+            <summary>
+            Authority code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.CountryCode">
+            <summary>
+             ISO 3166-1 country codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.Country">
+            <summary>
+            Country name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.LocalizedName">
+            <summary>
+            Localized name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.InternationalName">
+            <summary>
+            International name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityBase.Jurisdiction">
+            <summary>
+            Jurisdiction
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.BusinessRegistry.RegistrationAuthorityItem.SelfUrl">
+            <summary>
+            Link to more information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Citizenship.Country">
+            <summary>
+            Country codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ContactInfoBase.Phone">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ContactInfoBase.Email">
+            <summary>
+            Email address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.FunctionDto.StartDate">
+            <summary>
+            Start date
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.FunctionDto.EndDate">
+            <summary>
+            End date
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.FunctionDto.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.FunctionDto.Function">
+            <summary>
+            Type of function
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Gender">
+            <summary>
+            Gender of the person (Only for entityType "person")
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.IdentityNumber">
+            <summary>
+            Identity number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.IdentityNumber.IdNumber">
+            <summary>
+            The identity number
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.IdNumberType">
+            <summary>
+            The type of the identity number
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Iso3166">
+            <summary>
+            ISO 3166-1 country codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Iso3166.Alpha2">
+            <summary>
+            Two digit country code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Iso3166.Alpha3">
+            <summary>
+            Three digit country code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Iso3166.Numeric">
+            <summary>
+            Numeric country code
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Link">
+            <summary>
+            Links to the item
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.MatchStrength">
+            <summary>
+            An indication of how relevant the result is
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MatchStrength.Score">
+            <summary>
+            A score from 0 - 100 where higher values are more relevant
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MatchStrength.Certainty">
+            <summary>
+            Used if an exact score is unavailable
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MediaLink.Title">
+            <summary>
+            Title of the content
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MediaLink.Excerpt">
+            <summary>
+            An excerpt of the content
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MediaLink.Url">
+            <summary>
+            Url to the content
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.MediaLink.Date">
+            <summary>
+            Date of the content
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Metadata">
+            <summary>
+            Metadata about the response
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Metadata.Sources">
+            <summary>
+            List of sources for the data
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Metadata.Urls">
+            <summary>
+            Public urls to the sources
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Metadata.LastChanged">
+            <summary>
+            The date the data was last changed
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Metadata.RawJson">
+            <summary>
+            The raw JSON if it was requested and supported by the source
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.OrganizationMetadata">
+            <summary>
+            Metadata about the response
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.OrganizationMetadata.AccountingYear">
+            <summary>
+            Accounting year of the data
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Name">
+            <summary>
+            Name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Name.Full">
+            <summary>
+            Full name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Name.First">
+            <summary>
+            First/given name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Name.Last">
+            <summary>
+            Last/surname of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Name.Middle">
+            <summary>
+            Middle name of the entity
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.NameStatus">
+            <summary>
+            A hint to which attributes are set.
+            `partial` : only full name,
+            `all` : all attributes.
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.NameStatus.Partial">
+            <summary>
+            Only a full name was found
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.NameStatus.All">
+            <summary>
+            All name attributes are set
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Nationality">
+            <summary>
+            Nationality of an entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Nationality.IsActive">
+            <summary>
+            Is active
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.Signature">
+            <summary>
+            People with authorization to sign and to act on behalf of the business in all matters.
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.PowerOfProcuration">
+            <summary>
+            People with authorization to sign and to act on behalf of the business in some matters.
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureBase.Status">
+            <summary>
+            Status of the combinations represented by the signature
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureBase.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureBase.Combinations">
+            <summary>
+            List of signature combinations
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignerCombinations.Signers">
+            <summary>
+            The signers in a combination
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignerCombinations.Description">
+            <summary>
+            A description
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.CombinationBasis">
+            <summary>
+            Contains the data that was used to form the basis for the combinations
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CombinationBasis.People">
+            <summary>
+            The people
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasisSigner.Name">
+            <summary>
+            Name of the basis signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasisSigner.DateOfBirth">
+            <summary>
+            Birth date of the basis signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasisSigner.Role">
+            <summary>
+            Basis Signer role
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasisSigner.Roles">
+            <summary>
+            List of Roles associated to the Basis Signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Signer.Name">
+            <summary>
+            Name of the signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Signer.DateOfBirth">
+            <summary>
+            Birth date of the signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Signer.Role">
+            <summary>
+            Signer role
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.SignerRole">
+            <summary>
+            Role of the signer
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignerRole.Code">
+            <summary>
+            Role type 
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignerRole.Description">
+            <summary>
+            Text description of the role
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.AuthorizationStatus">
+            <summary>
+            Describes the authorization response. Meaning of each status:
+            <para>- "unknown": unknown value</para>
+            <para>- "error": no combinations could be generated</para>
+            <para>- "none": no combinations available</para>
+            <para>- "incomplete": the response contains combinations, but there may be more</para>
+            <para>- "complete": the response contains all possible combinations</para>
+            </summary> 
+        </member>
+        <member name="T:Signicat.Information.Organization.SignatureMetadata">
+            <summary>
+            Metadata about the response
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureMetadata.Sources">
+            <summary>
+            List of sources for the data
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureMetadata.Urls">
+            <summary>
+            Public urls to the sources
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureMetadata.LastChanged">
+            <summary>
+            The date the data was last changed
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SignatureMetadata.RawJson">
+            <summary>
+            The raw JSON if it was requested and supported by the source
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.AuthorizationRole">
+            <summary>
+            Role of the entity
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Ceo">
+            <summary>
+            CEO
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.BoardLeader">
+            <summary>
+            Chair of the board
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.BoardMember">
+            <summary>
+            A member of the board
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Signature">
+            <summary>
+            Right to represent and sign on behalf of the company.
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Procuration">
+            <summary>
+            Right to represent and sign on behalf of the company on day-to-day activity.
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Bookkeeper">
+            <summary>
+            Bookkeeper for a company. NO: Regnskapfører
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.AuthorizationRole.Accountant">
+            <summary>
+            Accountant for a company. NO: Revisor
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Name">
+            <summary>
+            Organization name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Names">
+            <summary>
+            List of organization names
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.OrganizationNumber">
+            <summary>
+            The organization number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.VATNumber">
+            <summary>
+            VAT number of the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.RegistrationDate">
+            <summary>
+            Registration date of the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Country">
+            <summary>
+            Country Codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.BusinessAddress">
+            <summary>
+            The business address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Addresses">
+            <summary>
+            Addresses
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.OrganizationType">
+            <summary>
+            Type of organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.LegalStatus">
+            <summary>
+            Legal status
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Employees">
+            <summary>
+            Number of employees
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.BasicInfo.Industries">
+            <summary>
+            A list of industries the organization is involved in according to the NACE Rev. 2 classification;
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.Industry">
+            <summary>
+            NACE Rev. 2 classification
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Industry.Code">
+            <summary>
+            NACE Rev. 2 code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Industry.Description">
+            <summary>
+            NACE Rev. 2 description
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Industry.Section">
+            <summary>
+            NACE Rev. 2 section (A-U) the code belongs to
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Industry.Level">
+            <summary>
+            Hierarchical level of the code
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.OrganizationType">
+            <summary>
+            Organization type
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationType.Name">
+            <summary>
+            Name of the organization type
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationType.Code">
+            <summary>
+            Code representation of the organization type
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationType.Url">
+            <summary>
+            Url containing different codes
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationName.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationName.Type">
+            <summary>
+            Type of name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationName.Start">
+            <summary>
+            Start date of the name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OrganizationName.End">
+            <summary>
+            End date of the name
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.OrganizationNameType.Unknown">
+            <summary>
+            The type of name is not known
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.OrganizationNameType.TradeName">
+            <summary>
+            Trade name
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.OrganizationNameType.Registered">
+            <summary>
+            Registered name
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.ContactInfo">
+            <summary>
+            Contact information for the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Finance.NumberOfPaymentRemarks">
+            <summary>
+            Number of payment remarks registered on the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Finance.ProfitAndLoss">
+            <summary>
+            Account figures
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Finance.KeyFigures">
+            <summary>
+            Key figures
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.CreditRatingDto">
+            <summary>
+            Credit score information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CreditRatingDto.Score">
+            <summary>
+            Credit rating score
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CreditRatingDto.RatingSystem">
+            <summary>
+            Name of the rating system used
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CreditRatingDto.Description">
+            <summary>
+            A description of the code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CreditRatingDto.Link">
+            <summary>
+            Link to the rating used if available
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CreditRatingDto.Year">
+            <summary>
+            Year of the score
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ProfitAndLoss.Turnover">
+            <summary>
+            Gross revenue
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ProfitAndLoss.GrossProfit">
+            <summary>
+            Revenue after deducting the cost of goods
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ProfitAndLoss.NetProfit">
+            <summary>
+            Revenue after deducting operating, interest, and tax expenses
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ProfitAndLoss.NetProfitAfterTax">
+            <summary>
+            Revenue after deducting tax expenses
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.KeyFigures.NetWorth">
+            <summary>
+            Value of the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.FiscalYear.Year">
+            <summary>
+            Fiscal year
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.FiscalYear.Currency">
+            <summary>
+            ISO 4217 currency code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Ownership.Companies">
+            <summary>
+            List of shareholding companies
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Ownership.Persons">
+            <summary>
+            List of shareholding persons
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Ownership.OtherShareholders">
+            <summary>
+            List of shareholders who's type is not known
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ShareholderPerson.Name">
+            <summary>
+            Name of the person
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ShareholderPerson.DateOfBirth">
+            <summary>
+            Birth date of the person
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.ShareholderCompany.Name">
+            <summary>
+            Name of the company
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OtherShareholder.Name">
+            <summary>
+            Name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OtherShareholder.Id">
+            <summary>
+            Id of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Shareholder.Percentage">
+            <summary>
+            Shareholding percentage in the organization
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Shareholder.VotingRights">
+            <summary>
+            Shareholders Voting rights percentage
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.PercentageRange">
+            <summary>
+            Shareholding percentage range
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.VotingRightsRange">
+            <summary>
+            Shareholders voting rights percentage range
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Roles.Persons">
+            <summary>
+            A list of persons with roles
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Roles.Companies">
+            <summary>
+            A list of companies with roles
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Roles.Others">
+            <summary>
+            Entities who's type is not known
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.CompanyRole.Name">
+            <summary>
+            Name of the company
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OtherRole.Name">
+            <summary>
+            Name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.OtherRole.Id">
+            <summary>
+            Id of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.RoleBase.Role">
+            <summary>
+            Role of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.RoleBase.Roles">
+            <summary>
+            Roles of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.RoleWithDate.Role">
+            <summary>
+            Role of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.RoleWithDate.StartDate">
+            <summary>
+            Start date of the role
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.RoleWithDate.EndDate">
+            <summary>
+            End date of the role
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.Role">
+            <summary>
+            Role of the entity
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Ceo">
+            <summary>
+            CEO
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.BoardLeader">
+            <summary>
+            Chair of the board
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.BoardMember">
+            <summary>
+            A member of the board
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Signature">
+            <summary>
+            Right to represent and sign on behalf of the company.
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Procuration">
+            <summary>
+            Right to represent and sign on behalf of the company on day-to-day activity.
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Bookkeeper">
+            <summary>
+            Bookkeeper for a company. NO: Regnskapfører
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Accountant">
+            <summary>
+            Accountant for a company. NO: Revisor
+            </summary>
+        </member>
+        <member name="F:Signicat.Information.Organization.Role.Partner">
+            <summary>
+            Partner
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SearchItem.OrganizationNumber">
+            <summary>
+            Organization number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SearchItem.TaxNumber">
+            <summary>
+            Tax number of the entity (can be: TAX number, VAT number or Tax Identification Number (TIN))
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SearchItem.ExternalId">
+            <summary>
+            External Id of the entity (internal source id)
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.SearchItem.Name">
+            <summary>
+            Name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.Ubo.UltimateBeneficiaryOwners">
+            <summary>
+            Ultimate beneficiary owners
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.UboOwnership">
+            <summary>
+            Ownership information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.UboOwnership.DirectOwnership">
+            <summary>
+            Shareholding percentage
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.UboOwnership.IndirectOwnership">
+            <summary>
+            Indirect ownership
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.UboOwnership.IntegratedOwnership">
+            <summary>
+            Direct and indirect ownership
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.UboOwnership.VotingRights">
+            <summary>
+            Voting rights of the person in percent
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Organization.UboOwnership.VotingPower">
+            <summary>
+            Voting power in percent. The voting power may reflect the ability to influence the voting outcome or the extent of control over the company (the exact formula used to calculate this value may be different depending on the source).
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.OwnershipRange">
+            <summary>
+            Shareholding percentage range
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.VotingPowerRange">
+            <summary>
+            Voting power percentage range
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Organization.UboRole">
+            <summary>
+            Role of the person
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.OrganizationNumber">
+            <summary>
+            Organization numbers in different formats
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.OrganizationNumber.Domestic">
+            <summary>
+            The domestic organization number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.OrganizationNumber.DunsNumber">
+            <summary>
+            Data Universal Numbering System (DUNS number) for the organization. https://en.wikipedia.org/wiki/Data_Universal_Numbering_System
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.OrganizationNumber.LegalEntityIdentifier">
+            <summary>
+            Legal Entity Identifier (LEI) - global identifier of legal entities participating in financial transactions. https://en.wikipedia.org/wiki/Legal_Entity_Identifier
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PagedCollection`2.Offset">
+            <summary>
+            The offset of the current page.
+            </summary>
+            <value>The offset of the current page.</value>
+        </member>
+        <member name="P:Signicat.Information.PagedCollection`2.Limit">
+            <summary>
+            The limit of the current paging options.
+            </summary>
+            <value>The limit of the current paging options.</value>
+        </member>
+        <member name="P:Signicat.Information.PagedCollection`2.Size">
+            <summary>
+            The total size of the collection (irrespective of any paging options).
+            </summary>
+            <value>The total size of the collection.</value>
+        </member>
+        <member name="P:Signicat.Information.PagedCollection`2.Data">
+            <summary>
+            The result data
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.PageLinks">
+            <summary>
+            Links for paging
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PageLinks.Next">
+            <summary>
+            Url of the next page
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PageLinks.Previous">
+            <summary>
+            Url of the previous page
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PageLinks.First">
+            <summary>
+            Url of the first page
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Person.PersonAddress">
+            <summary>
+            Address information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonAddress.IsActive">
+            <summary>
+            If the address is active
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonAddress.IsConfidential">
+            <summary>
+            If the address is confidential
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonAddress.StartDate">
+            <summary>
+            Start date of the address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonAddress.EndDate">
+            <summary>
+            End date of the address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonAddress.AddressLines">
+            <summary>
+            Address lines if the source contains unstructured data
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressInfo.Permanent">
+            <summary>
+            Permanent address for the person
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressInfo.Postal">
+            <summary>
+            Postal address for the person
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressInfo.Foreign">
+            <summary>
+            Foreign address for the person
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressInfo.Metadata">
+            <summary>
+            Metadata for the content
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressVerification.Verified">
+            <summary>
+            Verification success or fail
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.AddressVerification.Description">
+            <summary>
+            Verification description
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.Names">
+            <summary>
+            Names
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.Nationalities">
+            <summary>
+            Nationalities
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.Citizenships">
+            <summary>
+            Citizenship's
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.PermanentAddresses">
+            <summary>
+            Permanent addresses
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.PostalAddresses">
+            <summary>
+            Postal address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.BasicInfo.ForeignAddresses">
+            <summary>
+            Foreign address
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.Finance.NumberOfPaymentRemarks">
+            <summary>
+            Number of payment remarks registered on the individual
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.Finance.IncomeAndWealth">
+            <summary>
+            Financial information
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.Person.CreditScore">
+            <summary>
+            Credit score information
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.CreditScore.Score">
+            <summary>
+            Credit score value
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.CreditScore.ScoringSystem">
+            <summary>
+            Name of the scoring system used
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.CreditScore.Link">
+            <summary>
+            Link to the scoring used if available
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.CreditScore.Year">
+            <summary>
+            Year of the score
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.FinanceInfo.Year">
+            <summary>
+            Year the info is from
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.FinanceInfo.Currency">
+            <summary>
+            ISO 4217 currency code
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.FinanceInfo.GrossIncome">
+            <summary>
+            Income before deductions
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.FinanceInfo.NetIncome">
+            <summary>
+            Income after deductions
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.FinanceInfo.Wealth">
+            <summary>
+            Value of everything owned by the individual
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonBirth.Location">
+            <summary>
+            Birth location
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonName.IsActive">
+            <summary>
+            If the name is active
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonName.StartDate">
+            <summary>
+            Start date of the name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.PersonName.EndDate">
+            <summary>
+            End date of the name
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.SearchItem.Id">
+            <summary>
+            Id of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.SearchItem.Name">
+            <summary>
+            Name of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Person.SearchItem.Country">
+            <summary>
+            Country of the entity
+            </summary>
+        </member>
+        <member name="T:Signicat.Information.PhoneNumber">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PhoneNumber.NationalNumber">
+            <summary>
+            The national number
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PhoneNumber.CountryCode">
+            <summary>
+            Country dial code if the national number was recognized as valid
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.PhoneNumber.IntlFormat">
+            <summary>
+            The number formatted according to its locale if the national number was recognized as valid
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Range.From">
+            <summary>
+            Greater than or equal to
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.Range.To">
+            <summary>
+            Less than or equal to
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.SourceName">
+            <summary>
+            Name of the source the item was found in
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Aliases">
+            <summary>
+            Aliases for the item
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Associates">
+            <summary>
+            Associates of the item (Only for entityType "person")
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.DatesOfBirth">
+            <summary>
+            Possible dates of birth (Only for entityType "person")
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Addresses">
+            <summary>
+            Addresses of the entity
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Comments">
+            <summary>
+            Comments
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Functions">
+            <summary>
+            Functions
+            </summary>
+        </member>
+        <member name="P:Signicat.Information.ScreenedItem.Media">
+            <summary>
+            Online content related to the item (Only for entityType "person")
+            </summary>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetBasicOrganizationInfo(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve basic info about an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetBasicOrganizationInfoAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve basic info about an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationAuthorization(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            This endpoint returns which people are allowed to sign and act on behalf of an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationAuthorizationAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            This endpoint returns which people are allowed to sign and act on behalf of an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationOwnership(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve ownership info for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationOwnershipAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve ownership info for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationRoles(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve information about roles in an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationRolesAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve information about roles in an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationUltimateBeneficialOwners(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve information about ultimate beneficial owners for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationUltimateBeneficialOwnersAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve information about ultimate beneficial owners for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationFinance(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve financial info for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetOrganizationFinanceAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve financial info for an organization.
+            </summary>
+            <param name="country"></param>
+            <param name="id"></param>
+            <param name="idType"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.OrganizationScreening(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+            </summary>
+            <param name="idType"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="listType"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.OrganizationScreeningAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+            </summary>
+            <param name="idType"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="listType"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.OrganizationSearch(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Search for an organization.
+            </summary>
+            <param name="idType"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="cursor"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.OrganizationSearchAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Search for an organization.
+            </summary>
+            <param name="idType"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="cursor"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetBasicPersonInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve basic info about a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetBasicPersonInfoAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve basic info about a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetPersonAddress(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve address info for a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetPersonAddressAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve address info for a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetPersonFinance(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve finance info for a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetPersonFinanceAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieve finance info for a person.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonVerifyAddress(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Verification of a persons address.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonVerifyAddressAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Verification of a persons address.
+            </summary>
+            <param name="country"></param>
+            <param name="identityNumber"></param>
+            <param name="givenName"></param>
+            <param name="surname"></param>
+            <param name="dateOfBirth"></param>
+            <param name="caseRef"></param>
+            <param name="street"></param>
+            <param name="streetNumber"></param>
+            <param name="postalCode"></param>
+            <param name="city"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonScreening(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="postalCode"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="listType"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonScreeningAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="postalCode"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="listType"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonSearch(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Search for a person. Functionality is subject to change without prior notice.
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="postalCode"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.PersonSearchAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Search for a person. Functionality is subject to change without prior notice.
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="postalCode"></param>
+            <param name="countries"></param>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="source"></param>
+            <param name="rawJson"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListRegistrationAuthorities">
+            <summary>
+            Retrieves a list of business registration authorities globally.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListRegistrationAuthoritiesAsync">
+            <summary>
+            Retrieves a list of business registration authorities globally.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetRegistrationAuthority(System.String)">
+            <summary>
+            Retrieves detailed information about a specific registration authority.
+            </summary>
+            <param name="authorityCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetRegistrationAuthorityAsync(System.String)">
+            <summary>
+            Retrieves detailed information about a specific registration authority.
+            </summary>
+            <param name="authorityCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListCountries(System.String)">
+            <summary>
+            Lists all countries in the world with English name and ISO 3166-1 country code.
+            </summary>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListCountriesAsync(System.String)">
+            <summary>
+            Lists all countries in the world with English name and ISO 3166-1 country code.
+            </summary>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetCountryInfo(System.String,System.String)">
+            <summary>
+            Retrieves basic geographical information about a country.
+            </summary>
+            <param name="countryCode"></param>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.GetCountryInfoAsync(System.String,System.String)">
+            <summary>
+            Retrieves basic geographical information about a country.
+            </summary>
+            <param name="countryCode"></param>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListCountrySubdivisions(System.String,System.String)">
+            <summary>
+            Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
+            </summary>
+            <param name="countryCode"></param>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.IInformationService.ListCountrySubdivisionsAsync(System.String,System.String)">
+            <summary>
+            Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
+            </summary>
+            <param name="countryCode"></param>
+            <param name="lang"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetBasicOrganizationInfo(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetBasicOrganizationInfoAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationAuthorization(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationAuthorizationAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationOwnership(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationOwnershipAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationRoles(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationRolesAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationUltimateBeneficialOwners(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationUltimateBeneficialOwnersAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationFinance(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetOrganizationFinanceAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.OrganizationScreening(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.OrganizationScreeningAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.OrganizationSearch(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.OrganizationSearchAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetBasicPersonInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetBasicPersonInfoAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetPersonAddress(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetPersonAddressAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetPersonFinance(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetPersonFinanceAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonVerifyAddress(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonVerifyAddressAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonScreening(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonScreeningAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonSearch(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.PersonSearchAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListRegistrationAuthorities">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListRegistrationAuthoritiesAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetRegistrationAuthority(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetRegistrationAuthorityAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListCountries(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListCountriesAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetCountryInfo(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.GetCountryInfoAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListCountrySubdivisions(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.Information.InformationService.ListCountrySubdivisionsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Signicat.SignicatConfiguration.SetClientCredentials(System.String,System.String)">
+            <summary>
+            Sets the OAuth client credentials and scopes.
+            </summary>
+            <param name="clientId">Client ID.</param>
+            <param name="clientSecret">Client secret.</param>
+        </member>
+        <member name="P:Signicat.SignicatConfiguration.HttpClient">
+            <summary>
+            Lets you provide your own <see cref="P:Signicat.SignicatConfiguration.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="P:Signicat.SignicatConfiguration.BaseUrl">
+            <summary>
+            Gets or sets the Signicat Express API base URL.
+            </summary>
+        </member>
+        <member name="P:Signicat.SignicatConfiguration.OAuthBaseUrl">
+            <summary>
+            Gets or sets the Signicat Express OAuth base URL.
+            </summary>
+        </member>
+        <member name="P:Signicat.SignicatConfiguration.SdkVersion">
+            <summary>
+            Gets the version of the Signicat Express .NET SDK.
+            </summary>
+        </member>
+    </members>
+</doc>
