@@ -1,3 +1,6 @@
+# WORK IN PROGRESS!
+This SDK is work in progress and not production ready as of now
+-------------------------------
 # Signicat .NET SDK
 [![Tests](https://github.com/signicat/signicat-net/actions/workflows/test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/test.yml)
  [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK)
