@@ -27,4 +27,3 @@ jobs:
         env:
           SIGNICAT_CLIENT_ID: ${{ secrets.CLIENT_SECRET }}
           SIGNICAT_CLIENT_SECRET: ${{ secrets.CLIENT_ID }}
-}}
