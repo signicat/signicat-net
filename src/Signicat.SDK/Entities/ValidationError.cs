@@ -1,13 +1,13 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Signicat
 {
     public class ValidationError
     {
-        [JsonProperty("field")]
+        [JsonPropertyName("field")]
         public string Field { get; set; }
 
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; }
     }
 }

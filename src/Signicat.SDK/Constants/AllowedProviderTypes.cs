@@ -1,0 +1,40 @@
+using System;
+
+namespace Signicat.Constants
+{
+    [Serializable]
+    public static class AllowedProviderTypes
+    {
+       
+        /// <summary>
+        /// Norwegian BankID
+        /// <see href="https://www.bankid.no/en/private/">Website</see>
+        /// </summary>
+        public const string NorwegianBankId = "nbid";
+        
+        /// <summary>
+        /// Swedish BankID
+        /// </summary>
+        public const string SwedishBankID = "sbid";
+        
+        /// <summary>
+        /// iDIN
+        /// </summary>
+        public const string iDIN  = "idin";
+        
+        /// <summary>
+        /// DigiD
+        /// </summary>
+        public const string DigiD = "digid";
+        
+        /// <summary>
+        /// EHerkenning
+        /// </summary>
+        public const string EHerkenning = "eherkenning";
+        
+        
+    }
+    
+  
+}
+

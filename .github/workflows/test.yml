@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  IDFY_MOCK_SERVER_VERSION: 0.0.9
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Start mock server
+        run: |
+          mkdir -p idfy-mock-server/idfy-mock-server_$IDFY_MOCK_SERVER_VERSION/
+          curl -L "https://github.com/idfy-io/idfy-mock-server/releases/download/v$IDFY_MOCK_SERVER_VERSION/idfy-mock-server_$IDFY_MOCK_SERVER_VERSION.zip" -o "idfy-mock-server/idfy-mock-server_${IDFY_MOCK_SERVER_VERSION}.zip"
+          unzip "idfy-mock-server/idfy-mock-server_$IDFY_MOCK_SERVER_VERSION.zip" -d "idfy-mock-server/idfy-mock-server_$IDFY_MOCK_SERVER_VERSION/"
+          dotnet "idfy-mock-server/idfy-mock-server_$IDFY_MOCK_SERVER_VERSION/Idfy.MockServer.dll" &
+
+      - name: Build
+        run: dotnet build src -c Release
+
+      - name: Test
+        run: dotnet test src -c Release --no-build

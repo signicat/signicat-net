@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoFixture;
 using NUnit.Framework;
 using Signicat.Authentication;
+using Signicat.Constants;
+using Signicat.Infrastructure;
+using JsonConverter = System.Text.Json.Serialization.JsonConverter;
 
 namespace Signicat.SDK.Tests
 {
@@ -55,6 +61,53 @@ namespace Signicat.SDK.Tests
             
             Assert.IsNotNull(session);
             AssertRequest(HttpMethod.Post, "/auth/rest/sessions");
+        }
+        
+        [Test]
+        public async Task Serialize()
+        {
+            var createAuth = new AuthenticationCreateOptions()
+            {
+                Flow = AuthenticationFlow.Redirect,
+                Language = Languages.English,
+                AllowedProviders = new List<string>()
+                {
+                    AllowedProviderTypes.NorwegianBankId,
+                    AllowedProviderTypes.SwedishBankID
+                },
+                CallbackUrls = new CallbackUrls()
+                {
+                    AbortUrl = "https://www.example.com#abort",
+                    SuccessUrl = "https://www.example.com#success",
+                    ErrorUrl = "https://www.example.com#error",
+                },
+                ExternalReference = Guid.NewGuid().ToString("n"),
+                RequestedAttributes = new List<string>()
+                {
+                    RequestedAttributes.NationalIdentifierNumber,
+                    RequestedAttributes.FirstName,
+                    RequestedAttributes.LastName
+                },
+                ThemeId = "231"
+            };
+
+            var settings = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+
+            };
+            settings.Converters.Add(new JsonStringEnumConverter());
+            var json = System.Text.Json.JsonSerializer.Serialize(createAuth,settings);
+            Console.WriteLine(json);
+
+            var authObject = JsonSerializer.Deserialize<AuthenticationCreateOptions>(json, settings);
+
+            var session = new AuthenticationSession();
+            
+            
+            Assert.IsTrue(authObject.AllowedProviders.Contains(AllowedProviderTypes.NorwegianBankId));
+            Assert.IsTrue(authObject.AllowedProviders.Contains(AllowedProviderTypes.SwedishBankID));
+            Assert.AreEqual(2,authObject.AllowedProviders.Count);
         }
         
         

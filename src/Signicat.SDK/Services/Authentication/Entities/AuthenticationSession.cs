@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Signicat.Constants;
 
 namespace Signicat.Authentication
 {
@@ -17,8 +18,9 @@ namespace Signicat.Authentication
         
         /// <summary>
         /// A list of eID providers that can be used for identification. If not specified, the user will be able to chose from all eIDs associated with your Signicat account.
+        /// <see cref="Constants.AllowedProviderTypes"/>
         /// </summary>
-        public IList<AllowedProviderTypes> AllowedProviders { get; set; }
+        public IList<string> AllowedProviders { get; set; }
         
         /// <summary>
         /// Id for the Theme.
@@ -33,7 +35,7 @@ namespace Signicat.Authentication
         /// <summary>
         /// The language to use for the identification process. Defaults to `en` (english).
         /// </summary>
-        public Language? Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// The type of flow to use.
@@ -67,13 +69,16 @@ namespace Signicat.Authentication
         
         /// <summary>
         /// The status of the identification session.
+        /// One of: <c>SUCCESS</c>,<c>ABORTED</c> or <c>ERROR</c>.
+        /// <see cref="Constants.AuthenticationStatuses"/>
         /// </summary>
-        public AuthenticationStatus? Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// The eID provider used for identification.
+        /// One of: <see cref="Constants.AllowedProviderTypes"/>
         /// </summary>
-        public string? Provider { get; set; }
+        public string Provider { get; set; }
 
         /// <summary>
         /// Details about the identified user. Only available if session has status `success`.

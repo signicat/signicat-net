@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Signicat
 {
     public class SignicatError
     {
-        [JsonProperty("message")]
+        [JsonPropertyName("messagege")]
         public string Message { get; set; }
         
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public string Code { get; set; }
         
-        [JsonProperty("errors")]
+        [JsonPropertyName("errors")]
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
 
-        [JsonProperty("error")]
+        [JsonPropertyName("error")]
         public string OAuthError { get; set; }
         
-        [JsonProperty("error_description")]
+        [JsonPropertyName("error_description")]
         public string OAuthErrorDescription { get; set; }
     }
 }
