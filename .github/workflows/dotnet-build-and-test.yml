@@ -26,5 +26,5 @@ jobs:
         run: dotnet test src --no-build --verbosity normal
         env:
           SIGNICAT_CLIENT_ID: ${{ secrets.CLIENT_SECRET }}
-          SIGNICAT_CLIENT_SECRET: ${{ secrets.CLIENT_ID
+          SIGNICAT_CLIENT_SECRET: ${{ secrets.CLIENT_ID }}
 }}
