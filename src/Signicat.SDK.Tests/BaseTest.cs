@@ -28,20 +28,21 @@ namespace Signicat.SDK.Tests
         
         private static object Initialize()
         {
-            var port = Environment.GetEnvironmentVariable("IDFY_MOCK_SERVER_PORT") ?? "5000";
-            var url = $"http://localhost:{port}";
-
             _mockHttpClientHandler = new Mock<HttpClientHandler>()
             {
-                CallBase =  true
+                CallBase =  true,
             };
 
             SignicatConfiguration.HttpClient = new HttpClient(_mockHttpClientHandler.Object);
-            SignicatConfiguration.BaseUrl = url;
-            SignicatConfiguration.OAuthBaseUrl = url + "/oauth";
-            SignicatConfiguration.SetClientCredentials("signicat-sdk-test", "secret");
+            SignicatConfiguration.BaseUrl = "https://api.signicat.com";
+            SignicatConfiguration.OAuthBaseUrl = SignicatConfiguration.BaseUrl + "/auth/open";
             
-            // Make sure that the Idfy Mock Server is running
+            SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"), 
+                Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
+
+            var url = $"{SignicatConfiguration.OAuthBaseUrl}.well-known/openid-configuration";
+            
+            // Make sure that the we are able to connect to Signicat service
             using (var client = new HttpClient())
             {
                 try
@@ -50,7 +51,7 @@ namespace Signicat.SDK.Tests
                 }
                 catch (Exception)
                 {
-                    throw new Exception($"Failed to connect to Idfy Mock Server at {url}, make sure it is running.");
+                    throw new Exception($"Failed to connect to Signicat Server at {url}");
                 }
             }
 

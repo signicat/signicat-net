@@ -6,13 +6,34 @@ namespace Signicat
 {
     public class SignicatError
     {
-        [JsonPropertyName("messagege")]
-        public string Message { get; set; }
+        /// <summary>
+        /// Short human readable summary of the error
+        /// </summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
         
+        /// <summary>
+        /// A short machine readable string indicating the error code. Should be constant.
+        /// </summary>
         [JsonPropertyName("code")]
         public string Code { get; set; }
+
+        /// <summary>
+        /// Uri to the documentation that describes this error
+        /// </summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+        
+        /// <summary>
+        /// TraceId to be used for support request
+        /// </summary>
+        [JsonPropertyName("traceId")]
+        public string TraceId { get; set; }
         
         [JsonPropertyName("errors")]
+        public Dictionary<string, string[]> Errors { get; set; }
+        
+        [JsonPropertyName("invalid-params")]
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
 
         [JsonPropertyName("error")]

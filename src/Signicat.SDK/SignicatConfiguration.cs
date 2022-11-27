@@ -29,7 +29,7 @@ namespace Signicat
         public static HttpClient HttpClient { get; set; }
         
         /// <summary>
-        /// Gets or sets the Signicat Express API base URL.
+        /// Gets or sets the Signicat API base URL.
         /// </summary>
         public static string BaseUrl
         {
@@ -38,7 +38,7 @@ namespace Signicat
         }
 
         /// <summary>
-        /// Gets or sets the Signicat Express OAuth base URL.
+        /// Gets or sets the Signicat OAuth base URL.
         /// </summary>
         public static string OAuthBaseUrl
         {
@@ -47,7 +47,7 @@ namespace Signicat
         }
 
         /// <summary>
-        /// Gets the version of the Signicat Express .NET SDK.
+        /// Gets the version of the Signicat .NET SDK.
         /// </summary>
         public static string SdkVersion
         {

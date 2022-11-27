@@ -222,7 +222,7 @@ namespace Signicat.Infrastructure
                 statusCode,
                 signicatError,
                 response,
-                signicatError?.Message ?? signicatError?.OAuthError);
+                signicatError?.Title ?? signicatError?.OAuthError);
         }
     }
 }

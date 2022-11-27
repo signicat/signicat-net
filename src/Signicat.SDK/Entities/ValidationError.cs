@@ -4,10 +4,10 @@ namespace Signicat
 {
     public class ValidationError
     {
-        [JsonPropertyName("field")]
-        public string Field { get; set; }
+        [JsonPropertyName("name")]
+        public string PropertyName { get; set; }
 
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
     }
 }

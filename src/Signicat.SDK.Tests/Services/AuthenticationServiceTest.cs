@@ -46,7 +46,30 @@ namespace Signicat.SDK.Tests
         [Test]
         public void CreateSession()
         {
-            var options = Fixture.Create<AuthenticationCreateOptions>();
+            var options = new AuthenticationCreateOptions()
+            {
+                Flow = AuthenticationFlow.Redirect,
+                Language = Languages.English,
+                AllowedProviders = new List<string>()
+                {
+                    AllowedProviderTypes.NorwegianBankId,
+                    AllowedProviderTypes.SwedishBankID
+                },
+                ExternalReference = Guid.NewGuid().ToString("n"),
+                CallbackUrls = new CallbackUrls()
+                {
+                    AbortUrl = "https://mytest.com#abort",
+                    SuccessUrl = "https://mytest.com#success",
+                    ErrorUrl = "https://mytest.com#error",
+                },
+                RequestedAttributes = new List<string>()
+                {
+                    RequestedAttributes.FirstName,
+                    RequestedAttributes.LastName,
+                    RequestedAttributes.NationalIdentifierNumber
+                },
+                SessionLifetime = 60
+            };
             var session = _authenticationService.CreateSession(options);
             
             Assert.IsNotNull(session);

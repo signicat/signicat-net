@@ -53,5 +53,7 @@ namespace Signicat.Authentication
         /// Id for the Theme.
         /// </summary>
         public string ThemeId { get; set; }
+
+        
     }
 }

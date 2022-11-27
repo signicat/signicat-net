@@ -10,4 +10,6 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=377edaa8_002D2384_002D47ad_002D8ce7_002Def219538e9de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;Signicat.SDK.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/rune/Documents/Dokumenter – Runes MacBook Pro/Gitlab/signicat-net/signicat-net/src/Signicat.SDK.Tests" Presentation="&amp;lt;Signicat.SDK.Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/EnvironmentVariablesIndexed/=SIGNICAT_005FCLIENT_005FID/@EntryIndexedValue">sandbox-healthy-hat-239</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/EnvironmentVariablesIndexed/=SIGNICAT_005FCLIENT_005FSECRET/@EntryIndexedValue">H1wEbx8A1hGIS2ZPvW9RUIL1ftBBvihsvGtHzysSjDTV2AOy</s:String></wpf:ResourceDictionary>
