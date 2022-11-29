@@ -85,6 +85,16 @@ namespace Signicat
                 await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken()));
         }
         
+        protected void PatchWithoutResponse(string url, object requestObject = null)
+        {
+            HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken());
+        }
+
+        protected async Task PatchWithoutResponseAsync(string url, object requestObject = null)
+        {
+            await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken());
+        }
+        
         protected T Put<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(

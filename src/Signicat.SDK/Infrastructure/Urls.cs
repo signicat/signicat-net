@@ -13,5 +13,8 @@
         internal static string Authentication => $"{BaseUrl}/auth/rest";
         
         internal static string Information => $"{BaseUrl}/info/lookup";
+        public static string Dem  => $"{BaseUrl}/dem";
+        
+        
     }
 }

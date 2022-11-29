@@ -1,24 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Signicat.Infrastructure
 {
     internal static class Mapper
     {
-        private static readonly System.Text.Json.JsonSerializerOptions SerializerSettings;
+        private static readonly JsonSerializerOptions SerializerSettings;
 
         static Mapper()
         {
             SerializerSettings = new JsonSerializerOptions()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
-                //ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            SerializerSettings.Converters.Add(new JsonStringEnumConverter());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
         }
         
         public static T MapFromJson<T>(string json)
