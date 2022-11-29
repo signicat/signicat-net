@@ -75,7 +75,8 @@ public class AuthenticationCreateOptionsBuilder
         return this;
     }
     
-    public AuthenticationCreateOptionsBuilder WithPrefilledInput(string email = null, string mobile = null, string nin = null, string username=null, string dateOfBirth = null)
+    public AuthenticationCreateOptionsBuilder WithPrefilledInput(string? email = null, string? mobile = null, 
+        string? nin = null, string? username=null, string? dateOfBirth = null)
     {
         _options.PrefilledInput = new PrefilledInput()
         {
