@@ -4,7 +4,6 @@ namespace Signicat.DigitalEvidenceManagement.Entities
 {
     /// <summary>
     /// Can contain any amount of data which will then be searchable in future queries.
-
     /// </summary>
     public class DemRecordMetadata
     {

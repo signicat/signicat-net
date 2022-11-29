@@ -33,6 +33,9 @@ namespace Signicat
         [JsonPropertyName("errors")]
         public Dictionary<string, string[]> Errors { get; set; }
         
+        /// <summary>
+        /// List of parameters that are invalid both name and reason.	
+        /// </summary>
         [JsonPropertyName("invalid-params")]
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
 

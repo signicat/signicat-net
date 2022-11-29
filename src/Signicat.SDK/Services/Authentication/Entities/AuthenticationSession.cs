@@ -35,7 +35,7 @@ namespace Signicat.Authentication
         /// <summary>
         /// The language to use for the identification process. Defaults to `en` (english).
         /// </summary>
-        public string? Language { get; set; }
+        public string Language { get; set; }
 
         /// <summary>
         /// The type of flow to use.

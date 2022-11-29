@@ -119,6 +119,9 @@ namespace Signicat.Infrastructure
             if (!string.IsNullOrWhiteSpace(token))
             {
                 request.Headers.Add("Authorization", $"Bearer {token}");
+                
+                
+
             }
 
             return request;
@@ -184,8 +187,13 @@ namespace Signicat.Infrastructure
 
             if (response.IsSuccessStatusCode)
                 return result;
-
-            throw BuildException(result, response.StatusCode);
+            
+            throw response.StatusCode switch
+            {
+                HttpStatusCode.Unauthorized => BuildUnauthorizedException(result, response.StatusCode),
+                HttpStatusCode.Forbidden => BuildForbiddenException(result, response.StatusCode),
+                _ => BuildException(result, response.StatusCode)
+            };
         }
 
         private static Stream ExecuteRawRequest(HttpRequestMessage requestMessage)
@@ -202,7 +210,12 @@ namespace Signicat.Infrastructure
             var errorContent = await response.Content.ReadAsStringAsync();
             var result = BuildResponseData(response, errorContent);
 
-            throw BuildException(result, response.StatusCode);
+            throw response.StatusCode switch
+            {
+                HttpStatusCode.Unauthorized => BuildUnauthorizedException(result, response.StatusCode),
+                HttpStatusCode.Forbidden => BuildForbiddenException(result, response.StatusCode),
+                _ => BuildException(result, response.StatusCode)
+            };
         }
 
         private static SignicatResponse BuildResponseData(HttpResponseMessage response, string responseJson)
@@ -219,6 +232,28 @@ namespace Signicat.Infrastructure
             var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
 
             return new SignicatException(
+                statusCode,
+                signicatError,
+                response,
+                signicatError?.Title ?? signicatError?.OAuthError);
+        }
+        
+        private static SignicatForbiddenException BuildForbiddenException(SignicatResponse response, HttpStatusCode statusCode)
+        {
+            var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
+
+            return new SignicatForbiddenException(
+                statusCode,
+                signicatError,
+                response,
+                signicatError?.Title ?? signicatError?.OAuthError);
+        }
+        
+        private static SignicatUnauthorizedException BuildUnauthorizedException(SignicatResponse response, HttpStatusCode statusCode)
+        {
+            var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
+
+            return new SignicatUnauthorizedException(
                 statusCode,
                 signicatError,
                 response,

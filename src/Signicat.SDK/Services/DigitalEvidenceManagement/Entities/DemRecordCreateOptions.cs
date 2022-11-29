@@ -10,7 +10,7 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         /// One of: <c>GDPR</c>, <c>TRANSACTION</c>, <c>LOG_IN</c>, <c>SIGNATURE</c> or <c>OTHER</c>.
         /// </summary>
         [JsonPropertyName("type")]
-        public RecordTypes RecordType { get; set; }
+        public RecordTypes? RecordType { get; set; }
 
         /// <summary>
         /// Can contain any amount of data which will then be searchable in future queries.

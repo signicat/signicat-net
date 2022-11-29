@@ -47,6 +47,19 @@ public class DigitalEvidenceManagementTest : BaseTest
     }
     
     [Test]
+    public async Task CreateNewRecordAsyncInvalidParams()
+    {
+        var exception= Assert.ThrowsAsync<SignicatException>(() =>
+             _digitalEvidenceManagement.CreateDemRecordAsync(new DemRecordCreateOptions()
+             {
+                 Metadata = null,
+                 CoreData = null
+             }));
+
+        Console.WriteLine(exception);
+    }
+    
+    [Test]
     public void CreateNewRecord()
     {
         var record =  _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
