@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Signicat.DigitalEvidenceManagement.Entities;
 
@@ -49,5 +50,54 @@ namespace Signicat.DigitalEvidenceManagement
         /// <param name="id">Unique identifier for a record.</param>
         /// <param name="days">Days to live, must be 1 or higher</param>
         Task UpdateTimeToLiveForRecordAsync(Guid id, int days);
+
+
+        /// <summary>
+        /// Queries the database to return a pageable list of records without coreData.
+        /// The query is built on the MongoDB Query Language (MQL), but it is database-agnostic.
+        /// If no body is included, the endpoint will return pages of all records.
+        /// The size and page number as well as sorting and ordering of the returned page is decided by the parameters page, size and sort.
+        /// </summary>
+        /// <param name="demRecordSearchCreateOptions"></param>
+        /// <returns>The response will contain a list of matching records under the "_embedded" field, with page information under the "page" field and page links under the "_links" field.
+        /// </returns>
+        DemRecordsSearchResult Query(DemRecordSearchCreateOptions demRecordSearchCreateOptions);
+        
+        /// <summary>
+        /// Queries the database to return a pageable list of records without coreData.
+        /// The query is built on the MongoDB Query Language (MQL), but it is database-agnostic.
+        /// If no body is included, the endpoint will return pages of all records.
+        /// The size and page number as well as sorting and ordering of the returned page is decided by the parameters page, size and sort.
+        /// </summary>
+        /// <param name="demRecordSearchCreateOptions"></param>
+        /// <returns>The response will contain a list of matching records under the "_embedded" field, with page information under the "page" field and page links under the "_links" field.
+        /// </returns>
+        Task<DemRecordsSearchResult> QueryAsync(DemRecordSearchCreateOptions demRecordSearchCreateOptions);
+
+        /// <summary>
+        /// Gets statistics on records stored in DEM.
+        /// </summary>
+        /// <returns></returns>
+        DemInfoRecordStatistics GetStatistics();
+        
+        /// <summary>
+        /// Gets statistics on records stored in DEM.
+        /// </summary>
+        /// <returns></returns>
+        Task<DemInfoRecordStatistics> GetStatisticsAsync();
+
+        /// <summary>
+        /// Aggregates all of the customer's records to return a list of all (if no type is specified) unique keys from the customerMeta field.
+        /// </summary>
+        /// <param name="type">Tag that describes the record type of a record. If no type is set all is returned</param>
+        /// <returns></returns>
+        IEnumerable<string> GetCustomFields(RecordTypes? @type = null);
+        
+        /// <summary>
+        /// Aggregates all of the customer's records to return a list of all (if no type is specified) unique keys from the customerMeta field.
+        /// </summary>
+        /// <param name="type">Tag that describes the record type of a record. If no type is set all is returned</param>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetCustomFieldsAsync(RecordTypes? @type = null);
     }
 }
