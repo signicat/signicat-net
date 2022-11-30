@@ -31,13 +31,12 @@ You can set the credentials either in the configuration class as seen below or p
 // Set your credentials
 SignicatConfiguration.SetClientCredentials("clientId", "clientSecret");
 ```
-
 ### Authentication
 
 #### Create session
-
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
+
 var createSession  = new AuthenticationCreateOptions()
              {
                  Flow = AuthenticationFlow.Redirect,
@@ -62,11 +61,13 @@ var createSession  = new AuthenticationCreateOptions()
                  },
                  SessionLifetime = 60
              };
+             
 var session =await  _authenticationService.CreateSessionAsync(createSession);
 ```
 ##### Using fluent package
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
+
 var createSession = AuthenticationCreateOptionsBuilder.Create()
             .WithFlow(AuthenticationFlow.Redirect)
             .WithCallbackUrls(success: "https://myservice.com/success", abort: "https://myservice.com/abort",
@@ -77,7 +78,8 @@ var createSession = AuthenticationCreateOptionsBuilder.Create()
             .WithThemeId("ab1212")
             .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName,
                 Constants.RequestedAttributes.NationalIdentifierNumber)
-            .Build();        
+            .Build();
+                
 var session =await  _authenticationService.CreateSessionAsync(createSession);
 ```
 
