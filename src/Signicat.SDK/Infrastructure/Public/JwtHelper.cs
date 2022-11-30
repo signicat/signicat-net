@@ -1,13 +1,13 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Web;
 
 namespace Signicat
 {
-    public static class JwtHelper
+    internal static class JwtHelper
     {
         internal static string? ParseOutAccountIdFromJwt(this string jwt)
         {
@@ -28,7 +28,10 @@ namespace Signicat
             }  
             var claimsAsJson = Encoding.ASCII.GetString(Convert.FromBase64String(claimsPartOfJwtBase64Encoded));
 
-            Dictionary<string, object> claims = JsonSerializer.Deserialize<Dictionary<string, object>>(claimsAsJson);
+            if (string.IsNullOrWhiteSpace(claimsAsJson))
+                return null;
+
+            var claims = JsonSerializer.Deserialize<Dictionary<string, object>>(claimsAsJson);
 
             if (claims is not null && claims.ContainsKey("account_id") && !string.IsNullOrWhiteSpace(claims["account_id"].ToString()))
             {

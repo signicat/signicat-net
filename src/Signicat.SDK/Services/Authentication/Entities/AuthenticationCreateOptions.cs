@@ -50,7 +50,7 @@ namespace Signicat.Authentication
         public int SessionLifetime	 { get; set; }
 
         /// <summary>
-        /// Id for the Theme.
+        /// (optional) Id for the Theme  only needed if you have multiple themes setup on the same account.
         /// </summary>
         public string ThemeId { get; set; }
 

@@ -10,7 +10,7 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         /// One of: <c>GDPR</c>, <c>TRANSACTION</c>, <c>LOG_IN</c>, <c>SIGNATURE</c> or <c>OTHER</c>.
         /// </summary>
         [JsonPropertyName("type")]
-        public RecordTypes? RecordType { get; set; }
+        public RecordTypes? @Type { get; set; }
 
         /// <summary>
         /// Can contain any amount of data which will then be searchable in future queries.
@@ -38,7 +38,7 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         /// Decides which level of timestamping and verification will be applied to the record. The different levels have different pricing.
         /// One of: <c>SIMPLE</c>, <c>ADVANCED</c> or <c>QUALIFIED</c>. Default is <c>QUALIFIED</c>.
         /// </summary>
-        public AuditLevels AuditLevels { get; set; } = AuditLevels.QUALIFIED;
+        public AuditLevels AuditLevel { get; set; } = AuditLevels.QUALIFIED;
 
     }
 }

@@ -83,7 +83,66 @@ var session =await  _authenticationService.CreateSessionAsync(createSession);
 
 #### Get session
 ```csharp
+AuthenticationService _authenticationService = new AuthenticationService();
 var session =await  _authenticationService.GetSessionAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
+```
+
+### Digital Evidence Management
+
+#### Create dem record
+```csharp
+var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
+
+var newRecord = new DemRecordCreateOptions()
+    {
+        Metadata = new Dictionary<string, object>()
+        {
+            {"timestamp", DateTime.Now},
+            {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"},
+        },
+        Type = RecordTypes.LOG_IN,
+        TimeToLiveInDays = 1,
+        CoreData = new Dictionary<string, object>()
+        {
+            {"name", "Bruce Wayne"},
+            {"identityProvider", "WayneEnterpriseCorporateId"},
+            {"subject", "9764384103"}
+        },
+        AuditLevel = AuditLevels.ADVANCED
+    };
+var record = await  digitalEvidenceManagementService.CreateDemRecordAsync(newRecord);
+```
+
+##### Fluent
+```csharp
+var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
+
+        var options = DemRecordCreateOptionsBuilder.Create()
+            .WithType(RecordTypes.LOG_IN)
+            .WithAuditLevel(AuditLevels.ADVANCED)
+            .WithTimeToLiveInDays(365)
+            .WithMetaData(new Dictionary<string, object>()
+            {
+                {"timestamp", DateTime.Now},
+                {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"},
+            })
+            .WithMetaData(new Dictionary<string, object>()
+            {
+                {"name", "Bruce Wayne"},
+                {"identityProvider", "WayneEnterpriseCorporateId"},
+                {"subject", "9764384103"}
+            })
+            .WithRelations("53912d35-eef6-4116-8d7e-8b7c84ffa1f2")
+            .Build();
+
+        var response = await digitalEvidenceManagementService.CreateDemRecordAsync(options);
+```
+
+#### Get record
+```csharp
+var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
+
+var retrievedRecord = await _digitalEvidenceManagement.GetRecordAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
 ```
 
 ## Support

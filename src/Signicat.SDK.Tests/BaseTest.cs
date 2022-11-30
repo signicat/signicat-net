@@ -70,5 +70,7 @@ namespace Signicat.SDK.Tests
             // Resets the recorded invocation before each test
             _mockHttpClientHandler.Invocations.Clear();
         }
+        
+        
     }
 }

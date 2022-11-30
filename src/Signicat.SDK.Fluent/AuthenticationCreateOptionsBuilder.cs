@@ -1,23 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using Signicat.Authentication;
-
-namespace Signicat.SDK.Fluent;
+[assembly: InternalsVisibleTo("Signicat.SDK.Tests")]
+[assembly: InternalsVisibleTo("Signicat.SDK.Internal")]
+namespace Signicat;
 
 public class AuthenticationCreateOptionsBuilder
 {
-    private readonly AuthenticationCreateOptions _options = new AuthenticationCreateOptions();
+    private readonly AuthenticationCreateOptions _options = new();
     
     public static AuthenticationCreateOptionsBuilder Create()
     {
         return new AuthenticationCreateOptionsBuilder();
     }
 
+    /// <summary>
+    /// (optional) Only needed if you have multiple themes setup on the same account.
+    /// <param name="themeId">Id for the Theme </param>
+    /// </summary>
     public AuthenticationCreateOptionsBuilder WithThemeId(string themeId)
     {
         _options.ThemeId = themeId;
         return this;
     }
     
+    /// <summary>
+    /// The type of flow to use. 
+    /// </summary>
+    /// <param name="flow">One of: <c>redirect</c>, or <c>headless</c>.</param>
+    /// <returns></returns>
     public AuthenticationCreateOptionsBuilder WithFlow(AuthenticationFlow flow)
     {
         _options.Flow = flow;
@@ -57,24 +68,50 @@ public class AuthenticationCreateOptionsBuilder
         return this;
     }
     
+    /// <summary>
+    /// (Optional) Add your internal reference for the session
+    /// </summary>
+    /// <param name="externalReference">Your external reference for the session.</param>
+    /// <returns></returns>
     public AuthenticationCreateOptionsBuilder WithExternalReference(string externalReference)
     {
         _options.ExternalReference = externalReference;
         return this;
     }
     
+    /// <summary>
+    /// (Required for redirect) The urls to redirect the user to after the authentication process is done
+    /// </summary>
+    /// <param name="success">The URL that the user is redirected to after a successful identification.</param>
+    /// <param name="abort">The URL that the user is redirected to if the session is aborted by the user.</param>
+    /// <param name="error">The URL that the user is redirected to if something goes wrong.</param>
+    /// <returns></returns>
     public AuthenticationCreateOptionsBuilder WithCallbackUrls(string success, string abort, string error)
     {
         _options.CallbackUrls = new CallbackUrls(){Abort = abort, Error = error, Success = success};
         return this;
     }
     
+    /// <summary>
+    /// Lifetime of session in seconds.
+    /// </summary>
+    /// <param name="seconds">How many seconds should this session live</param>
+    /// <returns></returns>
     public AuthenticationCreateOptionsBuilder WithSessionLifetime(int seconds)
     {
         _options.SessionLifetime = seconds;
         return this;
     }
     
+    /// <summary>
+    /// (Required for headless, otherwise optional) Prefilled input values, use prefill user input to simplify the user journey
+    /// </summary>
+    /// <param name="email">Prefill the user's email.</param>
+    /// <param name="mobile">Prefill the user's mobile number. Must be prefixed with country code.</param>
+    /// <param name="nin">Prefill the user's national identification number.</param>
+    /// <param name="username">Prefill the user's username.</param>
+    /// <param name="dateOfBirth">Prefill the user's date of birth (YYYY-MM-DD). For Norwegian BankID on Mobile the DDMMYY format is also supported.</param>
+    /// <returns></returns>
     public AuthenticationCreateOptionsBuilder WithPrefilledInput(string? email = null, string? mobile = null, 
         string? nin = null, string? username=null, string? dateOfBirth = null)
     {
@@ -119,6 +156,11 @@ public class AuthenticationCreateOptionsBuilder
                 throw new ValidationException("One or more prefilled fields must be set when using flow headless");
         }
         
+        return _options;
+    }
+    
+    internal AuthenticationCreateOptions BuildWithOutValidation()
+    {
         return _options;
     }
 }

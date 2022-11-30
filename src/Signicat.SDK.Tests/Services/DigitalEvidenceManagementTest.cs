@@ -20,7 +20,7 @@ public class DigitalEvidenceManagementTest : BaseTest
             {"timestamp", DateTime.Now},
             {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"},
         },
-        RecordType = RecordTypes.LOG_IN,
+        Type = RecordTypes.LOG_IN,
         TimeToLiveInDays = 1,
         CoreData = new Dictionary<string, object>()
         {
@@ -28,7 +28,7 @@ public class DigitalEvidenceManagementTest : BaseTest
             {"identityProvider", "WayneEnterpriseCorporateId"},
             {"subject", "9764384103"}
         },
-        
+        AuditLevel = AuditLevels.ADVANCED
     };
 
     [SetUp]
@@ -47,7 +47,7 @@ public class DigitalEvidenceManagementTest : BaseTest
     }
     
     [Test]
-    public async Task CreateNewRecordAsyncInvalidParams()
+    public void CreateNewRecordAsyncInvalidParams()
     {
         /*var exception= Assert.ThrowsAsync<SignicatException>(() =>
              _digitalEvidenceManagement.CreateDemRecordAsync(new DemRecordCreateOptions()

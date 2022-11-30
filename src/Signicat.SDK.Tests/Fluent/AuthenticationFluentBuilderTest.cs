@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Authentication;
-using Signicat.SDK.Fluent;
 
 namespace Signicat.SDK.Tests.Fluent;
 
@@ -13,9 +12,8 @@ public class AuthenticationFluentBuilderTest
     public void TestAllowedProvidersIsSet()
     {
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("test","test","test")
             .WithAllowedProviders(Constants.AllowedProviderTypes.NorwegianBankId, Constants.AllowedProviderTypes.SwedishBankID)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(2, options.AllowedProviders.Count);
@@ -27,9 +25,8 @@ public class AuthenticationFluentBuilderTest
     public void TestLanguageIsSet()
     {
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("test","test","test")
             .WithLanguage("no")
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual("no", options.Language);
@@ -52,7 +49,7 @@ public class AuthenticationFluentBuilderTest
         var options = AuthenticationCreateOptionsBuilder.Create()
             .WithPrefilledInput("test@test.com")
             .WithFlow(AuthenticationFlow.Headless)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
@@ -63,9 +60,8 @@ public class AuthenticationFluentBuilderTest
     public void TestRequestedAttributesIsSet()
     {
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("test","test","test")
             .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(2, options.RequestedAttributes.Count);
@@ -91,9 +87,8 @@ public class AuthenticationFluentBuilderTest
     {
         var externalRef = Guid.NewGuid().ToString();
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("success","abort","error")
             .WithExternalReference(externalRef)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(externalRef, options.ExternalReference);
@@ -104,9 +99,8 @@ public class AuthenticationFluentBuilderTest
     public void TestSessionLifeTimeIsSet()
     {
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("success","abort","error")
             .WithSessionLifetime(95)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(95, options.SessionLifetime);
@@ -118,9 +112,8 @@ public class AuthenticationFluentBuilderTest
     {
         var theme = Guid.NewGuid().ToString();
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("success","abort","error")
             .WithThemeId(theme)
-            .Build();
+            .BuildWithOutValidation();
         
         Assert.IsNotNull(options);
         Assert.AreEqual(theme, options.ThemeId);

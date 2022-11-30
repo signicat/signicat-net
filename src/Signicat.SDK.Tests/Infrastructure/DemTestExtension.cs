@@ -6,7 +6,10 @@ public static class DemTestExtension
 {
     internal static bool IsTheSame(this DemRecordCreateOptions options, DemRecord @record)
     {
-        if (!options.RecordType.Equals(record.RecordType))
+        if (!options.Type.Equals(record.RecordType))
+            return false;
+
+        if (!options.AuditLevel.Equals(record.AuditLevels))
             return false;
 
         if (options.Metadata != null)

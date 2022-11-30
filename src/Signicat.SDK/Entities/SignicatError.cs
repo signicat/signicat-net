@@ -17,6 +17,12 @@ namespace Signicat
         /// </summary>
         [JsonPropertyName("code")]
         public string Code { get; set; }
+        
+        /// <summary>
+        /// A human-readable explanation specific to this occurrence of the problem.
+        /// </summary>
+        [JsonPropertyName("detail")]
+        public string Detail { get; set; }
 
         /// <summary>
         /// Uri to the documentation that describes this error
