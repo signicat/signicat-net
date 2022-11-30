@@ -1,6 +1,3 @@
-# WORK IN PROGRESS!
-This SDK is work in progress and not production ready as of now
--------------------------------
 # Signicat .NET SDK
 [![Tests](https://github.com/signicat/signicat-net/actions/workflows/test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/test.yml)
 [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK)
@@ -15,24 +12,78 @@ Using NuGet is the easiest way to install the SDK.
 Package Manager:
 
 	PM > Install-Package Signicat.SDK
+    PM > Install-Package Signicat.SDK.Fluent (optional if you wan to use the fluent builder)
 
 .NET Core CLI:  
 
 	dotnet add package Signicat.SDK
+    dotnet add package Signicat.SDK.Fluent (optional if you wan to use the fluent builder)
 
 ## Documentation
 - [Signicat REST API Reference](https://developer.signicat.com/dtp/apis/authentication/)
 - [Signicat Developer Documentation](https://developer.signicat.com/dtp/docs)
 
+The SDK have option for both sync and async methods.
 
 ## Sample Usage
-The example below shows how to get the details of a specific document.
-
+You can set the credentials either in the configuration class as seen below or per service in the constructor.
 ```csharp
 // Set your credentials
 SignicatConfiguration.SetClientCredentials("clientId", "clientSecret");
+```
 
+### Authentication
 
+#### Create session
+
+```csharp
+AuthenticationService _authenticationService = new AuthenticationService();
+var createSession  = new AuthenticationCreateOptions()
+             {
+                 Flow = AuthenticationFlow.Redirect,
+                 Language = Languages.English,
+                 AllowedProviders = new List<string>()
+                 {
+                     AllowedProviderTypes.NorwegianBankId,
+                     AllowedProviderTypes.SwedishBankID
+                 },
+                 ExternalReference = Guid.NewGuid().ToString("n"),
+                 CallbackUrls = new CallbackUrls()
+                 {
+                     Abort = "https://mytest.com#abort",
+                     Success = "https://mytest.com#success",
+                     Error = "https://mytest.com#error",
+                 },
+                 RequestedAttributes = new List<string>()
+                 {
+                     RequestedAttributes.FirstName,
+                     RequestedAttributes.LastName,
+                     RequestedAttributes.NationalIdentifierNumber
+                 },
+                 SessionLifetime = 60
+             };
+var session =await  _authenticationService.CreateSessionAsync(createSession);
+```
+##### Using fluent package
+```csharp
+AuthenticationService _authenticationService = new AuthenticationService();
+var createSession = AuthenticationCreateOptionsBuilder.Create()
+            .WithFlow(AuthenticationFlow.Redirect)
+            .WithCallbackUrls(success: "https://myservice.com/success", abort: "https://myservice.com/abort",
+                error: "https://myservice.com/error")
+            .WithLanguage("no")
+            .WithAllowedProviders(Constants.AllowedProviderTypes.NorwegianBankId, Constants.AllowedProviderTypes.iDIN)
+            .WithExternalReference(Guid.NewGuid().ToString())
+            .WithThemeId("ab1212")
+            .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName,
+                Constants.RequestedAttributes.NationalIdentifierNumber)
+            .Build();        
+var session =await  _authenticationService.CreateSessionAsync(createSession);
+```
+
+#### Get session
+```csharp
+var session =await  _authenticationService.GetSessionAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
 ```
 
 ## Support

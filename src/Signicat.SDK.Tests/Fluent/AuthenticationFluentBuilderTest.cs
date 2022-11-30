@@ -81,9 +81,9 @@ public class AuthenticationFluentBuilderTest
             .Build();
         
         Assert.IsNotNull(options);
-        Assert.AreEqual("success", options.CallbackUrls.SuccessUrl);
-        Assert.AreEqual("abort", options.CallbackUrls.AbortUrl);
-        Assert.AreEqual("error", options.CallbackUrls.ErrorUrl);
+        Assert.AreEqual("success", options.CallbackUrls.Success);
+        Assert.AreEqual("abort", options.CallbackUrls.Abort);
+        Assert.AreEqual("error", options.CallbackUrls.Error);
     }
     
     [Test]

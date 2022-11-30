@@ -65,7 +65,7 @@ public class AuthenticationCreateOptionsBuilder
     
     public AuthenticationCreateOptionsBuilder WithCallbackUrls(string success, string abort, string error)
     {
-        _options.CallbackUrls = new CallbackUrls(){AbortUrl = abort, ErrorUrl = error, SuccessUrl = success};
+        _options.CallbackUrls = new CallbackUrls(){Abort = abort, Error = error, Success = success};
         return this;
     }
     
@@ -98,13 +98,13 @@ public class AuthenticationCreateOptionsBuilder
     {
         if (_options.Flow == AuthenticationFlow.Redirect)
         {
-            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.AbortUrl))
+            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.Abort))
                 throw new ValidationException("Abort url must be set when using flow redirect");
             
-            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.ErrorUrl))
+            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.Error))
                 throw new ValidationException("Error url must be set when using flow redirect");
             
-            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.SuccessUrl))
+            if (string.IsNullOrWhiteSpace(_options.CallbackUrls?.Success))
                 throw new ValidationException("Success url must be set when using flow redirect");
         }
 

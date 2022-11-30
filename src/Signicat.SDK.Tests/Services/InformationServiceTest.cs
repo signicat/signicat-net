@@ -24,7 +24,6 @@ public class InformationServiceTest : BaseTest
         
         Assert.IsNotNull(result);
         Assert.IsTrue("Signicat AS".Equals(result.Name,StringComparison.CurrentCultureIgnoreCase));
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new JsonSerializerOptions(){WriteIndented = true}));
 
     }
     
@@ -35,7 +34,6 @@ public class InformationServiceTest : BaseTest
         
         Assert.IsNotNull(result);
         Assert.IsTrue("Signicat AS".Equals(result.Name,StringComparison.CurrentCultureIgnoreCase));
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new JsonSerializerOptions(){WriteIndented = true}));
 
     }
 }

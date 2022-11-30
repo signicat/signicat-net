@@ -119,8 +119,12 @@ namespace Signicat.Infrastructure
             if (!string.IsNullOrWhiteSpace(token))
             {
                 request.Headers.Add("Authorization", $"Bearer {token}");
-                
-                
+
+                var accountId = token.ParseOutAccountIdFromJwt();
+                if (!string.IsNullOrWhiteSpace(accountId))
+                {
+                    request.RequestUri = request.RequestUri.AddParameter("signicat-accountId", accountId);
+                }
 
             }
 

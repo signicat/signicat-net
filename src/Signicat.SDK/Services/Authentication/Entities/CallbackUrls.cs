@@ -8,16 +8,16 @@ namespace Signicat.Authentication
         /// <summary>
         /// The URL that the user is redirected to after a successful identification.
         /// </summary>
-        public string SuccessUrl { get; set; }
+        public string Success { get; set; }
 
         /// <summary>
         /// The URL that the user is redirected to if the session is aborted by the user.
         /// </summary>
-        public string AbortUrl { get; set; }
+        public string Abort { get; set; }
 
         /// <summary>
         /// The URL that the user is redirected to if something goes wrong.
         /// </summary>
-        public string ErrorUrl { get; set; }
+        public string Error { get; set; }
     }
 }

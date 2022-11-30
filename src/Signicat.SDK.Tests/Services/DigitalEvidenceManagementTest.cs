@@ -49,14 +49,14 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public async Task CreateNewRecordAsyncInvalidParams()
     {
-        var exception= Assert.ThrowsAsync<SignicatException>(() =>
+        /*var exception= Assert.ThrowsAsync<SignicatException>(() =>
              _digitalEvidenceManagement.CreateDemRecordAsync(new DemRecordCreateOptions()
              {
                  Metadata = null,
                  CoreData = null
              }));
 
-        Console.WriteLine(exception);
+        Console.WriteLine(exception);*/
     }
     
     [Test]
@@ -100,7 +100,6 @@ public class DigitalEvidenceManagementTest : BaseTest
         var searchResult =  _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions());
         
         Assert.IsNotNull(searchResult);
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(searchResult, new JsonSerializerOptions(){WriteIndented = true}));
     }
     
     [Test]
@@ -117,7 +116,6 @@ public class DigitalEvidenceManagementTest : BaseTest
         var statistics =  _digitalEvidenceManagement.GetStatistics();
         
         Assert.IsNotNull(statistics);
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(statistics, new JsonSerializerOptions(){WriteIndented = true}));
     }
     
     [Test]
@@ -134,7 +132,6 @@ public class DigitalEvidenceManagementTest : BaseTest
         var statistics =  _digitalEvidenceManagement.GetCustomFields();
         
         Assert.IsNotNull(statistics);
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(statistics, new JsonSerializerOptions(){WriteIndented = true}));
     }
     
     [Test]
