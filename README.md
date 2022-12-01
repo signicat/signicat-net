@@ -160,6 +160,15 @@ var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
 var retrievedRecord = await _digitalEvidenceManagement.GetRecordAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
 ```
 
+### Identity proofing Information Lookup
+
+#### Run a Organisation Basic lookup
+```csharp
+var informationService = new InformationService();
+
+var result = await informationService.GetBasicOrganizationInfoAsync("NO", "989584022");
+```
+
 ## Support
 
 - Open an [issue](https://github.com/signicat/signicat-net/issues) to report bugs or submit feature requests.
