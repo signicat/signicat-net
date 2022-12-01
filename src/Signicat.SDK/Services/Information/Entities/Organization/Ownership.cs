@@ -5,17 +5,17 @@ namespace Signicat.Information.Organization
     public class Ownership
     {
         /// <summary>
-        /// List of shareholding companies
+        ///     List of shareholding companies
         /// </summary>
         public IList<ShareholderCompany> Companies { get; set; }
 
         /// <summary>
-        /// List of shareholding persons
+        ///     List of shareholding persons
         /// </summary>
         public IList<ShareholderPerson> Persons { get; set; }
 
         /// <summary>
-        /// List of shareholders who's type is not known
+        ///     List of shareholders who's type is not known
         /// </summary>
         public IList<OtherShareholder> OtherShareholders { get; set; }
 
@@ -25,12 +25,12 @@ namespace Signicat.Information.Organization
     public class ShareholderPerson : Shareholder
     {
         /// <summary>
-        /// Name of the person
+        ///     Name of the person
         /// </summary>
         public Name Name { get; set; }
 
         /// <summary>
-        /// Birth date of the person
+        ///     Birth date of the person
         /// </summary>
         public string DateOfBirth { get; set; }
     }
@@ -38,7 +38,7 @@ namespace Signicat.Information.Organization
     public class ShareholderCompany : Shareholder
     {
         /// <summary>
-        /// Name of the company
+        ///     Name of the company
         /// </summary>
         public string Name { get; set; }
 
@@ -48,12 +48,12 @@ namespace Signicat.Information.Organization
     public class OtherShareholder : Shareholder
     {
         /// <summary>
-        /// Name of the entity
+        ///     Name of the entity
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Id of the entity
+        ///     Id of the entity
         /// </summary>
         public string Id { get; set; }
     }
@@ -61,14 +61,14 @@ namespace Signicat.Information.Organization
     public class Shareholder
     {
         /// <summary>
-        /// Shareholding percentage in the organization
+        ///     Shareholding percentage in the organization
         /// </summary>
         public double? Percentage { get; set; }
 
         public PercentageRange PercentageRange { get; set; }
 
         /// <summary>
-        /// Shareholders Voting rights percentage
+        ///     Shareholders Voting rights percentage
         /// </summary>
         public double? VotingRights { get; set; }
 
@@ -76,14 +76,14 @@ namespace Signicat.Information.Organization
     }
 
     /// <summary>
-    /// Shareholding percentage range
+    ///     Shareholding percentage range
     /// </summary>
     public class PercentageRange : Range
     {
     }
 
     /// <summary>
-    /// Shareholders voting rights percentage range
+    ///     Shareholders voting rights percentage range
     /// </summary>
     public class VotingRightsRange : Range
     {

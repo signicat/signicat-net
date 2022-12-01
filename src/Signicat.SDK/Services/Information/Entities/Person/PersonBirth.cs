@@ -3,7 +3,7 @@
     public class PersonBirth : Birth
     {
         /// <summary>
-        /// Birth location
+        ///     Birth location
         /// </summary>
         public string Location { get; set; }
     }

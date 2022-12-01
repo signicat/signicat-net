@@ -1,5 +1,6 @@
 # Signicat .NET SDK
-[![Tests](https://github.com/signicat/signicat-net/actions/workflows/test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/test.yml)
+
+[![Tests](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/test.yml)
 [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK)
 
 A .NET SDK for simple integration with the Signicat REST APIs.
@@ -7,6 +8,7 @@ A .NET SDK for simple integration with the Signicat REST APIs.
 Supports .NET Standard 2.0+, .NET Core 2.0+ and .NET Framework 4.6.1+.
 
 ## Installation
+
 Using NuGet is the easiest way to install the SDK.
 
 Package Manager:
@@ -14,26 +16,31 @@ Package Manager:
 	PM > Install-Package Signicat.SDK
     PM > Install-Package Signicat.SDK.Fluent (optional if you wan to use the fluent builder)
 
-.NET Core CLI:  
+.NET Core CLI:
 
 	dotnet add package Signicat.SDK
     dotnet add package Signicat.SDK.Fluent (optional if you wan to use the fluent builder)
 
 ## Documentation
+
 - [Signicat REST API Reference](https://developer.signicat.com/dtp/apis/authentication/)
 - [Signicat Developer Documentation](https://developer.signicat.com/dtp/docs)
 
 The SDK have option for both sync and async methods.
 
 ## Sample Usage
+
 You can set the credentials either in the configuration class as seen below or per service in the constructor.
+
 ```csharp
 // Set your credentials
 SignicatConfiguration.SetClientCredentials("clientId", "clientSecret");
 ```
+
 ### Authentication
 
 #### Create session
+
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
 
@@ -64,7 +71,9 @@ var createSession  = new AuthenticationCreateOptions()
              
 var session =await  _authenticationService.CreateSessionAsync(createSession);
 ```
+
 ##### Using fluent package
+
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
 
@@ -84,6 +93,7 @@ var session =await  _authenticationService.CreateSessionAsync(createSession);
 ```
 
 #### Get session
+
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
 var session =await  _authenticationService.GetSessionAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
@@ -92,6 +102,7 @@ var session =await  _authenticationService.GetSessionAsync("53912d35-eef6-4116-8
 ### Digital Evidence Management
 
 #### Create dem record
+
 ```csharp
 var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
 
@@ -116,6 +127,7 @@ var record = await  digitalEvidenceManagementService.CreateDemRecordAsync(newRec
 ```
 
 ##### Fluent
+
 ```csharp
 var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
 
@@ -141,6 +153,7 @@ var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
 ```
 
 #### Get record
+
 ```csharp
 var digitalEvidenceManagementService = new DigitalEvidenceManagementService();
 
@@ -148,5 +161,6 @@ var retrievedRecord = await _digitalEvidenceManagement.GetRecordAsync("53912d35-
 ```
 
 ## Support
+
 - Open an [issue](https://github.com/signicat/signicat-net/issues) to report bugs or submit feature requests.
 - For other support requests, visit [Signicat Community](https://community.signicat.com).

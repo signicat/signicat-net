@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
 using Signicat.DigitalEvidenceManagement.Entities;
@@ -11,18 +9,16 @@ namespace Signicat.SDK.Tests;
 
 public class DigitalEvidenceManagementTest : BaseTest
 {
-    private DigitalEvidenceManagementService _digitalEvidenceManagement;
-
-    private DemRecordCreateOptions sampleCreate = new DemRecordCreateOptions()
+    private readonly DemRecordCreateOptions sampleCreate = new()
     {
-        Metadata = new Dictionary<string, object>()
+        Metadata = new Dictionary<string, object>
         {
             {"timestamp", DateTime.Now},
-            {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"},
+            {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"}
         },
         Type = RecordTypes.LOG_IN,
         TimeToLiveInDays = 1,
-        CoreData = new Dictionary<string, object>()
+        CoreData = new Dictionary<string, object>
         {
             {"name", "Bruce Wayne"},
             {"identityProvider", "WayneEnterpriseCorporateId"},
@@ -30,6 +26,8 @@ public class DigitalEvidenceManagementTest : BaseTest
         },
         AuditLevel = AuditLevels.ADVANCED
     };
+
+    private DigitalEvidenceManagementService _digitalEvidenceManagement;
 
     [SetUp]
     public void Setup()
@@ -41,11 +39,11 @@ public class DigitalEvidenceManagementTest : BaseTest
     public async Task CreateNewRecordAsync()
     {
         var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
-        
+
         Assert.IsNotNull(record);
         Assert.AreNotEqual(Guid.Empty, record.Id);
     }
-    
+
     [Test]
     public void CreateNewRecordAsyncInvalidParams()
     {
@@ -58,87 +56,85 @@ public class DigitalEvidenceManagementTest : BaseTest
 
         Console.WriteLine(exception);*/
     }
-    
+
     [Test]
     public void CreateNewRecord()
     {
-        var record =  _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
-        
+        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+
         Assert.IsNotNull(record);
         Assert.AreNotEqual(Guid.Empty, record.Id);
     }
-    
+
     [Test]
     public async Task GetRecordAsync()
     {
         var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
-        
+
         Assert.IsNotNull(record);
 
         var retrievedRecord = await _digitalEvidenceManagement.GetRecordAsync(record.Id);
-        
+
         Assert.IsTrue(sampleCreate.IsTheSame(retrievedRecord));
-        
-        
     }
-    
+
     [Test]
     public void GetRecord()
     {
-        var record =  _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
-        
+        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+
         Assert.IsNotNull(record);
 
-        var retrievedRecord =  _digitalEvidenceManagement.GetRecord(record.Id);
-        
+        var retrievedRecord = _digitalEvidenceManagement.GetRecord(record.Id);
+
         Assert.IsTrue(sampleCreate.IsTheSame(retrievedRecord));
     }
-    
+
     [Test]
     public void Query()
     {
-        var searchResult =  _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions());
-        
+        var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions());
+
         Assert.IsNotNull(searchResult);
     }
-    
+
     [Test]
     public async Task QueryAsync()
     {
-        var searchResult =  await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions());
-        
+        var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions());
+
         Assert.IsNotNull(searchResult);
     }
-    
+
     [Test]
     public void Info()
     {
-        var statistics =  _digitalEvidenceManagement.GetStatistics();
-        
+        var statistics = _digitalEvidenceManagement.GetStatistics();
+
         Assert.IsNotNull(statistics);
     }
-    
+
     [Test]
     public async Task InfoAsync()
     {
-        var statistics =  await _digitalEvidenceManagement.GetStatisticsAsync();
-        
+        var statistics = await _digitalEvidenceManagement.GetStatisticsAsync();
+
         Assert.IsNotNull(statistics);
     }
-    
+
     [Test]
     public void GetStatisticsCustomFields()
     {
-        var statistics =  _digitalEvidenceManagement.GetCustomFields();
-        
+        var statistics = _digitalEvidenceManagement.GetCustomFields();
+
         Assert.IsNotNull(statistics);
     }
-    
+
     [Test]
     public async Task GetStatisticsCustomFieldsAsync()
     {
-        var statistics =  await _digitalEvidenceManagement.GetCustomFieldsAsync(RecordTypes.LOG_IN);
-        
+        var statistics = await _digitalEvidenceManagement.GetCustomFieldsAsync(RecordTypes.LOG_IN);
+
         Assert.IsNotNull(statistics);
     }
 }

@@ -5,22 +5,22 @@ namespace Signicat.Information
     public class FunctionDto
     {
         /// <summary>
-        /// Start date
+        ///     Start date
         /// </summary>
         public DateTimeOffset? StartDate { get; set; }
-        
+
         /// <summary>
-        /// End date
+        ///     End date
         /// </summary>
         public DateTimeOffset? EndDate { get; set; }
-        
+
         /// <summary>
-        /// Name
+        ///     Name
         /// </summary>
         public string Name { get; set; }
-        
+
         /// <summary>
-        /// Type of function
+        ///     Type of function
         /// </summary>
         public string Function { get; set; }
     }

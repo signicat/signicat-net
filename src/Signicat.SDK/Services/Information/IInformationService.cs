@@ -1,12 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Signicat.Information.BusinessRegistry;
+using Signicat.Information.Geodata;
+using Signicat.Information.Organization;
+using Signicat.Information.Person;
+using BasicInfo = Signicat.Information.Organization.BasicInfo;
+using Finance = Signicat.Information.Organization.Finance;
+using SearchResult = Signicat.Information.Organization.SearchResult;
 
 namespace Signicat.Information
 {
     public interface IInformationService
     {
         /// <summary>
-        /// Retrieve basic info about an organization.
+        ///     Retrieve basic info about an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -14,7 +21,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.BasicInfo GetBasicOrganizationInfo(
+        BasicInfo GetBasicOrganizationInfo(
             string country,
             string id,
             string idType = null,
@@ -22,7 +29,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve basic info about an organization.
+        ///     Retrieve basic info about an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -30,7 +37,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.BasicInfo> GetBasicOrganizationInfoAsync(
+        Task<BasicInfo> GetBasicOrganizationInfoAsync(
             string country,
             string id,
             string idType = null,
@@ -38,7 +45,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// This endpoint returns which people are allowed to sign and act on behalf of an organization.
+        ///     This endpoint returns which people are allowed to sign and act on behalf of an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -46,7 +53,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.Authorization GetOrganizationAuthorization(
+        Authorization GetOrganizationAuthorization(
             string country,
             string id,
             string idType = null,
@@ -54,7 +61,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// This endpoint returns which people are allowed to sign and act on behalf of an organization.
+        ///     This endpoint returns which people are allowed to sign and act on behalf of an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -62,7 +69,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.Authorization> GetOrganizationAuthorizationAsync(
+        Task<Authorization> GetOrganizationAuthorizationAsync(
             string country,
             string id,
             string idType = null,
@@ -70,7 +77,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve ownership info for an organization.
+        ///     Retrieve ownership info for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -78,7 +85,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.Ownership GetOrganizationOwnership(
+        Ownership GetOrganizationOwnership(
             string country,
             string id,
             string idType = null,
@@ -86,7 +93,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve ownership info for an organization.
+        ///     Retrieve ownership info for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -94,7 +101,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.Ownership> GetOrganizationOwnershipAsync(
+        Task<Ownership> GetOrganizationOwnershipAsync(
             string country,
             string id,
             string idType = null,
@@ -102,7 +109,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve information about roles in an organization.
+        ///     Retrieve information about roles in an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -110,7 +117,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.Roles GetOrganizationRoles(
+        Roles GetOrganizationRoles(
             string country,
             string id,
             string idType = null,
@@ -118,7 +125,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve information about roles in an organization.
+        ///     Retrieve information about roles in an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -126,7 +133,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.Roles> GetOrganizationRolesAsync(
+        Task<Roles> GetOrganizationRolesAsync(
             string country,
             string id,
             string idType = null,
@@ -134,7 +141,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve information about ultimate beneficial owners for an organization.
+        ///     Retrieve information about ultimate beneficial owners for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -142,7 +149,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.Ubo GetOrganizationUltimateBeneficialOwners(
+        Ubo GetOrganizationUltimateBeneficialOwners(
             string country,
             string id,
             string idType = null,
@@ -150,7 +157,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve information about ultimate beneficial owners for an organization.
+        ///     Retrieve information about ultimate beneficial owners for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -158,7 +165,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.Ubo> GetOrganizationUltimateBeneficialOwnersAsync(
+        Task<Ubo> GetOrganizationUltimateBeneficialOwnersAsync(
             string country,
             string id,
             string idType = null,
@@ -166,7 +173,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve financial info for an organization.
+        ///     Retrieve financial info for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -174,7 +181,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Organization.Finance GetOrganizationFinance(
+        Finance GetOrganizationFinance(
             string country,
             string id,
             string idType = null,
@@ -182,7 +189,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve financial info for an organization.
+        ///     Retrieve financial info for an organization.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="id"></param>
@@ -190,7 +197,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Organization.Finance> GetOrganizationFinanceAsync(
+        Task<Finance> GetOrganizationFinanceAsync(
             string country,
             string id,
             string idType = null,
@@ -198,7 +205,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+        ///     AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
         /// </summary>
         /// <param name="idType"></param>
         /// <param name="countries"></param>
@@ -222,7 +229,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+        ///     AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
         /// </summary>
         /// <param name="idType"></param>
         /// <param name="countries"></param>
@@ -246,7 +253,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Search for an organization.
+        ///     Search for an organization.
         /// </summary>
         /// <param name="idType"></param>
         /// <param name="countries"></param>
@@ -258,7 +265,7 @@ namespace Signicat.Information
         /// <param name="offset"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        Organization.SearchResult OrganizationSearch(
+        SearchResult OrganizationSearch(
             string idType,
             string countries,
             string id = null,
@@ -270,7 +277,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Search for an organization.
+        ///     Search for an organization.
         /// </summary>
         /// <param name="idType"></param>
         /// <param name="countries"></param>
@@ -282,7 +289,7 @@ namespace Signicat.Information
         /// <param name="offset"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        Task<Organization.SearchResult> OrganizationSearchAsync(
+        Task<SearchResult> OrganizationSearchAsync(
             string idType,
             string countries,
             string id = null,
@@ -294,7 +301,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Retrieve basic info about a person.
+        ///     Retrieve basic info about a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -324,7 +331,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve basic info about a person.
+        ///     Retrieve basic info about a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -354,7 +361,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve address info for a person.
+        ///     Retrieve address info for a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -369,7 +376,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Person.AddressInfo GetPersonAddress(
+        AddressInfo GetPersonAddress(
             string country,
             string identityNumber = null,
             string givenName = null,
@@ -384,7 +391,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve address info for a person.
+        ///     Retrieve address info for a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -399,7 +406,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Person.AddressInfo> GetPersonAddressAsync(
+        Task<AddressInfo> GetPersonAddressAsync(
             string country,
             string identityNumber = null,
             string givenName = null,
@@ -414,7 +421,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve finance info for a person.
+        ///     Retrieve finance info for a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -444,7 +451,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Retrieve finance info for a person.
+        ///     Retrieve finance info for a person.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -474,7 +481,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Verification of a persons address.
+        ///     Verification of a persons address.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -489,7 +496,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Person.AddressVerification PersonVerifyAddress(
+        AddressVerification PersonVerifyAddress(
             string country,
             string identityNumber = null,
             string givenName = null,
@@ -504,7 +511,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// Verification of a persons address.
+        ///     Verification of a persons address.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="identityNumber"></param>
@@ -519,7 +526,7 @@ namespace Signicat.Information
         /// <param name="source"></param>
         /// <param name="rawJson"></param>
         /// <returns></returns>
-        Task<Person.AddressVerification> PersonVerifyAddressAsync(
+        Task<AddressVerification> PersonVerifyAddressAsync(
             string country,
             string identityNumber = null,
             string givenName = null,
@@ -534,7 +541,7 @@ namespace Signicat.Information
             bool? rawJson = null);
 
         /// <summary>
-        /// AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+        ///     AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="postalCode"></param>
@@ -560,7 +567,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
+        ///     AML/CFT screening against lists with politically exposed persons (PEP), sanctions and adverse media.
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="postalCode"></param>
@@ -586,7 +593,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Search for a person. Functionality is subject to change without prior notice.
+        ///     Search for a person. Functionality is subject to change without prior notice.
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="postalCode"></param>
@@ -610,7 +617,7 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Search for a person. Functionality is subject to change without prior notice.
+        ///     Search for a person. Functionality is subject to change without prior notice.
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="postalCode"></param>
@@ -634,76 +641,76 @@ namespace Signicat.Information
             int? limit = null);
 
         /// <summary>
-        /// Retrieves a list of business registration authorities globally.
+        ///     Retrieves a list of business registration authorities globally.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<BusinessRegistry.RegistrationAuthorityItem> ListRegistrationAuthorities();
+        IEnumerable<RegistrationAuthorityItem> ListRegistrationAuthorities();
 
         /// <summary>
-        /// Retrieves a list of business registration authorities globally.
+        ///     Retrieves a list of business registration authorities globally.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<BusinessRegistry.RegistrationAuthorityItem>> ListRegistrationAuthoritiesAsync();
+        Task<IEnumerable<RegistrationAuthorityItem>> ListRegistrationAuthoritiesAsync();
 
         /// <summary>
-        /// Retrieves detailed information about a specific registration authority.
+        ///     Retrieves detailed information about a specific registration authority.
         /// </summary>
         /// <param name="authorityCode"></param>
         /// <returns></returns>
-        BusinessRegistry.RegistrationAuthority GetRegistrationAuthority(string authorityCode);
+        RegistrationAuthority GetRegistrationAuthority(string authorityCode);
 
         /// <summary>
-        /// Retrieves detailed information about a specific registration authority.
+        ///     Retrieves detailed information about a specific registration authority.
         /// </summary>
         /// <param name="authorityCode"></param>
         /// <returns></returns>
-        Task<BusinessRegistry.RegistrationAuthority> GetRegistrationAuthorityAsync(string authorityCode);
+        Task<RegistrationAuthority> GetRegistrationAuthorityAsync(string authorityCode);
 
         /// <summary>
-        /// Lists all countries in the world with English name and ISO 3166-1 country code.
+        ///     Lists all countries in the world with English name and ISO 3166-1 country code.
         /// </summary>
         /// <param name="lang"></param>
         /// <returns></returns>
-        IEnumerable<Geodata.CountryListItem> ListCountries(string lang = null);
+        IEnumerable<CountryListItem> ListCountries(string lang = null);
 
         /// <summary>
-        /// Lists all countries in the world with English name and ISO 3166-1 country code.
+        ///     Lists all countries in the world with English name and ISO 3166-1 country code.
         /// </summary>
         /// <param name="lang"></param>
         /// <returns></returns>
-        Task<IEnumerable<Geodata.CountryListItem>> ListCountriesAsync(string lang = null);
+        Task<IEnumerable<CountryListItem>> ListCountriesAsync(string lang = null);
 
         /// <summary>
-        /// Retrieves basic geographical information about a country.
-        /// </summary>
-        /// <param name="countryCode"></param>
-        /// <param name="lang"></param>
-        /// <returns></returns>
-        Geodata.CountryInfo GetCountryInfo(string countryCode, string lang = null);
-
-        /// <summary>
-        /// Retrieves basic geographical information about a country.
+        ///     Retrieves basic geographical information about a country.
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
-        Task<Geodata.CountryInfo> GetCountryInfoAsync(string countryCode, string lang = null);
+        CountryInfo GetCountryInfo(string countryCode, string lang = null);
 
         /// <summary>
-        /// Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
+        ///     Retrieves basic geographical information about a country.
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
-        IEnumerable<Geodata.DivisionListItem> ListCountrySubdivisions(string countryCode, string lang = null);
+        Task<CountryInfo> GetCountryInfoAsync(string countryCode, string lang = null);
 
         /// <summary>
-        /// Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
+        ///     Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
-        Task<IEnumerable<Geodata.DivisionListItem>> ListCountrySubdivisionsAsync(
+        IEnumerable<DivisionListItem> ListCountrySubdivisions(string countryCode, string lang = null);
+
+        /// <summary>
+        ///     Retrieves a list over top level administrative subdivisions for a country with name and ISO 3166-2 region code.
+        /// </summary>
+        /// <param name="countryCode"></param>
+        /// <param name="lang"></param>
+        /// <returns></returns>
+        Task<IEnumerable<DivisionListItem>> ListCountrySubdivisionsAsync(
             string countryCode,
             string lang = null);
     }

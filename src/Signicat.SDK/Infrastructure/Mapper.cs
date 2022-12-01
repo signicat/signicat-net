@@ -9,22 +9,22 @@ namespace Signicat.Infrastructure
 
         static Mapper()
         {
-            SerializerSettings = new JsonSerializerOptions()
+            SerializerSettings = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
             };
 
-            SerializerSettings.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
         }
-        
+
         public static T MapFromJson<T>(string json)
         {
             return !string.IsNullOrWhiteSpace(json)
                 ? JsonSerializer.Deserialize<T>(json, SerializerSettings)
-                : default(T);
+                : default;
         }
-        
+
         public static T MapFromJson<T>(SignicatResponse response)
         {
             return MapFromJson<T>(response.ResponseJson);

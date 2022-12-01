@@ -5,36 +5,30 @@ namespace Signicat.Constants
     [Serializable]
     public static class AllowedProviderTypes
     {
-       
         /// <summary>
-        /// Norwegian BankID
-        /// <see href="https://www.bankid.no/en/private/">Website</see>
+        ///     Norwegian BankID
+        ///     <see href="https://www.bankid.no/en/private/">Website</see>
         /// </summary>
         public const string NorwegianBankId = "nbid";
-        
+
         /// <summary>
-        /// Swedish BankID
+        ///     Swedish BankID
         /// </summary>
         public const string SwedishBankID = "sbid";
-        
+
         /// <summary>
-        /// iDIN
+        ///     iDIN
         /// </summary>
-        public const string iDIN  = "idin";
-        
+        public const string iDIN = "idin";
+
         /// <summary>
-        /// DigiD
+        ///     DigiD
         /// </summary>
         public const string DigiD = "digid";
-        
+
         /// <summary>
-        /// EHerkenning
+        ///     EHerkenning
         /// </summary>
         public const string EHerkenning = "eherkenning";
-        
-        
     }
-    
-  
 }
-

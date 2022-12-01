@@ -3,56 +3,48 @@ using System.Runtime.Serialization;
 namespace Signicat.Information.Organization
 {
     /// <summary>
-    /// Role of the entity
+    ///     Role of the entity
     /// </summary>
-    public enum AuthorizationRole {
-    
+    public enum AuthorizationRole
+    {
         /// <summary>
-        /// Unknown
+        ///     Unknown
         /// </summary>
-        [EnumMember(Value = "unknown")]
-        Unknown = 0,
-    
-        /// <summary>
-        /// CEO
-        /// </summary>
-        [EnumMember(Value = "ceo")]
-        Ceo = 1,
+        [EnumMember(Value = "unknown")] Unknown = 0,
 
         /// <summary>
-        /// Chair of the board
+        ///     CEO
         /// </summary>
-        [EnumMember(Value = "boardLeader")]
-        BoardLeader = 2,
-    
-        /// <summary>
-        /// A member of the board
-        /// </summary>
-        [EnumMember(Value = "boardMember")]
-        BoardMember = 3,
+        [EnumMember(Value = "ceo")] Ceo = 1,
 
         /// <summary>
-        /// Right to represent and sign on behalf of the company.
+        ///     Chair of the board
         /// </summary>
-        [EnumMember(Value = "signature")]
-        Signature = 5,
-    
-        /// <summary>
-        /// Right to represent and sign on behalf of the company on day-to-day activity.
-        /// </summary>
-        [EnumMember(Value = "procuration")]
-        Procuration = 4,
+        [EnumMember(Value = "boardLeader")] BoardLeader = 2,
 
         /// <summary>
-        /// Bookkeeper for a company. NO: Regnskapfører
+        ///     A member of the board
         /// </summary>
-        [EnumMember(Value = "bookkeeper")]
-        Bookkeeper = 6,
-    
+        [EnumMember(Value = "boardMember")] BoardMember = 3,
+
         /// <summary>
-        /// Accountant for a company. NO: Revisor
+        ///     Right to represent and sign on behalf of the company.
         /// </summary>
-        [EnumMember(Value = "accountant")]
-        Accountant = 7,
+        [EnumMember(Value = "signature")] Signature = 5,
+
+        /// <summary>
+        ///     Right to represent and sign on behalf of the company on day-to-day activity.
+        /// </summary>
+        [EnumMember(Value = "procuration")] Procuration = 4,
+
+        /// <summary>
+        ///     Bookkeeper for a company. NO: Regnskapfører
+        /// </summary>
+        [EnumMember(Value = "bookkeeper")] Bookkeeper = 6,
+
+        /// <summary>
+        ///     Accountant for a company. NO: Revisor
+        /// </summary>
+        [EnumMember(Value = "accountant")] Accountant = 7
     }
 }

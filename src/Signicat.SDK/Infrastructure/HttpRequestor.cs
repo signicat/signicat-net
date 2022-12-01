@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -125,7 +122,6 @@ namespace Signicat.Infrastructure
                 {
                     request.RequestUri = request.RequestUri.AddParameter("signicat-accountId", accountId);
                 }
-
             }
 
             return request;
@@ -154,7 +150,9 @@ namespace Signicat.Infrastructure
             var request = new HttpRequestMessage(method, new Uri(url));
 
             if (method != HttpMethod.Post && method != HttpMethod.Put && method.Method != "PATCH")
+            {
                 return request;
+            }
 
             var postData = jsonBody;
             var contentType = "application/json";
@@ -169,10 +167,7 @@ namespace Signicat.Infrastructure
                 ? new StringContent(postData, Encoding.UTF8, contentType)
                 : null;
 
-            if (request.Content == null && formDataContent != null)
-            {
-                request.Content = formDataContent;
-            }
+            if (request.Content == null && formDataContent != null) request.Content = formDataContent;
 
             return request;
         }
@@ -190,8 +185,10 @@ namespace Signicat.Infrastructure
             var result = BuildResponseData(response, content);
 
             if (response.IsSuccessStatusCode)
+            {
                 return result;
-            
+            }
+
             throw response.StatusCode switch
             {
                 HttpStatusCode.Unauthorized => BuildUnauthorizedException(result, response.StatusCode),
@@ -209,7 +206,9 @@ namespace Signicat.Infrastructure
         {
             var response = await HttpClient.SendAsync(requestMessage);
             if (response.IsSuccessStatusCode)
+            {
                 return await response.Content.ReadAsStreamAsync();
+            }
 
             var errorContent = await response.Content.ReadAsStringAsync();
             var result = BuildResponseData(response, errorContent);
@@ -224,9 +223,8 @@ namespace Signicat.Infrastructure
 
         private static SignicatResponse BuildResponseData(HttpResponseMessage response, string responseJson)
         {
-            return new SignicatResponse()
+            return new SignicatResponse
             {
-               
                 ResponseJson = responseJson
             };
         }
@@ -241,8 +239,9 @@ namespace Signicat.Infrastructure
                 response,
                 signicatError?.Title ?? signicatError?.OAuthError);
         }
-        
-        private static SignicatForbiddenException BuildForbiddenException(SignicatResponse response, HttpStatusCode statusCode)
+
+        private static SignicatForbiddenException BuildForbiddenException(SignicatResponse response,
+            HttpStatusCode statusCode)
         {
             var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
 
@@ -252,8 +251,9 @@ namespace Signicat.Infrastructure
                 response,
                 signicatError?.Title ?? signicatError?.OAuthError);
         }
-        
-        private static SignicatUnauthorizedException BuildUnauthorizedException(SignicatResponse response, HttpStatusCode statusCode)
+
+        private static SignicatUnauthorizedException BuildUnauthorizedException(SignicatResponse response,
+            HttpStatusCode statusCode)
         {
             var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
 

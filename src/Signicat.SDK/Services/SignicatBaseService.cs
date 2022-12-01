@@ -12,14 +12,16 @@ namespace Signicat
         private readonly string _clientSecret;
         private OAuthToken _oAuthToken;
 
-        protected SignicatBaseService() { }
+        protected SignicatBaseService()
+        {
+        }
 
         protected SignicatBaseService(string clientId, string clientSecret)
         {
             _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
         }
-        
+
 
         protected T Get<T>(string url)
         {
@@ -52,10 +54,10 @@ namespace Signicat
             return Mapper.MapFromJson<T>(
                 await HttpRequestor.PostAsync(url, Mapper.MapToJson(requestObject), GetToken()));
         }
-        
+
         protected void Post(string url, object requestObject = null)
         {
-            HttpRequestor.Post(url, Mapper.MapToJson(requestObject), token: GetToken());
+            HttpRequestor.Post(url, Mapper.MapToJson(requestObject), GetToken());
         }
 
         protected async Task PostAsync(string url, object requestObject = null)
@@ -84,7 +86,7 @@ namespace Signicat
             return Mapper.MapFromJson<T>(
                 await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken()));
         }
-        
+
         protected void PatchWithoutResponse(string url, object requestObject = null)
         {
             HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken());
@@ -94,7 +96,7 @@ namespace Signicat
         {
             await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken());
         }
-        
+
         protected T Put<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
@@ -106,7 +108,7 @@ namespace Signicat
             return Mapper.MapFromJson<T>(
                 await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken()));
         }
-        
+
         protected void Put(string url, object requestObject = null)
         {
             HttpRequestor.Put(url, Mapper.MapToJson(requestObject), GetToken());
@@ -130,7 +132,9 @@ namespace Signicat
         private string GetToken()
         {
             if (_oAuthToken?.Expiry > DateTime.UtcNow)
+            {
                 return _oAuthToken.AccessToken;
+            }
 
             _oAuthToken = _clientId == null
                 ? AuthManager.Authorize()
