@@ -1,7 +1,7 @@
 # Signicat .NET SDK
 
-[![Tests](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/test.yml)
-[![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK)
+[![Tests](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml)
+[![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK) [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.Fluent.svg)](https://www.nuget.org/packages/Signicat.SDK.Fluent)
 
 A .NET SDK for simple integration with the Signicat REST APIs.
 
