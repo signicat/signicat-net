@@ -15,6 +15,16 @@ namespace Signicat.Constants
         ///     Swedish BankID
         /// </summary>
         public const string SwedishBankID = "sbid";
+        
+        /// <summary>
+        ///     Danish MitId
+        /// </summary>
+        public const string MitId = "mitid";
+        
+        /// <summary>
+        ///     Finnish Trust Network
+        /// </summary>
+        public const string FinnishTrustNetwork = "ftn";
 
         /// <summary>
         ///     iDIN
