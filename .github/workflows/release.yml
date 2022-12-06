@@ -23,9 +23,6 @@ jobs:
       - name: Build
         run: dotnet build src -c Release
 
-      - name: Test
-        run: dotnet test src -c Release --no-build
-
       - name: Pack SDK
         run: dotnet pack src/Signicat.SDK -c Release -o .
 

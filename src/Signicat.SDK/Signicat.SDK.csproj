@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <VersionPrefix>5.4.0</VersionPrefix>
+        <VersionPrefix>0.9.0-preview</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API</Description>
         <Authors>Signicat AS</Authors>
@@ -16,10 +16,10 @@
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/signicat/signicat-net</RepositoryUrl>
-        <PackageVersion>1.0.0-preview</PackageVersion>
+        <PackageVersion>0.9.0-preview</PackageVersion>
         <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="7.0.0"/>
+        <PackageReference Include="System.Text.Json" Version="7.0.0" />
     </ItemGroup>
 </Project>
