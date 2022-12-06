@@ -40,7 +40,7 @@ namespace Signicat
         /// <summary>
         ///     List of parameters that are invalid both name and reason.
         /// </summary>
-        [JsonPropertyName("invalid-params")]
+        [JsonPropertyName("invalidParams")]
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
 
         [JsonPropertyName("error")] public string OAuthError { get; set; }
