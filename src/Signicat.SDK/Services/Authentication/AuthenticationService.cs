@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Signicat.Infrastructure;
 
@@ -9,14 +8,14 @@ namespace Signicat.Authentication
         public AuthenticationService()
         {
         }
-        
+
         public AuthenticationService(string clientId, string clientSecret)
             : base(clientId, clientSecret)
         {
         }
-        
+
         /// <summary>
-        /// Retrieves the details of a single identification session.
+        ///     Retrieves the details of a single identification session.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -26,7 +25,7 @@ namespace Signicat.Authentication
         }
 
         /// <summary>
-        /// Retrieves the details of a single identification session.
+        ///     Retrieves the details of a single identification session.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -36,7 +35,7 @@ namespace Signicat.Authentication
         }
 
         /// <summary>
-        /// Creates a new identification session.
+        ///     Creates a new identification session.
         /// </summary>
         /// <param name="authenticationCreateOptions"></param>
         /// <returns></returns>
@@ -46,7 +45,7 @@ namespace Signicat.Authentication
         }
 
         /// <summary>
-        /// Creates a new identification session.
+        ///     Creates a new identification session.
         /// </summary>
         /// <param name="authenticationCreateOptions"></param>
         /// <returns></returns>
@@ -54,7 +53,5 @@ namespace Signicat.Authentication
         {
             return PostAsync<AuthenticationSession>($"{Urls.Authentication}/sessions", authenticationCreateOptions);
         }
-        
-        
     }
 }

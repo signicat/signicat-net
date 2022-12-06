@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  test:
+    uses: ./.github/workflows/dotnet-build-and-test.yml
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Verify commit exists in master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+          git branch --remote --contains | grep origin/master
+
+      - name: Build
+        run: dotnet build src -c Release
+
+      - name: Pack SDK
+        run: dotnet pack src/Signicat.SDK -c Release -o .
+
+      - name: Pack fluent
+        run: dotnet pack src/Signicat.SDK.Fluent -c Release -o .
+
+      - name: Push
+        run: dotnet nuget push Signicat.SDK.* --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v1

@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace Signicat.DigitalEvidenceManagement.Entities
+{
+    public class DemRecord
+    {
+        /// <summary>
+        ///     The Id of the record in UUID format
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        ///     You are required to supply a record type in the 'type' parameter when posting a new record.
+        ///     One of: <c>GDPR</c>, <c>TRANSACTION</c>, <c>LOG_IN</c>, <c>SIGNATURE</c> or <c>OTHER</c>.
+        /// </summary>
+        [JsonPropertyName("type")]
+        public RecordTypes? RecordType
+        {
+            get
+            {
+                var recordType = RecordTypes.OTHER;
+                if (Metadata?.Custom is not null && Metadata.System.ContainsKey("type") &&
+                    Enum.TryParse(Metadata.System["type"].ToString(), out recordType))
+                {
+                    return recordType;
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///     Can contain any amount of data which will then be searchable in future queries.
+        /// </summary>
+        public DemRecordMetadata Metadata { get; set; } = new();
+
+        /// <summary>
+        ///     Can contain any amount of data which will then be timestamped.
+        /// </summary>
+        public Dictionary<string, object> CoreData { get; set; } = new();
+
+        /// <summary>
+        ///     Optional field. List of the IDs (String) of the related records. Default: Empty list
+        /// </summary>
+        public IEnumerable<string> Relations { get; set; } = new List<string>();
+
+        /// <summary>
+        ///     Optional field.
+        ///     Decides which level of timestamping and verification will be applied to the record. The different levels have
+        ///     different pricing.
+        ///     One of: <c>SIMPLE</c>, <c>ADVANCED</c> or <c>QUALIFIED</c>. Default is <c>QUALIFIED</c>.
+        /// </summary>
+        public AuditLevels? AuditLevels
+        {
+            get
+            {
+                var auditLevel = Entities.AuditLevels.SIMPLE;
+                if (Metadata?.Custom is not null && Metadata.System.ContainsKey("auditLevel") &&
+                    Enum.TryParse(Metadata.System["auditLevel"].ToString(), out auditLevel))
+                {
+                    return auditLevel;
+                }
+
+                return null;
+            }
+        }
+    }
+}

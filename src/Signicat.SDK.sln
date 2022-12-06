@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signicat.SDK", "Signicat.SD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signicat.SDK.Tests", "Signicat.SDK.Tests\Signicat.SDK.Tests.csproj", "{F2327B19-BC51-4514-B1CD-08953B47EE7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signicat.SDK.Fluent", "Signicat.SDK.Fluent\Signicat.SDK.Fluent.csproj", "{AA06BFD7-C925-45E8-BBB8-05D7F74CA72F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F2327B19-BC51-4514-B1CD-08953B47EE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2327B19-BC51-4514-B1CD-08953B47EE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2327B19-BC51-4514-B1CD-08953B47EE7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA06BFD7-C925-45E8-BBB8-05D7F74CA72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA06BFD7-C925-45E8-BBB8-05D7F74CA72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA06BFD7-C925-45E8-BBB8-05D7F74CA72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA06BFD7-C925-45E8-BBB8-05D7F74CA72F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

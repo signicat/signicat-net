@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Reflection;
 using Signicat.Infrastructure;
 
@@ -11,25 +9,14 @@ namespace Signicat
         private static string _baseUrl;
         private static string _oauthBaseUrl;
 
+
         /// <summary>
-        /// Sets the OAuth client credentials and scopes.
-        /// </summary>
-        /// <param name="clientId">Client ID.</param>
-        /// <param name="clientSecret">Client secret.</param>
-        public static void SetClientCredentials(string clientId, string clientSecret)
-        {
-            ClientId = clientId;
-            ClientSecret = clientSecret;
-        }
-        
-        
-        /// <summary>
-        /// Lets you provide your own <see cref="HttpClient"/>.
+        ///     Lets you provide your own <see cref="HttpClient" />.
         /// </summary>
         public static HttpClient HttpClient { get; set; }
-        
+
         /// <summary>
-        /// Gets or sets the Signicat Express API base URL.
+        ///     Gets or sets the Signicat API base URL.
         /// </summary>
         public static string BaseUrl
         {
@@ -38,7 +25,7 @@ namespace Signicat
         }
 
         /// <summary>
-        /// Gets or sets the Signicat Express OAuth base URL.
+        ///     Gets or sets the Signicat OAuth base URL.
         /// </summary>
         public static string OAuthBaseUrl
         {
@@ -47,7 +34,7 @@ namespace Signicat
         }
 
         /// <summary>
-        /// Gets the version of the Signicat Express .NET SDK.
+        ///     Gets the version of the Signicat .NET SDK.
         /// </summary>
         public static string SdkVersion
         {
@@ -57,11 +44,22 @@ namespace Signicat
                 return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
             }
         }
-        
+
         internal static string ClientId { get; set; }
-        
+
         internal static string ClientSecret { get; set; }
-        
+
         internal static OAuthToken OAuthToken { get; set; }
+
+        /// <summary>
+        ///     Sets the OAuth client credentials and scopes.
+        /// </summary>
+        /// <param name="clientId">Client ID.</param>
+        /// <param name="clientSecret">Client secret.</param>
+        public static void SetClientCredentials(string clientId, string clientSecret)
+        {
+            ClientId = clientId;
+            ClientSecret = clientSecret;
+        }
     }
 }

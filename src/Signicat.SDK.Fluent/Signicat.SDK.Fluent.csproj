@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>true</IsPackable>
+        <Description>.NET SDK for Signicat REST API fluent builder addon</Description>
+        <Authors>Signicat AS</Authors>
+        <PackageId>Signicat.SDK.Fluent</PackageId>
+        <PackageTags>signicat;rest;signature;identification;api</PackageTags>
+        <PackageIconUrl>https://i.imgur.com/UOl0Xjw.png</PackageIconUrl>
+        <PackageProjectUrl>https://github.com/signicat/signicat-net</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/signicat/signicat-net/master/LICENSE</PackageLicenseUrl>
+        <RootNamespace>Signicat</RootNamespace>
+        <AssemblyTitle>Signicat.SDK.Fluent</AssemblyTitle>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/signicat/signicat-net</RepositoryUrl>
+        <PackageVersion>0.9.0-preview</PackageVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj"/>
+    </ItemGroup>
+
+</Project>

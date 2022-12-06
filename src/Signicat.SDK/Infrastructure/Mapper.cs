@@ -1,31 +1,30 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Signicat.Infrastructure
 {
     internal static class Mapper
     {
-        private static readonly JsonSerializerSettings SerializerSettings;
+        private static readonly JsonSerializerOptions SerializerSettings;
 
         static Mapper()
         {
-            SerializerSettings = new JsonSerializerSettings()
+            SerializerSettings = new JsonSerializerOptions
             {
-                NullValueHandling = NullValueHandling.Ignore,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
             };
 
-            SerializerSettings.Converters.Add(new StringEnumConverter());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
         }
-        
+
         public static T MapFromJson<T>(string json)
         {
             return !string.IsNullOrWhiteSpace(json)
-                ? JsonConvert.DeserializeObject<T>(json, SerializerSettings)
-                : default(T);
+                ? JsonSerializer.Deserialize<T>(json, SerializerSettings)
+                : default;
         }
-        
+
         public static T MapFromJson<T>(SignicatResponse response)
         {
             return MapFromJson<T>(response.ResponseJson);
@@ -33,7 +32,7 @@ namespace Signicat.Infrastructure
 
         public static string MapToJson(object request)
         {
-            return JsonConvert.SerializeObject(request, SerializerSettings);
+            return JsonSerializer.Serialize(request, SerializerSettings);
         }
     }
 }

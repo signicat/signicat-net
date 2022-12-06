@@ -1,19 +1,16 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Signicat
 {
     public class OAuthToken
     {
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
-        
-        [JsonProperty("expires_in")]
-        public int ExpiresIn { get; set; }
-        
-        [JsonProperty("token_type")]
-        public string TokenType { get; set; }
-        
+        [JsonPropertyName("access_token")] public string AccessToken { get; set; }
+
+        [JsonPropertyName("expires_in")] public int ExpiresIn { get; set; }
+
+        [JsonPropertyName("token_type")] public string TokenType { get; set; }
+
         public DateTime Expiry { get; set; }
     }
 }

@@ -1,65 +1,90 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoFixture;
 using NUnit.Framework;
 using Signicat.Authentication;
+using Signicat.Constants;
 
-namespace Signicat.SDK.Tests
+namespace Signicat.SDK.Tests;
+
+public class AuthenticationServiceTest : BaseTest
 {
-    public class AuthenticationServiceTest : BaseTest
+    private AuthenticationService _authenticationService;
+    private AuthenticationCreateOptions _options;
+
+    [SetUp]
+    public void Setup()
     {
-        private AuthenticationService _authenticationService;
+        _authenticationService = new AuthenticationService();
+        _options = new AuthenticationCreateOptions
+        {
+            Flow = AuthenticationFlow.Redirect,
+            Language = Languages.English,
+            AllowedProviders = new List<string>
+            {
+                AllowedProviderTypes.NorwegianBankId,
+                AllowedProviderTypes.SwedishBankID
+            },
+            ExternalReference = Guid.NewGuid().ToString("n"),
+            CallbackUrls = new CallbackUrls
+            {
+                Abort = "https://mytest.com#abort",
+                Success = "https://mytest.com#success",
+                Error = "https://mytest.com#error"
+            },
+            RequestedAttributes = new List<string>
+            {
+                RequestedAttributes.FirstName,
+                RequestedAttributes.LastName,
+                RequestedAttributes.NationalIdentifierNumber
+            },
+            SessionLifetime = 60
+        };
+    }
 
-        [SetUp]
-        public void Setup()
-        {
-            _authenticationService = new AuthenticationService();
-        }
+    [Test]
+    public void GetSession()
+    {
+        var createSession = _authenticationService.CreateSession(_options);
 
-        [Test]
-        public void GetSession()
-        {
-            var session = _authenticationService.GetSession("1");
-            
-            Assert.IsNotNull(session);
-            AssertRequest(HttpMethod.Get, "/auth/rest/sessions/1");
-        }
-        
-        [Test]
-        public async Task GetSessionAsync()
-        {
-            var session = await _authenticationService.GetSessionAsync("1");
-            
-            Assert.IsNotNull(session);
-            AssertRequest(HttpMethod.Get, "/auth/rest/sessions/1");
-        }
-        
-        
-        
-        [Test]
-        public void CreateSession()
-        {
-            var options = Fixture.Create<AuthenticationCreateOptions>();
-            var session = _authenticationService.CreateSession(options);
-            
-            Assert.IsNotNull(session);
-            AssertRequest(HttpMethod.Post, "/auth/rest/sessions");
-        }
-        
-        [Test]
-        public async Task CreateSessionAsync()
-        {
-            var options = Fixture.Create<AuthenticationCreateOptions>();
-            var session = await _authenticationService.CreateSessionAsync(options);
-            
-            Assert.IsNotNull(session);
-            AssertRequest(HttpMethod.Post, "/auth/rest/sessions");
-        }
-        
-        
+        var session = _authenticationService.GetSession(createSession.Id);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual(createSession.Id, session.Id);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
+
+    [Test]
+    public async Task GetSessionAsync()
+    {
+        var createSession = await _authenticationService.CreateSessionAsync(_options);
+        var session = await _authenticationService.GetSessionAsync(createSession.Id);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual(createSession.Id, session.Id);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
 
 
-        
+    [Test]
+    public void CreateSession()
+    {
+        var session = _authenticationService.CreateSession(_options);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
+
+    [Test]
+    public async Task CreateSessionAsync()
+    {
+        var session = await _authenticationService.CreateSessionAsync(_options);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
     }
 }
