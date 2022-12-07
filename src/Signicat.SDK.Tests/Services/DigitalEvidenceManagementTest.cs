@@ -17,7 +17,7 @@ public class DigitalEvidenceManagementTest : BaseTest
             {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"}
         },
         Type = RecordTypes.LOG_IN,
-        TimeToLiveInDays = 1,
+        TimeToLiveInDays = 2,
         CoreData = new Dictionary<string, object>
         {
             {"name", "Bruce Wayne"},
