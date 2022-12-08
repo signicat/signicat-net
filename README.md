@@ -66,7 +66,7 @@ var createSession = new AuthenticationCreateOptions()
         RequestedAttributes.LastName,
         RequestedAttributes.NationalIdentifierNumber
     },
-    SessionLifetime = 60
+    SessionLifetime = 600
 };
              
 var session = await _authenticationService.CreateSessionAsync(createSession);
@@ -85,6 +85,7 @@ var createSession = AuthenticationCreateOptionsBuilder.Create()
     .WithAllowedProviders(Constants.AllowedProviderTypes.NorwegianBankId, Constants.AllowedProviderTypes.iDIN)
     .WithExternalReference(Guid.NewGuid().ToString())
     .WithThemeId("ab1212")
+    .WithSessionLifetime(600)
     .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName,
         Constants.RequestedAttributes.NationalIdentifierNumber)
     .Build();
