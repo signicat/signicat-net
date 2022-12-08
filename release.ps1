@@ -1,10 +1,15 @@
-# Get current version
-$csprojPath = "$pwd/src/Signicat.SDK/Signicat.SDK.csproj"
-$xml = New-Object XML
-$xml.PreserveWhitespace = $true
-$xml.Load($csprojPath)
+# Get current version and setup xml reference to proejcts
+$csprojPathSDK = "$pwd/src/Signicat.SDK/Signicat.SDK.csproj"
+$xmlSDK = New-Object XML
+$xmlSDK.PreserveWhitespace = $true
+$xmlSDK.Load($csprojPathSDK)
 
-$currentVersion = $xml.Project.PropertyGroup.VersionPrefix
+$csprojPathSDKFluent = "$pwd/src/Signicat.SDK.Fluent/Signicat.SDK.Fluent.csproj"
+$xmlSDKFluent = New-Object XML
+$xmlSDKFluent.PreserveWhitespace = $true
+$xmlSDKFluent.Load($csprojPathSDKFluent)
+
+$currentVersion = $xmlSDK.Project.PropertyGroup.VersionPrefix
 
 if ([String]::IsNullOrWhiteSpace($currentVersion)) {
 	Write-Host "Current version not found." -ForegroundColor Red
@@ -44,9 +49,12 @@ $newVersion = "$currentMajor.$currentMinor.$currentPatch";
 
 Write-Host "New version: $newVersion"
 
-# Update .csproj
-$xml.Project.PropertyGroup.VersionPrefix = $newVersion
-$xml.Save($csprojPath)
+# Update .csproj sdk and fluent
+$xmlSDK.Project.PropertyGroup.VersionPrefix = $newVersion
+$xmlSDK.Save($csprojPathSDK)
+
+$xmlSDKFluent.Project.PropertyGroup.VersionPrefix = $newVersion
+$xmlSDKFluent.Save($csprojPathSDKFluent)
 
 Write-Host "Version updated in Project file. Enter the new version to confirm release."
 
@@ -59,7 +67,8 @@ if ($confirmedVersion -ne $newVersion) {
 
 # Git commit version bump
 Write-Host "Committing new version"
-git add $csprojPath
+git add $csprojPathSDK
+git add $csprojPathSDKFluent
 git commit -m "Release $newVersion"
 git push origin master
 
