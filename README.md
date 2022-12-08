@@ -44,7 +44,7 @@ SignicatConfiguration.SetClientCredentials("clientId", "clientSecret");
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
 
-var createSession  = new AuthenticationCreateOptions()
+var createSession = new AuthenticationCreateOptions()
 {
     Flow = AuthenticationFlow.Redirect,
     Language = Languages.English,
@@ -69,7 +69,7 @@ var createSession  = new AuthenticationCreateOptions()
     SessionLifetime = 60
 };
              
-var session =await  _authenticationService.CreateSessionAsync(createSession);
+var session = await _authenticationService.CreateSessionAsync(createSession);
 ```
 
 ##### Using fluent package
@@ -89,14 +89,14 @@ var createSession = AuthenticationCreateOptionsBuilder.Create()
         Constants.RequestedAttributes.NationalIdentifierNumber)
     .Build();
                 
-var session =await  _authenticationService.CreateSessionAsync(createSession);
+var session = await _authenticationService.CreateSessionAsync(createSession);
 ```
 
 #### Get session
 
 ```csharp
 AuthenticationService _authenticationService = new AuthenticationService();
-var session =await  _authenticationService.GetSessionAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
+var session = await _authenticationService.GetSessionAsync("53912d35-eef6-4116-8d7e-8b7c84ffa1f2");
 ```
 
 ### Digital Evidence Management
@@ -123,7 +123,7 @@ var newRecord = new DemRecordCreateOptions()
     },
     AuditLevel = AuditLevels.ADVANCED
 };
-var record = await  digitalEvidenceManagementService.CreateDemRecordAsync(newRecord);
+var record = await digitalEvidenceManagementService.CreateDemRecordAsync(newRecord);
 ```
 
 ##### Fluent
