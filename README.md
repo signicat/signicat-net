@@ -1,7 +1,7 @@
 # Signicat .NET SDK
 
 [![Tests](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml)
-[![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg)](https://www.nuget.org/packages/Signicat.SDK) [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.Fluent.svg)](https://www.nuget.org/packages/Signicat.SDK.Fluent)
+[![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg?label=Signicat.SDK)](https://www.nuget.org/packages/Signicat.SDK) [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.Fluent.svg?label=Signicat.SDK.Fluent)](https://www.nuget.org/packages/Signicat.SDK.Fluent)
 
 A .NET SDK for simple integration with the Signicat REST APIs.
 
@@ -84,7 +84,7 @@ var createSession = AuthenticationCreateOptionsBuilder.Create()
     .WithLanguage("no")
     .WithAllowedProviders(Constants.AllowedProviderTypes.NorwegianBankId, Constants.AllowedProviderTypes.iDIN)
     .WithExternalReference(Guid.NewGuid().ToString())
-     .WithThemeId("ab1212")
+    .WithThemeId("ab1212")
     .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName,
         Constants.RequestedAttributes.NationalIdentifierNumber)
     .Build();
