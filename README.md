@@ -82,12 +82,12 @@ var createSession = AuthenticationCreateOptionsBuilder.Create()
     .WithCallbackUrls(success: "https://myservice.com/success", abort: "https://myservice.com/abort",
         error: "https://myservice.com/error")
     .WithLanguage("no")
-    .WithAllowedProviders(Constants.AllowedProviderTypes.NorwegianBankId, Constants.AllowedProviderTypes.iDIN)
+    .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.iDIN)
     .WithExternalReference(Guid.NewGuid().ToString())
     .WithThemeId("ab1212")
     .WithSessionLifetime(600)
-    .WithRequestedAttributes(Constants.RequestedAttributes.FirstName, Constants.RequestedAttributes.LastName,
-        Constants.RequestedAttributes.NationalIdentifierNumber)
+    .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName,
+        RequestedAttributes.NationalIdentifierNumber)
     .Build();
                 
 var session = await _authenticationService.CreateSessionAsync(createSession);
