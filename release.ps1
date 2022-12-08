@@ -70,7 +70,7 @@ Write-Host "Committing new version"
 git add $csprojPathSDK
 git add $csprojPathSDKFluent
 git commit -m "Release $newVersion"
-git push origin master
+git push origin main
 
 # Create tag
 $tag = "v$newVersion"
