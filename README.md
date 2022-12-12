@@ -3,7 +3,10 @@
 [![Tests](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml/badge.svg)](https://github.com/signicat/signicat-net/actions/workflows/dotnet-build-and-test.yml)
 [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.svg?label=Signicat.SDK)](https://www.nuget.org/packages/Signicat.SDK) [![NuGet](https://img.shields.io/nuget/v/Signicat.SDK.Fluent.svg?label=Signicat.SDK.Fluent)](https://www.nuget.org/packages/Signicat.SDK.Fluent)
 
-A .NET SDK for simple integration with the Signicat REST APIs.
+A .NET SDK for simple integration with the Signicat REST APIs, this SDK supports the following APIs:
+- Authentication REST API
+- Digital Evidence Management API
+- Registry Lookups Information API
 
 Supports .NET Standard 2.0+, .NET Core 2.0+ and .NET Framework 4.6.1+.
 
