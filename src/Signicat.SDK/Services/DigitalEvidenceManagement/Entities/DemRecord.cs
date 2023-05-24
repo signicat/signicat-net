@@ -21,8 +21,8 @@ namespace Signicat.DigitalEvidenceManagement.Entities
             get
             {
                 var recordType = RecordTypes.OTHER;
-                if (Metadata?.Custom is not null && Metadata.System.ContainsKey("type") &&
-                    Enum.TryParse(Metadata.System["type"].ToString(), out recordType))
+                if (SystemMetadata is not null && SystemMetadata.ContainsKey("type") &&
+                    Enum.TryParse(SystemMetadata["type"].ToString(), out recordType))
                 {
                     return recordType;
                 }
@@ -30,11 +30,16 @@ namespace Signicat.DigitalEvidenceManagement.Entities
                 return null;
             }
         }
+        
+        /// <summary>
+        ///     Can contain any amount of data which will then be searchable in future queries.
+        /// </summary>
+        public Dictionary<string, object> SystemMetadata { get; set; } = new();
 
         /// <summary>
         ///     Can contain any amount of data which will then be searchable in future queries.
         /// </summary>
-        public DemRecordMetadata Metadata { get; set; } = new();
+        public Dictionary<string, object> Metadata { get; set; } = new();
 
         /// <summary>
         ///     Can contain any amount of data which will then be timestamped.
@@ -42,9 +47,14 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         public Dictionary<string, object> CoreData { get; set; } = new();
 
         /// <summary>
+        ///     Time stamp
+        /// </summary>
+        public DemTimestampData TimestampData { get; set; }
+
+        /// <summary>
         ///     Optional field. List of the IDs (String) of the related records. Default: Empty list
         /// </summary>
-        public IEnumerable<string> Relations { get; set; } = new List<string>();
+        public IEnumerable<DemRecordRelations> Relations { get; set; } = new List<DemRecordRelations>();
 
         /// <summary>
         ///     Optional field.
@@ -57,8 +67,8 @@ namespace Signicat.DigitalEvidenceManagement.Entities
             get
             {
                 var auditLevel = Entities.AuditLevels.SIMPLE;
-                if (Metadata?.Custom is not null && Metadata.System.ContainsKey("auditLevel") &&
-                    Enum.TryParse(Metadata.System["auditLevel"].ToString(), out auditLevel))
+                if (SystemMetadata is not null && SystemMetadata.ContainsKey("auditLevel") &&
+                    Enum.TryParse(SystemMetadata["auditLevel"].ToString(), out auditLevel))
                 {
                     return auditLevel;
                 }
@@ -66,5 +76,12 @@ namespace Signicat.DigitalEvidenceManagement.Entities
                 return null;
             }
         }
+        
+        public Dictionary<string,DemLinks> Links { get; set; }
+    }
+
+    public record DemTimestampData
+    {
+        public string Timestamp { get; set; }
     }
 }

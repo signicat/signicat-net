@@ -111,5 +111,21 @@ namespace Signicat.DigitalEvidenceManagement
         /// <param name="type">Tag that describes the record type of a record. If no type is set all is returned</param>
         /// <returns></returns>
         Task<IEnumerable<string>> GetCustomFieldsAsync(RecordTypes? type = null);
+
+        /// <summary>
+        ///     Get report 
+        /// </summary>
+        /// <param name="id">Unique identifier for a record.</param>
+        /// <returns></returns>
+        byte[] GetReport(Guid id);
+
+        /// <summary>
+        ///     Get report asynchronously
+        /// </summary>
+        /// <param name="id">Unique identifier for a record.</param>
+        /// <returns></returns>
+        Task<byte[]> GetReportAsync(Guid id);
+        
+        
     }
 }

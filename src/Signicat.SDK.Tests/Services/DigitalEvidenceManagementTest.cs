@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
 using Signicat.DigitalEvidenceManagement.Entities;
+using Signicat.SDK.Tests.Helpers;
 
 namespace Signicat.SDK.Tests;
 
@@ -93,7 +95,21 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public void Query()
     {
-        var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions());
+        var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions()
+        {
+            Body = new DemRecordSearchBody()
+            {
+                And = new DemRecordSearchQueryCondition[]
+                {
+                    new DemRecordSearchQueryCondition()
+                    {
+                        Field = "coredata.identityProvider",
+                        Operator = DemRecordSearchQueryOperator.Equal,
+                        Value = "WayneEnterpriseCorporateId"
+                    }
+                }
+            }
+        });
 
         Assert.IsNotNull(searchResult);
     }
@@ -101,7 +117,21 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public async Task QueryAsync()
     {
-        var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions());
+        var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
+        {
+            Body = new DemRecordSearchBody()
+            {
+                And = new DemRecordSearchQueryCondition[]
+                {
+                    new DemRecordSearchQueryCondition()
+                    {
+                        Field = "identityProvider",
+                        Operator = DemRecordSearchQueryOperator.Equal,
+                        Value = "WayneEnterpriseCorporateId"
+                    }
+                }
+            }
+        });
 
         Assert.IsNotNull(searchResult);
     }
@@ -136,5 +166,45 @@ public class DigitalEvidenceManagementTest : BaseTest
         var statistics = await _digitalEvidenceManagement.GetCustomFieldsAsync(RecordTypes.LOG_IN);
 
         Assert.IsNotNull(statistics);
+    }
+    
+    
+    
+    [Test]
+    public async Task GetReportAsync()
+    {
+        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
+
+        Assert.IsNotNull(record);
+
+        var report = await _digitalEvidenceManagement.GetReportAsync(record.Id);
+        
+        #if DEBUG
+            string tempFilename = FileHelper.CreateTempPdfFileName();
+            await File.WriteAllBytesAsync(tempFilename, report);
+            
+            FileHelper.OpenFile(tempFilename);
+        #endif
+        
+        Assert.IsNotEmpty(report);
+    }
+
+    [Test]
+    public void GetReport()
+    {
+        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+
+        Assert.IsNotNull(record);
+
+        var report =  _digitalEvidenceManagement.GetReport(record.Id);
+        
+#if DEBUG
+        string tempFilename = FileHelper.CreateTempPdfFileName(); 
+        File.WriteAllBytes(tempFilename, report);
+            
+        FileHelper.OpenFile(tempFilename);
+#endif
+
+        Assert.IsNotEmpty(report);
     }
 }

@@ -143,7 +143,7 @@ public class DigitalEvidenceManagementFluentBuilderTest
                 {"timestamp", DateTime.Now},
                 {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"}
             })
-            .WithMetaData(new Dictionary<string, object>
+            .WithCoreData(new Dictionary<string, object>
             {
                 {"name", "Bruce Wayne"},
                 {"identityProvider", "WayneEnterpriseCorporateId"},

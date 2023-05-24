@@ -33,6 +33,16 @@ namespace Signicat
             return Mapper.MapFromJson<T>(await HttpRequestor.GetAsync(url, GetToken()));
         }
 
+        protected string Get(string url)
+        {
+            return HttpRequestor.Get(url, GetToken())?.ResponseJson;
+        }
+
+        protected async Task<string> GetAsync(string url)
+        {
+            return (await HttpRequestor.GetAsync(url, GetToken()))?.ResponseJson;
+        }
+        
         protected Stream GetFile(string url)
         {
             return HttpRequestor.GetStream(url, GetToken());
