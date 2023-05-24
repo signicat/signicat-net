@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Signicat.DigitalEvidenceManagement.Entities;
 
 namespace Signicat.Infrastructure
 {
@@ -15,11 +16,21 @@ namespace Signicat.Infrastructure
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
             };
 
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DemRecordSearchQueryOperator>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
+            
         }
 
         public static T MapFromJson<T>(string json)
         {
+            if (string.IsNullOrWhiteSpace(json) ||
+                (!json.TrimStart().StartsWith("{") && !json.TrimStart().StartsWith("["))
+                || (!json.TrimEnd().EndsWith("}") && !json.TrimEnd().EndsWith("]"))
+               )
+            {
+                return default(T);
+            }
+
             return !string.IsNullOrWhiteSpace(json)
                 ? JsonSerializer.Deserialize<T>(json, SerializerSettings)
                 : default;
@@ -36,3 +47,4 @@ namespace Signicat.Infrastructure
         }
     }
 }
+

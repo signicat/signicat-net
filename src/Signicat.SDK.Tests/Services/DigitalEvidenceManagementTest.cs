@@ -103,9 +103,9 @@ public class DigitalEvidenceManagementTest : BaseTest
                 {
                     new DemRecordSearchQueryCondition()
                     {
-                        Field = "coredata.identityProvider",
+                        Field = "metadata.hash",
                         Operator = DemRecordSearchQueryOperator.Equal,
-                        Value = "WayneEnterpriseCorporateId"
+                        Value = "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"
                     }
                 }
             }
