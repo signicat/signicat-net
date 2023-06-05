@@ -1,11 +1,26 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Signicat.DigitalEvidenceManagement.Entities
 {
     public class DemRecordSearchCreateOptions
     {
-        [JsonPropertyName("pageable")] public DemRecordSearchPageable Pageable { get; set; }
+        /// <summary>
+        ///     Combines the QueryConditions with the logical AND operator. All of the QueryConditions need to return true.
+        /// </summary>
+        [JsonPropertyName("and")]
+        public IEnumerable<DemRecordSearchQueryCondition> And { get; set; } = new List<DemRecordSearchQueryCondition>();
 
-        [JsonPropertyName("body")] public DemRecordSearchBody Body { get; set; }
+        /// <summary>
+        ///     Combines the QueryConditions with the logical OR operator. Only one of the QueryConditions needs to return true.
+        /// </summary>
+        [JsonPropertyName("or")]
+        public IEnumerable<DemRecordSearchQueryCondition> Or { get; set; } = new List<DemRecordSearchQueryCondition>();
+
+        /// <summary>
+        ///     Not implemented yet
+        /// </summary>
+        [JsonPropertyName("not")]
+        public IEnumerable<DemRecordSearchQueryCondition> Not { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
@@ -49,14 +52,15 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public void CreateNewRecordAsyncInvalidParams()
     {
-        /*var exception= Assert.ThrowsAsync<SignicatException>(() =>
+        var exception= Assert.ThrowsAsync<SignicatException>(() =>
              _digitalEvidenceManagement.CreateDemRecordAsync(new DemRecordCreateOptions()
              {
                  Metadata = null,
                  CoreData = null
              }));
-
-        Console.WriteLine(exception);*/
+        
+        Assert.AreEqual(HttpStatusCode.BadRequest,exception.HttpStatusCode);
+        
     }
 
     [Test]
@@ -97,18 +101,17 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions()
         {
-            Body = new DemRecordSearchBody()
+         
+            And = new DemRecordSearchQueryCondition[]
             {
-                And = new DemRecordSearchQueryCondition[]
+                new DemRecordSearchQueryCondition()
                 {
-                    new DemRecordSearchQueryCondition()
-                    {
-                        Field = "metadata.hash",
-                        Operator = DemRecordSearchQueryOperator.Equal,
-                        Value = "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"
-                    }
+                    Field = "metadata.hash",
+                    Operator = DemRecordSearchQueryOperator.Equal,
+                    Value = "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"
                 }
             }
+            
         });
 
         Assert.IsNotNull(searchResult);
@@ -119,18 +122,17 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
         {
-            Body = new DemRecordSearchBody()
+       
+            And = new DemRecordSearchQueryCondition[]
             {
-                And = new DemRecordSearchQueryCondition[]
+                new DemRecordSearchQueryCondition()
                 {
-                    new DemRecordSearchQueryCondition()
-                    {
-                        Field = "identityProvider",
-                        Operator = DemRecordSearchQueryOperator.Equal,
-                        Value = "WayneEnterpriseCorporateId"
-                    }
+                    Field = "metadata.identityProvider",
+                    Operator = DemRecordSearchQueryOperator.Equal,
+                    Value = "WayneEnterpriseCorporateId"
                 }
             }
+            
         });
 
         Assert.IsNotNull(searchResult);
