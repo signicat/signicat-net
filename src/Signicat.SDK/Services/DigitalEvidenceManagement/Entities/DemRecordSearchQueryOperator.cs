@@ -1,7 +1,9 @@
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Signicat.DigitalEvidenceManagement.Entities
 {
+    [JsonConverter(typeof(JsonStringEnumConverterEnumMember<DemRecordSearchQueryOperator>))]
     public enum DemRecordSearchQueryOperator
     {
         /// <summary>

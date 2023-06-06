@@ -20,7 +20,7 @@ public static class DemTestExtension
         {
             foreach (var item in options.Metadata)
             {
-                if (!record.Metadata.Custom.ContainsKey(item.Key))
+                if (!record.Metadata.ContainsKey(item.Key))
                 {
                     return false;
                 }

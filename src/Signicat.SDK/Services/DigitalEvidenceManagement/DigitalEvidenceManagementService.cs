@@ -147,7 +147,8 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns></returns>
         public IEnumerable<string> GetCustomFields(RecordTypes? type = null)
         {
-            return Get<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields/{type}");
+            
+            return Get<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty: $"/{type}")}");
         }
 
         /// <summary>
@@ -158,7 +159,31 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns></returns>
         public Task<IEnumerable<string>> GetCustomFieldsAsync(RecordTypes? type = null)
         {
-            return GetAsync<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields/{type}");
+            return GetAsync<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty: $"/{type}")}");
+        }
+
+        /// <summary>
+        ///     Get report 
+        /// </summary>
+        /// <param name="id">Unique identifier for a record.</param>
+        /// <returns>byte array with a PDF file</returns>
+        public byte[] GetReport(Guid id)
+        {
+            var base64Data = Get($"{Urls.Dem}/reports/{id}");
+
+            return !string.IsNullOrWhiteSpace(base64Data) ? Convert.FromBase64String(base64Data) : null;
+        }
+
+        /// <summary>
+        ///     Get report asynchronously
+        /// </summary>
+        /// <param name="id">Unique identifier for a record.</param>
+        /// <returns></returns>
+        public async Task<byte[]> GetReportAsync(Guid id)
+        {
+            var base64Data = await GetAsync($"{Urls.Dem}/reports/{id}");
+
+            return !string.IsNullOrWhiteSpace(base64Data) ? Convert.FromBase64String(base64Data) : null;
         }
     }
 }

@@ -39,7 +39,7 @@ public class BaseTest
         SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
             Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
 
-        var url = $"{SignicatConfiguration.OAuthBaseUrl}.well-known/openid-configuration";
+        var url = $"{SignicatConfiguration.OAuthBaseUrl}/.well-known/openid-configuration";
 
         // Make sure that the we are able to connect to Signicat service
         using (var client = new HttpClient())
