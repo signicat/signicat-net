@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionPrefix>1.1.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API fluent builder addon</Description>
         <Authors>Signicat AS</Authors>
@@ -23,7 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj"/>
+        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj" />
     </ItemGroup>
 
 </Project>
