@@ -84,6 +84,16 @@ namespace Signicat
         {
             await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken());
         }
+        
+        protected T PostFormContentData<T>(string url, MultipartFormDataContent requestObject = null)
+        {
+            return Mapper.MapFromJson<T>(  HttpRequestor.PostContentFormData(url, requestObject, GetToken()));
+        }
+
+        protected async Task<T> PostFormContentDataAsync<T>(string url, MultipartFormDataContent requestObject = null)
+        {
+            return Mapper.MapFromJson<T>(await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken()));
+        }
 
         protected T Patch<T>(string url, object requestObject = null)
         {
