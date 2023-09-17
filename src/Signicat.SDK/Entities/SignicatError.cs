@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Signicat
 {
+    [JsonConverter(typeof(SignicatErrorConverter))]
     public class SignicatError
     {
         /// <summary>
@@ -36,6 +37,9 @@ namespace Signicat
         public string TraceId { get; set; }
 
         [JsonPropertyName("errors")] public Dictionary<string, string[]> Errors { get; set; }
+        
+        [JsonPropertyName("errors")]
+        public new IEnumerable<ExpressValidationError> ExpressValidationErrors { get; set; }
 
         /// <summary>
         ///     List of parameters that are invalid both name and reason.
