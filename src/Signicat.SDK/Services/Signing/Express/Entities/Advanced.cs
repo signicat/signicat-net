@@ -29,11 +29,6 @@ namespace Signicat.Services.Signing.Express.Entities
         /// Requires a certificate with permission to retrieve SSN.
         /// </summary>
         public bool? GetSocialSecurityNumber { get; set; }
-    
-        ///<summary>
-        /// Settings for extra information to collect about the document (e.g. prokura information).
-        /// </summary>
-        public ExtraInfoDocumentRequest ExtraInfo { get; set; }
         
         /// <summary>
         /// Security settings.

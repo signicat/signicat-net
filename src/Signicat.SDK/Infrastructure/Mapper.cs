@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using Signicat.DigitalEvidenceManagement.Entities;
+using Signicat.Services.Signing.Express.Entities;
 
 namespace Signicat.Infrastructure
 {
@@ -16,7 +17,15 @@ namespace Signicat.Infrastructure
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
             };
 
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<RedirectMode>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<AttachmentType>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<AddonSignerType>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<FileFormat>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignatureMechanism>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignatureMethod>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignaturePackageFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DemRecordSearchQueryOperator>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DocumentStatus>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
             
         }

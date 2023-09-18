@@ -39,7 +39,7 @@ namespace Signicat
         [JsonPropertyName("errors")] public Dictionary<string, string[]> Errors { get; set; }
         
         [JsonPropertyName("errors")]
-        public new IEnumerable<ExpressValidationError> ExpressValidationErrors { get; set; }
+        public IEnumerable<ExpressValidationError> ExpressValidationErrors { get; set; }
 
         /// <summary>
         ///     List of parameters that are invalid both name and reason.
