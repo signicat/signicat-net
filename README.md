@@ -181,35 +181,35 @@ Documentation can be found here: https://developer.signicat.com/docs/electronic-
 var expressSignatureService = new ExpressSignatureService();
 var signOptions = new DocumentCreateOptions()
 {
-	Title = "SDK Example",
-	Signers = new List<SignerOptions>()
-	{
-		new ()
-		{
-		    ExternalSignerId = "Signer1",
-		    RedirectSettings = new RedirectSettings()
-		    {
-			RedirectMode = RedirectMode.DonotRedirect
-		    },
-		    SignatureType = new SignatureType()
-		    {
-			Mechanism = SignatureMechanism.Handwritten
-		    }
-		}
-	},
-	ExternalId = "pakdfmoqumr-1234",
-	ContactDetails = new ContactDetails()
-	{
-		Email = "support@signicat.com"
-	},
-	DataToSign = new DataToSign()
-	{
-	    FileName = "sample.txt",
-	    Base64Content = "VGhpcyB0ZXh0IGNhbiBzYWZlbHkgYmUgc2lnbmVk",
-	    Title = "Document title",
-	    Description = "Document description",
-		ConvertToPdf = false
-	}
+    Title = "SDK Example",
+    Signers = new List<SignerOptions>()
+    {
+        new ()
+        {
+            ExternalSignerId = "Signer1",
+            RedirectSettings = new RedirectSettings()
+            {
+                RedirectMode = RedirectMode.DonotRedirect
+            },
+            SignatureType = new SignatureType()
+            {
+                Mechanism = SignatureMechanism.Handwritten
+            }
+        }
+    },
+    ExternalId = "pakdfmoqumr-1234",
+    ContactDetails = new ContactDetails()
+    {
+        Email = "support@signicat.com"
+    },
+    DataToSign = new DataToSign()
+    {
+        FileName = "sample.txt",
+        Base64Content = "VGhpcyB0ZXh0IGNhbiBzYWZlbHkgYmUgc2lnbmVk",
+        Title = "Document title",
+        Description = "Document description",
+        ConvertToPdf = false
+    }
 };
 var document = await expressSignatureService.CreateDocumentAsync(signOptions);
 ```
