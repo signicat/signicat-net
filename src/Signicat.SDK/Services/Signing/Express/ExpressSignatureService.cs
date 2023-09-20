@@ -736,7 +736,17 @@ namespace Signicat.Services.Signing.Express
             var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods/account", mechanism, fileType, language, signableAttachments);
             return GetAsync<List<AppSignatureMethod>>(url);
         }
-        
+
+        public JwtValidationResult ValidateRedirectJwt(JwtValidationRequest request)
+        {
+            return Post<JwtValidationResult>($"{Urls.ExpressSign}/jwt/validate", request);
+        }
+
+        public Task<JwtValidationResult> ValidateRedirectJwtAsync(JwtValidationRequest request)
+        {
+            return PostAsync<JwtValidationResult>($"{Urls.ExpressSign}/jwt/validate", request);
+        }
+
         private static string ListSignMethodsUrlWithParams(string url, SignatureMechanism mechanism, FileType fileType, Language language,
             bool signableAttachments)
         {

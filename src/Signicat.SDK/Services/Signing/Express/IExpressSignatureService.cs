@@ -479,5 +479,19 @@ namespace Signicat.Services.Signing.Express
         /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
         /// <returns></returns>
         Task<List<AppSignatureMethod>> ListSignatureMethodsForAccountAsync(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments);
+
+        /// <summary>
+        /// Validate redirect jwt which is included in signer redirects or web-messages
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        JwtValidationResult ValidateRedirectJwt(JwtValidationRequest request);
+        
+        /// <summary>
+        /// Validate redirect jwt which is included in signer redirects or web-messages
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<JwtValidationResult> ValidateRedirectJwtAsync(JwtValidationRequest request);
     }
 }
