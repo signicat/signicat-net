@@ -138,6 +138,19 @@ namespace Signicat
         {
             await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken());
         }
+        
+        protected T PostFile<T>(string url, byte[] filedata,string fileName)
+        {
+            return Mapper.MapFromJson<T>(
+                HttpRequestor.PostFile<T>(url,fileName, filedata, GetToken()));
+        }
+
+        protected async Task<T> PostFileAsync<T>(string url, byte[] filedata, string fileName)
+        {
+            return Mapper.MapFromJson<T>(
+                await HttpRequestor.PostFileAsync<T>(url, fileName, filedata, GetToken()));
+        }
+
 
         protected void Delete(string url)
         {

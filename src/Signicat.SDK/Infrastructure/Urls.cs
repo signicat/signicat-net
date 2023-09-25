@@ -18,5 +18,8 @@
         internal static string ExpressSign = $"{BaseUrl}/express/sign";
         
         internal static string EnterpriseSign => $"{BaseUrl}/enterprise/sign";
+        
+        internal static string EnterpriseSignOrders => $"{EnterpriseSign}/orders";
+        
     }
 }

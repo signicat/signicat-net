@@ -1,4 +1,4 @@
-namespace Signicat.DigitalEvidenceManagement.Entities
+namespace Signicat.Services.Signing.Enterprise.Entities
 {
     public class UploadDocument
     {
