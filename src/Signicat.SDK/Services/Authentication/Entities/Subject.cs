@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Nodes;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Signicat.Authentication
@@ -44,6 +44,6 @@ namespace Signicat.Authentication
         /// Additional attributes from the Id provider
         /// </summary>
         [JsonExtensionData]
-        public Dictionary<string, JsonObject> IdpAttributes { get; set; }
+        public IDictionary<string, JsonElement> IdpAttributes { get; set; }
     }
 }
