@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Signicat.Authentication
 {
@@ -36,5 +39,11 @@ namespace Signicat.Authentication
         ///     National identification number.
         /// </summary>
         public Nin Nin { get; set; }
+        
+        /// <summary>
+        /// Additional attributes from the Id provider
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, JsonElement> IdpAttributes { get; set; }
     }
 }
