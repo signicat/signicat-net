@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Authentication;
 using Signicat.Constants;
+using Signicat.Infrastructure;
 
 namespace Signicat.SDK.Tests;
 
@@ -86,5 +89,33 @@ public class AuthenticationServiceTest : BaseTest
         Assert.IsNotNull(session);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
+    
+    [Test]
+    public async Task TestDeserializeSubject()
+    {
+        var subject =
+            "{\"dateOfBirth\":\"1992-01-28\",\"firstName\":\"Donald\",\"id\":\"12345\",\"idpId\":\"54321\"," +
+            "\"lastName\":\"Duck\",\"nbidAdditionalCertInfo\":\"{\\\"certValidFrom\\\":1646378708000,\\\"serialNumber\\\":\\\"1234567\\\"" +
+            ",\\\"keyAlgorithm\\\":\\\"RSA\\\",\\\"keySize\\\":\\\"2048\\\",\\\"policyOid\\\":\\\"2.16.578.1.16.1.12.1.1\\\",\\\"monetaryLimitAmount\\\"" +
+            ":\\\"100000\\\",\\\"certQualified\\\":true,\\\"monetaryLimitCurrency\\\":\\\"NOK\\\",\\\"certValidTo\\\":1709537108000,\\\"versionNumber\\\":" +
+            "\\\"3\\\",\\\"subjectName\\\":\\\"CN=Duck\\\\\\\\,Donald,O=TestBank1AS,C=NO,SERIALNUMBER=9562-2000-4-478603\\\"}\",\"nbidAlternativeSubject\":" +
+            "\"9562-2000-4-478603\",\"nbidAuthTime\":\"1695727322\",\"nbidIdp\":\"BID\"}";
+        var deserialized = Mapper.MapFromJson<Subject>(subject);
+        
+        Assert.AreEqual(deserialized.Id, "12345");
+        Assert.AreEqual(deserialized.LastName, "Duck");
+        Assert.NotNull(deserialized.IdpAttributes);
+        Assert.IsTrue(deserialized.IdpAttributes.Any());
+        Assert.AreEqual(deserialized.IdpAttributes["nbidIdp"].GetString(), "BID");
+        Assert.AreEqual(deserialized.IdpAttributes["nbidAuthTime"].GetString(), "1695727322");
+        var certInfo = Mapper.MapFromJson<NbidCertInfo>(deserialized.IdpAttributes["nbidAdditionalCertInfo"].GetString());
+        Assert.AreEqual(certInfo.KeyAlgorithm, "RSA");
+        Assert.IsFalse(deserialized.IdpAttributes.ContainsKey("dateOfBirth"));
+    }
+    
+    private class NbidCertInfo
+    {
+        public string KeyAlgorithm { get; set; }
     }
 }
