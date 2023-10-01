@@ -8,18 +8,6 @@ using Signicat.Services.Signing.Enterprise;
 
 namespace Signicat.SDK.Tests.Signing;
 
-
-public class EnterpriseSigningTestSignarureEndpoints : BaseTest
-{
-    private IEnterpriseSignatureService _service;
-
-    [SetUp]
-    public void Setup()
-    {
-        _service = new EnterpriseSignatureService();
-    }
-}
-
 public class EnterpriseSigningTestDocumentEndpoints: BaseTest
 {
     private IEnterpriseSignatureService _service;

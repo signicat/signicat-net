@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Services.Signing.Express;
@@ -128,6 +129,21 @@ public class ExpressSignatureServiceTest : BaseTest
         Assert.IsNotNull(docs?.Data);
         var doc = docs.Data.FirstOrDefault(d => d.DocumentId == _documentId);
         Assert.IsNotNull(doc);
+    }
+    
+    [Test]
+    public async Task H_CreateDocumentInvalidMapErrorCorrectAsync()
+    {
+        _options.Title = null;
+        var error = Assert.ThrowsAsync<SignicatException>(async () =>
+            await _expressSignatureService.CreateDocumentAsync(_options));
+
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(error.Error));
+        Assert.That(error.HttpStatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        
+        Assert.That(error.Error.ValidationErrors.First().PropertyName, Is.EqualTo("Title"));
+        Assert.That(error.Error.ValidationErrors.First().Reason, Is.EqualTo("The Title field is required."));
+        
     }
     
     [Test]

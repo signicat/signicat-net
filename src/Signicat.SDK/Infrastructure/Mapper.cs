@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Signicat.DigitalEvidenceManagement.Entities;
 using Signicat.Services.Signing.Express.Entities;
@@ -53,6 +55,35 @@ namespace Signicat.Infrastructure
         public static string MapToJson(object request)
         {
             return JsonSerializer.Serialize(request, SerializerSettings);
+        }
+
+        internal static SignicatError Map(this SignicatInternalError error)
+        {
+            var legacyValidationErrors = new List<ValidationError>();
+            
+            if (error.EnterpriseValidationErrors is not null)
+            {
+                legacyValidationErrors.AddRange(error.EnterpriseValidationErrors.Select(validationError => 
+                    new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Property}));
+            }
+            
+            if (error.ExpressValidationErrors is not null)
+            {
+                legacyValidationErrors.AddRange( error.ExpressValidationErrors.Select(validationError =>
+                    new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Field}));
+            }
+
+            return new SignicatError()
+            {
+                Code = error.Code,
+                Type = error.Type,
+                Detail = error.Detail,
+                Title = error.Title ?? error.Message,
+                TraceId = error.TraceId,
+                ValidationErrors = legacyValidationErrors.Any() ? error.ValidationErrors.Concat(legacyValidationErrors): error.ValidationErrors,
+                OAuthError = error.OAuthError,
+                OAuthErrorDescription = error.OAuthErrorDescription,
+            };
         }
     }
 }
