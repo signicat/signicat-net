@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement.Entities;
 using Signicat.Infrastructure;
@@ -81,11 +82,31 @@ public class MapperTests
         
         Assert.AreEqual("{\"field\":\"key\",\"operator\":\"eq\",\"value\":\"value\"}",json);
     }
+
+    [Test]
+    public void MapEnterpriseDateTime()
+    {
+        var json = @"{""date"":""2023-10-01T20:55:57+0200""}";
+        DateTime.TryParse("2023-10-01T20:55:57+0200", out DateTime newDate);
+        Console.WriteLine(newDate);
+        var value = Mapper.MapFromJson<ClassWithDateTime>(json);
+        
+        Assert.IsNotNull(value.Date);
+        Assert.That(value.Date, Is.Not.EqualTo(DateTime.MinValue));
+        Console.WriteLine(value.Date);
+        Console.WriteLine(value.Date.Value.Kind);
+    }
     
     private class Person
     {
         public string Name { get; set; }
         public int Age { get; set; }
+    }
+    
+    private class ClassWithDateTime
+    {
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? Date { get; set; }
     }
     
 }

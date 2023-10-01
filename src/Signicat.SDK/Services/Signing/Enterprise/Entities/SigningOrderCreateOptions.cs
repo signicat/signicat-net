@@ -199,7 +199,7 @@ namespace Signicat.Services.Signing.Enterprise.Entities
         [JsonPropertyName("daysToLive")]
         public long DaysToLive { get; set; }
 
-        [JsonPropertyName("configuration")]
+        [JsonPropertyName("configuration")] 
         public string Configuration { get; set; }
 
         [JsonPropertyName("documents")]

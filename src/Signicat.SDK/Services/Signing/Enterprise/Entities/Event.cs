@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+using Signicat.Infrastructure;
 
 namespace Signicat.Services.Signing.Enterprise.Entities
 {
@@ -6,6 +8,7 @@ namespace Signicat.Services.Signing.Enterprise.Entities
     {
         public EventType EventType { get; set; }
         
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? EventTime { get; set; }
 
         public string Data { get; set; }
