@@ -11,7 +11,7 @@ namespace Signicat.Information.Person
 
         public PersonBirth Birth { get; set; }
 
-        public  PersonDeath Death { get; set; }
+        public PersonDeath Death { get; set; }
 
         /// <summary>
         ///     Nationalities
