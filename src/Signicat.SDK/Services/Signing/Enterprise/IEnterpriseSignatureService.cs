@@ -133,7 +133,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Stream GetOriginalFile(string signOrderId, Guid taskId, Guid documentId);
+        Stream GetOriginalFile(string signOrderId, Guid taskId, string documentId);
         
         /// <summary>
         /// Get an original document from Signicat's document storage async
@@ -142,7 +142,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Task<Stream> GetOriginalFileAsync(string signOrderId, Guid taskId, Guid documentId);
+        Task<Stream> GetOriginalFileAsync(string signOrderId, Guid taskId, string documentId);
 
         /// <summary>
         /// Get a generated document from Signicat's document storage
@@ -151,7 +151,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Stream GetGeneratedDocument(string signOrderId, Guid taskId, Guid documentId);
+        Stream GetGeneratedDocument(string signOrderId, Guid taskId, string documentId);
         
         /// <summary>
         /// Get a generated document from Signicat's document storage async
@@ -160,7 +160,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Task<Stream> GetGeneratedDocumentAsync(string signOrderId, Guid taskId, Guid documentId);
+        Task<Stream> GetGeneratedDocumentAsync(string signOrderId, Guid taskId, string documentId);
 
         /// <summary>
         /// Get a signed document from Signicat's document storage
@@ -169,7 +169,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Stream GetSignedDocument(string signOrderId, Guid taskId, Guid documentId);
+        Stream GetSignedDocument(string signOrderId, Guid taskId, string documentId);
         
         /// <summary>
         /// Get a signed document from Signicat's document storage async
@@ -178,7 +178,7 @@ namespace Signicat.Services.Signing.Enterprise
         /// <param name="taskId"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        Task<Stream> GetSignedDocumentAsync(string signOrderId, Guid taskId, Guid documentId);
+        Task<Stream> GetSignedDocumentAsync(string signOrderId, Guid taskId, string documentId);
 
         /// <summary>
         /// Get the result document of a packaging task

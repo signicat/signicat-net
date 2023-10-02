@@ -8,7 +8,7 @@ namespace Signicat.Services.Signing.Enterprise.Entities
     {
         public EventType EventType { get; set; }
         
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(EnterpriseSignDateTimeConverter))]
         public DateTime? EventTime { get; set; }
 
         public string Data { get; set; }

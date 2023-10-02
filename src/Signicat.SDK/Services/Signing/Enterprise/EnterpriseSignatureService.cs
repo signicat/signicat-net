@@ -119,14 +119,14 @@ namespace Signicat.Services.Signing.Enterprise
         
         
 
-        public Stream GetOriginalFile(string signOrderId, Guid taskId, Guid documentId)
+        public Stream GetOriginalFile(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/original";
 
             return GetFile(url);
         }
         
-        public Task<Stream> GetOriginalFileAsync(string signOrderId, Guid taskId, Guid documentId)
+        public Task<Stream> GetOriginalFileAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/original";
 
@@ -134,28 +134,28 @@ namespace Signicat.Services.Signing.Enterprise
         }
         
 
-        public Stream GetGeneratedDocument(string signOrderId, Guid taskId, Guid documentId)
+        public Stream GetGeneratedDocument(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/generated";
 
             return GetFile(url);
         }
         
-        public Task<Stream> GetGeneratedDocumentAsync(string signOrderId, Guid taskId, Guid documentId)
+        public Task<Stream> GetGeneratedDocumentAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/generated";
 
             return GetFileAsync(url);
         }
 
-        public Stream GetSignedDocument(string signOrderId, Guid taskId, Guid documentId)
+        public Stream GetSignedDocument(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/result";
 
             return GetFile(url);
         }
         
-        public Task<Stream> GetSignedDocumentAsync(string signOrderId, Guid taskId, Guid documentId)
+        public Task<Stream> GetSignedDocumentAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/result";
 
@@ -230,19 +230,6 @@ namespace Signicat.Services.Signing.Enterprise
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}";
             await DeleteAsync(url);
         }
-
-
-        private async Task<byte[]> GetFileAsBytes(string url)
-        {
-            var response = await GetFileAsync(url);
-
-            using (var ms = new MemoryStream())
-            {
-                await response.CopyToAsync(ms);
-
-                return ms.ToArray();
-
-            }
-        }
+        
     }
 }

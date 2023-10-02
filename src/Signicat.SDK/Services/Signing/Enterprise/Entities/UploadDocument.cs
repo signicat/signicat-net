@@ -1,3 +1,5 @@
+using System;
+
 namespace Signicat.Services.Signing.Enterprise.Entities
 {
     public class UploadDocument

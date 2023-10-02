@@ -105,7 +105,7 @@ public class MapperTests
     
     private class ClassWithDateTime
     {
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(EnterpriseSignDateTimeConverter))]
         public DateTime? Date { get; set; }
     }
     
