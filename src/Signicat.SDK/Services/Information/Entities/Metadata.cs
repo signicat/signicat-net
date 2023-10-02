@@ -32,7 +32,7 @@ namespace Signicat.Information
         /// <summary>
         ///     Defines if data is retrieved from cache or not
         /// </summary>
-        public string IsCache { get; set; }
+        public bool IsCache { get; set; }
     }
 
     /// <summary>
