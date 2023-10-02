@@ -28,6 +28,11 @@ namespace Signicat.Information
         ///     The raw JSON if it was requested and supported by the source
         /// </summary>
         public string RawJson { get; set; }
+        
+        /// <summary>
+        ///     Defines if data is retrieved from cache or not
+        /// </summary>
+        public string IsCache { get; set; }
     }
 
     /// <summary>

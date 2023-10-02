@@ -11,6 +11,8 @@ namespace Signicat.Information.Person
 
         public PersonBirth Birth { get; set; }
 
+        public  PersonDeath Death { get; set; }
+
         /// <summary>
         ///     Nationalities
         /// </summary>
@@ -32,6 +34,7 @@ namespace Signicat.Information.Person
         public IList<PersonAddress> PostalAddresses { get; set; }
 
         /// <summary>
+        /// 
         ///     Foreign address
         /// </summary>
         public IList<PersonAddress> ForeignAddresses { get; set; }
