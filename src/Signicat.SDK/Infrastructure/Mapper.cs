@@ -59,6 +59,11 @@ namespace Signicat.Infrastructure
 
         internal static SignicatError Map(this SignicatInternalError error)
         {
+            if (error == null)
+            {
+                return new SignicatError();
+            }
+
             var legacyValidationErrors = new List<ValidationError>();
             
             if (error.EnterpriseValidationErrors is not null)
