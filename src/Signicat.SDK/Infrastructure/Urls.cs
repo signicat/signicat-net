@@ -13,6 +13,13 @@
         internal static string Authentication => $"{BaseUrl}/auth/rest";
 
         internal static string Information => $"{BaseUrl}/info/lookup";
-        public static string Dem => $"{BaseUrl}/dem";
+        internal static string Dem => $"{BaseUrl}/dem";
+
+        internal static string ExpressSign = $"{BaseUrl}/express/sign";
+        
+        internal static string EnterpriseSign => $"{BaseUrl}/enterprise/sign";
+        
+        internal static string EnterpriseSignOrders => $"{EnterpriseSign}/orders";
+        
     }
 }

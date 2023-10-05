@@ -1,6 +1,9 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Signicat.DigitalEvidenceManagement.Entities;
+using Signicat.Services.Signing.Express.Entities;
 
 namespace Signicat.Infrastructure
 {
@@ -16,7 +19,15 @@ namespace Signicat.Infrastructure
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
             };
 
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<RedirectMode>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<AttachmentType>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<AddonSignerType>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<FileFormat>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignatureMechanism>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignatureMethod>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignaturePackageFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DemRecordSearchQueryOperator>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DocumentStatus>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
             
         }
@@ -44,6 +55,40 @@ namespace Signicat.Infrastructure
         public static string MapToJson(object request)
         {
             return JsonSerializer.Serialize(request, SerializerSettings);
+        }
+
+        internal static SignicatError Map(this SignicatInternalError error)
+        {
+            if (error == null)
+            {
+                return new SignicatError();
+            }
+
+            var legacyValidationErrors = new List<ValidationError>();
+            
+            if (error.EnterpriseValidationErrors is not null)
+            {
+                legacyValidationErrors.AddRange(error.EnterpriseValidationErrors.Select(validationError => 
+                    new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Property}));
+            }
+            
+            if (error.ExpressValidationErrors is not null)
+            {
+                legacyValidationErrors.AddRange( error.ExpressValidationErrors.Select(validationError =>
+                    new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Field}));
+            }
+
+            return new SignicatError()
+            {
+                Code = error.Code,
+                Type = error.Type,
+                Detail = error.Detail,
+                Title = error.Title ?? error.Message,
+                TraceId = error.TraceId,
+                ValidationErrors = legacyValidationErrors.Any() ? error.ValidationErrors.Concat(legacyValidationErrors): error.ValidationErrors,
+                OAuthError = error.OAuthError,
+                OAuthErrorDescription = error.OAuthErrorDescription,
+            };
         }
     }
 }

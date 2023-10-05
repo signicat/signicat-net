@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 /.idea/
 *.user
+src/.DS_Store
+src/Signicat.SDK.Tests/.DS_Store

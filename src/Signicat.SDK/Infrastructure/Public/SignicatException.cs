@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Signicat.Infrastructure;
 
 namespace Signicat
 {

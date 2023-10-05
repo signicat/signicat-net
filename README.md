@@ -173,6 +173,51 @@ var informationService = new InformationService();
 var result = await informationService.GetBasicOrganizationInfoAsync("NO", "989584022");
 ```
 
+### Express sign
+Documentation can be found here: https://developer.signicat.com/docs/electronic-signatures/#electronic-signing. Choose Express sign for examples and documentation specific to the Express Signature API
+
+#### Create document
+```csharp
+var expressSignatureService = new ExpressSignatureService();
+var signOptions = new DocumentCreateOptions()
+{
+    Title = "SDK Example",
+    Signers = new List<SignerOptions>()
+    {
+        new ()
+        {
+            ExternalSignerId = "Signer1",
+            RedirectSettings = new RedirectSettings()
+            {
+                RedirectMode = RedirectMode.DonotRedirect
+            },
+            SignatureType = new SignatureType()
+            {
+                Mechanism = SignatureMechanism.Handwritten
+            }
+        }
+    },
+    ExternalId = "pakdfmoqumr-1234",
+    ContactDetails = new ContactDetails()
+    {
+        Email = "support@signicat.com"
+    },
+    DataToSign = new DataToSign()
+    {
+        FileName = "sample.txt",
+        Base64Content = "VGhpcyB0ZXh0IGNhbiBzYWZlbHkgYmUgc2lnbmVk",
+        Title = "Document title",
+        Description = "Document description",
+        ConvertToPdf = false
+    }
+};
+var document = await expressSignatureService.CreateDocumentAsync(signOptions);
+```
+#### Get document
+```csharp
+var document = await _expressSignatureService.GetDocumentAsync(documentId);
+```
+
 ## Support
 
 - Open an [issue](https://github.com/signicat/signicat-net/issues) to report bugs or submit feature requests.

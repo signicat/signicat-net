@@ -3,8 +3,10 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Signicat.Infrastructure
 {
@@ -89,6 +91,16 @@ namespace Signicat.Infrastructure
         {
             return SendAsync(url, HttpMethod.Delete, token);
         }
+        
+        public static SignicatResponse PostFile<T>(string url, string fileName, byte[] fileData, string token=null)
+        {
+            return Send(url, HttpMethod.Post,token: token, fileContent:new FileContent(fileName, fileData));
+        }
+        
+        public static Task<SignicatResponse> PostFileAsync<T>(string url, string fileName, byte[] fileData, string token=null)
+        {
+            return SendAsync(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
+        }
 
         public static Stream GetStream(string url, string token = null)
         {
@@ -106,9 +118,9 @@ namespace Signicat.Infrastructure
 
         internal static HttpRequestMessage GetRequestMessage(string url, HttpMethod method, string token = null,
             string jsonBody = null, NameValueCollection formData = null,
-            MultipartFormDataContent formDataContent = null)
+            MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
-            var request = BuildRequest(url, method, jsonBody, formData, formDataContent);
+            var request = BuildRequest(url, method, jsonBody, formData, formDataContent, fileContent);
 
             request.Headers.Add("Signicat-SDK", $"dotnet {SignicatConfiguration.SdkVersion}");
             request.Headers.Add("User-Agent", $"Signicat-SDK dotnet {SignicatConfiguration.SdkVersion}");
@@ -128,24 +140,24 @@ namespace Signicat.Infrastructure
         }
 
         private static SignicatResponse Send(string url, HttpMethod method, string token = null, string jsonBody = null,
-            NameValueCollection formData = null, MultipartFormDataContent formDataContent = null)
+            NameValueCollection formData = null, MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
-            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent);
+            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent, fileContent);
 
             return ExecuteRequest(request);
         }
 
         private static Task<SignicatResponse> SendAsync(string url, HttpMethod method, string token = null,
             string jsonBody = null, NameValueCollection formData = null,
-            MultipartFormDataContent formDataContent = null)
+            MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
-            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent);
+            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent, fileContent);
 
             return ExecuteRequestAsync(request);
         }
 
         private static HttpRequestMessage BuildRequest(string url, HttpMethod method, string jsonBody = null,
-            NameValueCollection formData = null, MultipartFormDataContent formDataContent = null)
+            NameValueCollection formData = null, MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
             var request = new HttpRequestMessage(method, new Uri(url));
 
@@ -166,6 +178,14 @@ namespace Signicat.Infrastructure
             request.Content = !string.IsNullOrWhiteSpace(postData)
                 ? new StringContent(postData, Encoding.UTF8, contentType)
                 : null;
+            
+            //File content
+            if (fileContent != null) {
+                request.Content = new ByteArrayContent(fileContent.Data);
+                
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(fileContent.FileName));
+                return request;
+            }
 
             if (request.Content == null && formDataContent != null) request.Content = formDataContent;
 
@@ -231,11 +251,11 @@ namespace Signicat.Infrastructure
 
         private static SignicatException BuildException(SignicatResponse response, HttpStatusCode statusCode)
         {
-            var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
+            var signicatError = Mapper.MapFromJson<SignicatInternalError>(response.ResponseJson);
 
             return new SignicatException(
                 statusCode,
-                signicatError,
+                signicatError.Map(),
                 response,
                 signicatError?.Title ?? signicatError?.OAuthError);
         }
@@ -243,11 +263,11 @@ namespace Signicat.Infrastructure
         private static SignicatForbiddenException BuildForbiddenException(SignicatResponse response,
             HttpStatusCode statusCode)
         {
-            var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
+            var signicatError = Mapper.MapFromJson<SignicatInternalError>(response.ResponseJson);
 
             return new SignicatForbiddenException(
                 statusCode,
-                signicatError,
+                signicatError.Map(),
                 response,
                 signicatError?.Title ?? signicatError?.OAuthError);
         }
@@ -255,11 +275,11 @@ namespace Signicat.Infrastructure
         private static SignicatUnauthorizedException BuildUnauthorizedException(SignicatResponse response,
             HttpStatusCode statusCode)
         {
-            var signicatError = Mapper.MapFromJson<SignicatError>(response.ResponseJson);
+            var signicatError = Mapper.MapFromJson<SignicatInternalError>(response.ResponseJson);
 
             return new SignicatUnauthorizedException(
                 statusCode,
-                signicatError,
+                signicatError.Map(),
                 response,
                 signicatError?.Title ?? signicatError?.OAuthError);
         }

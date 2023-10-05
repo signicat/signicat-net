@@ -17,4 +17,10 @@
         <ProjectReference Include="..\Signicat.SDK.Fluent\Signicat.SDK.Fluent.csproj" />
         <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Services\Signing\dummy.pdf" />
+      <Content Include="Services\Signing\dummy.pdf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>

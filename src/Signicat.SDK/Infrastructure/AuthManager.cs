@@ -23,8 +23,8 @@ namespace Signicat.Infrastructure
             {
                 {"grant_type", "client_credentials"},
                 {"scope", string.Join(" ", "signicat-api")},
-                {"client_id", clientId},
-                {"client_secret", clientSecret}
+                {"client_id", clientId.Trim()},
+                {"client_secret", clientSecret.Trim()}
             };
 
             var token = Mapper.MapFromJson<OAuthToken>(HttpRequestor.PostFormData(Urls.OAuthToken, formData));
