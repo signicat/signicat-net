@@ -37,11 +37,12 @@ public class AuthenticationFluentBuilderTest
     public void TestFlowIsSet()
     {
         var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithFlow(AuthenticationFlow.Iframe)
+            .WithFlow(AuthenticationFlow.Headless)
+            .WithPrefilledInput(nin: "1")
             .Build();
 
         Assert.IsNotNull(options);
-        Assert.AreEqual(AuthenticationFlow.Iframe, options.Flow);
+        Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
     }
 
     [Test]
