@@ -21,17 +21,22 @@ namespace Signicat.Authentication
         public string IdpId { get; set; }
 
         /// <summary>
-        ///     First name.
+        ///     The first name of the subject.
         /// </summary>
         public string FirstName { get; set; }
+        
+        /// <summary>
+        ///     The middle name of the subject.
+        /// </summary>
+        public string MiddleName { get; set; }
 
         /// <summary>
-        ///     Last name.
+        ///     The last name of the subject.
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        ///     Date of birth.
+        ///     The date of birth of the subject.
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
 
@@ -41,9 +46,14 @@ namespace Signicat.Authentication
         public Nin Nin { get; set; }
         
         /// <summary>
-        /// Additional attributes from the Id provider
+        ///     The additional parameters of the subject.
         /// </summary>
         [JsonExtensionData]
         public IDictionary<string, JsonElement> IdpAttributes { get; set; }
+
+        /// <summary>
+        ///     The email of the subject.
+        /// </summary>
+        public string Email { get; set; }
     }
 }

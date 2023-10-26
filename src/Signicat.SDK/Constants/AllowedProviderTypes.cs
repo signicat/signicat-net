@@ -7,7 +7,6 @@ namespace Signicat.Constants
     {
         /// <summary>
         ///     Norwegian BankID
-        ///     <see href="https://www.bankid.no/en/private/">Website</see>
         /// </summary>
         public const string NorwegianBankId = "nbid";
 

@@ -5,6 +5,31 @@ namespace Signicat.Authentication
     public record AuthenticationCreateOptions
     {
         /// <summary>
+        ///     Prefilled input values.
+        /// </summary>
+        public PrefilledInput PrefilledInput { get; set; }
+        
+        /// <summary>
+        ///     Additional parameters that modify the authentication flow. Depends on selected IdP
+        /// </summary>
+        public Dictionary<string, string> AdditionalParameters { get; set; }
+        
+        /// <summary>
+        ///     Specifies the different urls to callback to.
+        /// </summary>
+        public CallbackUrls CallbackUrls { get; set; }
+        
+        /// <summary>
+        ///     Encryption key information for message level encryption.
+        /// </summary>
+        public EncryptionPublicKey EncryptionPublicKey { get; set; }
+        
+        /// <summary>
+        ///     Specifies the LoA (Level of Assurance).
+        /// </summary>
+        public string RequestedLoa { get; set; }
+        
+        /// <summary>
         ///     A list of eID providers that can be used for identification. If not specified, the user will be able to chose from
         ///     all eIDs associated with your Signicat account.
         ///     <see cref="Constants.AllowedProviderTypes" />
@@ -18,10 +43,14 @@ namespace Signicat.Authentication
         public string Language { get; set; } = "en";
 
         /// <summary>
-        ///     The type of flow to use.
-        ///     One of: <c>redirect</c>, or <c>headless</c>.
+        ///     The selected flow used for this specific authentication session.
         /// </summary>
         public AuthenticationFlow? Flow { get; set; } = AuthenticationFlow.Redirect;
+        
+        /// <summary>
+        ///     The themeId you want to use for this specific authentication session. If not specified, the default theme for your account will be used.
+        /// </summary>
+        public string ThemeId { get; set; }
 
         /// <summary>
         ///     Request additional information about the user.
@@ -31,28 +60,19 @@ namespace Signicat.Authentication
         public IList<string> RequestedAttributes { get; set; } = new List<string>();
 
         /// <summary>
-        ///     Redirect settings when using the `redirect` flow.
-        /// </summary>
-        public CallbackUrls CallbackUrls { get; set; }
-
-        /// <summary>
-        ///     Your external reference for the session.
+        ///     An external reference for you, will be returned as a URL parameter on callbackUrls.
         /// </summary>
         public string ExternalReference { get; set; }
-
-        /// <summary>
-        ///     Prefilled input values.
-        /// </summary>
-        public PrefilledInput PrefilledInput { get; set; }
 
         /// <summary>
         ///     Lifetime of session in seconds.
         /// </summary>
         public int SessionLifetime { get; set; }
-
+        
         /// <summary>
-        ///     (optional) Id for the Theme  only needed if you have multiple themes setup on the same account.
+        ///     Specifies the domain you want to use for this specific session. The domain will be visible in the end-user's browser.
+        ///     This domain needs to be correctly configured on your account.
         /// </summary>
-        public string ThemeId { get; set; }
+        public string RequestDomain { get; set; }
     }
 }
