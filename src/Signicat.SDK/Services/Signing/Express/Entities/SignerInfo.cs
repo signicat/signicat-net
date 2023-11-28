@@ -21,6 +21,11 @@
         /// Prefilled social security number.
         /// </summary>
         public string SocialSecurityNumber { get; set; }
+
+        /// <summary>
+        /// The signer's date of birth, must follow this pattern: YYYY-MM-DD
+        /// </summary>
+        public string DateOfBirth { get; set; }
     
         /// <summary>
         /// The signer's mobile number. Define this if you are using notifications.
