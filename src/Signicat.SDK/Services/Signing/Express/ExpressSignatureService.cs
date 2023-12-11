@@ -747,6 +747,17 @@ namespace Signicat.Services.Signing.Express
             return PostAsync<JwtValidationResult>($"{Urls.ExpressSign}/jwt/validate", request);
         }
 
+        public Task<MerchantSignResponse> MerchantSignatureAsync(MerchantSignRequest request)
+        {
+            return PostAsync<MerchantSignResponse>($"{Urls.ExpressSign}/merchant/signature", request);
+
+        }
+
+        public MerchantSignResponse MerchantSignature(MerchantSignRequest request)
+        {
+            return Post<MerchantSignResponse>($"{Urls.ExpressSign}/merchant/signature", request);
+        }
+
         private static string ListSignMethodsUrlWithParams(string url, SignatureMechanism mechanism, FileType fileType, Language language,
             bool signableAttachments)
         {

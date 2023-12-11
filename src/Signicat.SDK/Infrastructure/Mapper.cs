@@ -28,6 +28,9 @@ namespace Signicat.Infrastructure
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<SignaturePackageFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DemRecordSearchQueryOperator>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<DocumentStatus>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<MerchantDataFormat>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<MerchantEncodingFormat>());
+            SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<MerchantSigningFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
             
         }
