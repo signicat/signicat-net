@@ -155,4 +155,22 @@ public class ExpressSignatureServiceTest : BaseTest
         Assert.IsNotNull(doc);
         Assert.AreEqual(doc.Status.DocumentStatus, DocumentStatus.Canceled);
     }
+
+    [Test]
+    public async Task MerchantSignAsync()
+    {
+        var request = new MerchantSignRequest()
+        {
+            DataFormat = MerchantDataFormat.Txt,
+            DepartmentId = "oansdf",
+            SigningFormat = MerchantSigningFormat.NoBankIdSeidSdo,
+            DataEncodingFormat = MerchantEncodingFormat.Utf8,
+            ExternalReference = "1234567890",
+            DataToSign = "SGVsbG8sIFRoaXMgdGV4dCBpcyBuaWNlIHRvIHNpZ24Kw6bDuMOl"
+        };
+        var response = await _expressSignatureService.MerchantSignatureAsync(request);
+        Assert.IsNotNull(response);
+        Assert.IsNotNull(response.SignedData);
+        Assert.IsNotNull(response.SignCertificateBase64String);
+    }
 }

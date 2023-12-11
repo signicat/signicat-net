@@ -493,5 +493,19 @@ namespace Signicat.Services.Signing.Express
         /// <param name="request"></param>
         /// <returns></returns>
         Task<JwtValidationResult> ValidateRedirectJwtAsync(JwtValidationRequest request);
+        
+        /// <summary>
+        /// Sign a document with a merchant (machine) signature only
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<MerchantSignResponse> MerchantSignatureAsync(MerchantSignRequest request);
+        
+        /// <summary>
+        /// Sign a document with a merchant (machine) signature only
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        MerchantSignResponse MerchantSignature(MerchantSignRequest request);
     }
 }
