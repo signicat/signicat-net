@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>1.5.0</VersionPrefix>
+        <VersionPrefix>1.6.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API fluent builder addon</Description>
         <Authors>Signicat AS</Authors>
