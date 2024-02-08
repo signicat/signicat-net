@@ -7,6 +7,8 @@ A .NET SDK for simple integration with the Signicat REST APIs, this SDK supports
 - Authentication REST API
 - Digital Evidence Management API
 - Registry Lookups Information API
+- Express Signature API
+- Enterprise Signature API
 
 Supports .NET Standard 2.0+, .NET Core 2.0+ and .NET Framework 4.6.1+.
 
