@@ -95,5 +95,12 @@ namespace Signicat.Services.Signing.Express.Entities
         /// Requires certificate with permission to retrieve social security number
         /// </summary>
         public bool? GetSocialSecurityNumber { get; set; }
+        
+        /// <summary>
+        /// Get and verify social security number for this signer, if there is a mismatch the signature will fail.
+        /// Requirements: 1) signerInfo.SocialSecurityNumber must be prefilled, 2) eID with permission to retrieve social security number.
+        /// If the eID does not return a social security number this property will be ignored.
+        /// </summary>
+        public bool? VerifySocialSecurityNumber { get; set; }
     }
 }
