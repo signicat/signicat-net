@@ -127,7 +127,7 @@ public class AuthenticationServiceTest : BaseTest
         
         var createSession = _authenticationService.CreateSession(_headlessOptions);
         
-        var session = _authenticationService.CancelFlow(createSession.Id);
+        var session = _authenticationService.CancelSession(createSession.Id);
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
@@ -141,7 +141,7 @@ public class AuthenticationServiceTest : BaseTest
     {
         var createSession = await _authenticationService.CreateSessionAsync(_headlessOptions);
         
-        var session = await _authenticationService.CancelFlowAsync(createSession.Id);
+        var session = await _authenticationService.CancelSessionAsync(createSession.Id);
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);

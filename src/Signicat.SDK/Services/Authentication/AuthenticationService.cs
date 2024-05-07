@@ -59,7 +59,7 @@ namespace Signicat.Authentication
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public AuthenticationSession CancelFlow(string id)
+        public AuthenticationSession CancelSession(string id)
         {
             return Post<AuthenticationSession>($"{Urls.Authentication}/sessions/{id}/cancel");
         }
@@ -69,7 +69,7 @@ namespace Signicat.Authentication
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<AuthenticationSession> CancelFlowAsync(string id)
+        public Task<AuthenticationSession> CancelSessionAsync(string id)
         {
             return PostAsync<AuthenticationSession>($"{Urls.Authentication}/sessions/{id}/cancel");
         }
