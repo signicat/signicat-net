@@ -31,5 +31,19 @@ namespace Signicat.Authentication
         /// <param name="authenticationCreateOptions"></param>
         /// <returns></returns>
         Task<AuthenticationSession> CreateSessionAsync(AuthenticationCreateOptions authenticationCreateOptions);
+        
+        /// <summary>
+        ///     Cancels an identification session.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        AuthenticationSession CancelFlow(string id);
+
+        /// <summary>
+        ///     Cancels an identification session.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<AuthenticationSession> CancelFlowAsync(string id);
     }
 }

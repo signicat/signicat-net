@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Authentication;
@@ -13,7 +14,7 @@ namespace Signicat.SDK.Tests;
 public class AuthenticationServiceTest : BaseTest
 {
     private AuthenticationService _authenticationService;
-    private AuthenticationCreateOptions _options;
+    private AuthenticationCreateOptions _options,_headlessOptions;
 
     [SetUp]
     public void Setup()
@@ -42,6 +43,34 @@ public class AuthenticationServiceTest : BaseTest
                 RequestedAttributes.NationalIdentifierNumber
             },
             SessionLifetime = 60
+        };
+        
+        _headlessOptions = new AuthenticationCreateOptions
+        {
+            Flow = AuthenticationFlow.Headless,
+            Language = Languages.English,
+            AllowedProviders = new List<string>
+            {
+                AllowedProviderTypes.SwedishBankID
+            },
+            ExternalReference = Guid.NewGuid().ToString("n"),
+            CallbackUrls = new CallbackUrls
+            {
+                Abort = "https://mytest.com#abort",
+                Success = "https://mytest.com#success",
+                Error = "https://mytest.com#error"
+            },
+            RequestedAttributes = new List<string>
+            {
+                RequestedAttributes.FirstName,
+                RequestedAttributes.LastName,
+            },
+            SessionLifetime = 60,
+            AdditionalParameters = new Dictionary<string, string>()
+            {
+                {"sbid_flow","QR"},
+                {"sbid_end_user_ip","192.168.1.1"}
+            }
         };
     }
 
@@ -87,6 +116,36 @@ public class AuthenticationServiceTest : BaseTest
         var session = await _authenticationService.CreateSessionAsync(_options);
 
         Assert.IsNotNull(session);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
+    
+    
+    [Test]
+    public void CancelSession()
+    {
+        
+        var createSession = _authenticationService.CreateSession(_headlessOptions);
+        
+        var session = _authenticationService.CancelFlow(createSession.Id);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual(createSession.Id, session.Id);
+        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
+        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.AuthenticationUrl);
+    }
+
+    [Test]
+    public async Task CancelSessionAsync()
+    {
+        var createSession = await _authenticationService.CreateSessionAsync(_headlessOptions);
+        
+        var session = await _authenticationService.CancelFlowAsync(createSession.Id);
+
+        Assert.IsNotNull(session);
+        Assert.AreEqual(createSession.Id, session.Id);
+        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
     }

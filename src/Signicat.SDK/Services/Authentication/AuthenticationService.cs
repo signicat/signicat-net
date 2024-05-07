@@ -53,5 +53,15 @@ namespace Signicat.Authentication
         {
             return PostAsync<AuthenticationSession>($"{Urls.Authentication}/sessions", authenticationCreateOptions);
         }
+
+        public AuthenticationSession CancelFlow(string id)
+        {
+            return Post<AuthenticationSession>($"{Urls.Authentication}/sessions/{id}/cancel");
+        }
+
+        public Task<AuthenticationSession> CancelFlowAsync(string id)
+        {
+            return PostAsync<AuthenticationSession>($"{Urls.Authentication}/sessions/{id}/cancel");
+        }
     }
 }
