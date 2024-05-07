@@ -15,7 +15,7 @@ namespace Signicat.Constants
         /// <summary>
         ///     User aborted the authentication process
         /// </summary>
-        public const string Aborted = "ABORTED";
+        public const string Aborted = "ABORT";
         
         
         /// <summary>
