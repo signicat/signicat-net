@@ -37,13 +37,13 @@ namespace Signicat.Authentication
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        AuthenticationSession CancelFlow(string id);
+        AuthenticationSession CancelSession(string id);
 
         /// <summary>
         ///     Cancels an identification session.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<AuthenticationSession> CancelFlowAsync(string id);
+        Task<AuthenticationSession> CancelSessionAsync(string id);
     }
 }
