@@ -4,6 +4,7 @@ using System.Threading;
 using AutoFixture;
 using Moq;
 using Moq.Protected;
+using NUnit.Framework;
 using Signicat.Infrastructure;
 
 namespace Signicat.SDK.Tests;
@@ -20,7 +21,7 @@ public class BaseTest
     // Ensures that the we only run initialization once.
     private static readonly Lazy<object> Initializer = new(Initialize);
 
-    public BaseTest()
+    protected BaseTest()
     {
         // Triggers the lazy initialization
         var init = Initializer.Value;
@@ -45,22 +46,21 @@ public class BaseTest
         var url = $"{SignicatConfiguration.OAuthBaseUrl}/.well-known/openid-configuration";
 
         // Make sure that the we are able to connect to Signicat service
-        using (var client = new HttpClient())
+        using var client = new HttpClient();
+        try
         {
-            try
-            {
-                var response = client.GetAsync(url).Result;
-            }
-            catch (Exception)
-            {
-                throw new Exception($"Failed to connect to Signicat Server at {url}");
-            }
-           var token = AuthManager.Authorize(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
-                Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET").Trim());
-           
-           if(token is null || string.IsNullOrWhiteSpace(token.AccessToken))
-               throw new Exception($"Failed to get token from Signicat Server at {url}");
+            var response = client.GetAsync(url).Result;
+            Assert.IsNotNull(response);
         }
+        catch (Exception)
+        {
+            throw new Exception($"Failed to connect to Signicat Server at {url}");
+        }
+        var token = AuthManager.Authorize(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
+            Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET").Trim());
+           
+        if(token is null || string.IsNullOrWhiteSpace(token.AccessToken))
+            throw new Exception($"Failed to get token from Signicat Server at {url}");
 
         return null;
     }

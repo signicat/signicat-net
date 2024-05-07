@@ -156,6 +156,6 @@ public class AuthenticationFluentBuilderTest
                 RequestedAttributes.NationalIdentifierNumber)
             .Build();
 
-        var response = await authenticationService.CreateSessionAsync(options);
+        await authenticationService.CreateSessionAsync(options);
     }
 }

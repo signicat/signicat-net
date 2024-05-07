@@ -4,6 +4,17 @@ namespace Signicat.DigitalEvidenceManagement.Entities
 {
     public class DemRecordSearchQueryCondition
     {
+        public DemRecordSearchQueryCondition()
+        {
+        }
+
+        public DemRecordSearchQueryCondition(string field, DemRecordSearchQueryOperator @operator, object value)
+        {
+            Field = field;
+            Operator = @operator;
+            Value = value;
+        }
+
         /// <summary>
         ///     Field to search
         /// </summary>

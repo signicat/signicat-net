@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 
 namespace Signicat.Infrastructure
 {
-    internal static class APIHelper
+    internal static class ApiHelper
     {
-        public static string DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
+        private static readonly string DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
 
         public static string AppendQueryParams(string url, Dictionary<string, object> queryParams)
         {
@@ -48,7 +48,7 @@ namespace Signicat.Infrastructure
             return "?" + string.Join("&", array);
         }
 
-        public static string ToEnumMemberString(this Enum enumValue)
+        private static string ToEnumMemberString(this Enum enumValue)
         {
             var type = enumValue.GetType();
             var info = type.GetField(enumValue.ToString());

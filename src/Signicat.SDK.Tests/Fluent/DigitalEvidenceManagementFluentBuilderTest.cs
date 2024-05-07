@@ -152,6 +152,6 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithRelations("53912d35-eef6-4116-8d7e-8b7c84ffa1f2")
             .Build();
 
-        var response = await digitalEvidenceManagementService.CreateDemRecordAsync(options);
+        await digitalEvidenceManagementService.CreateDemRecordAsync(options);
     }
 }

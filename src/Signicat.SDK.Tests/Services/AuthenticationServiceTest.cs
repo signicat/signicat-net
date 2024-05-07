@@ -129,7 +129,7 @@ public class AuthenticationServiceTest : BaseTest
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
+        Assert.AreEqual(AuthenticationStatuses.Cancelled, session.Status);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
     }
@@ -143,7 +143,7 @@ public class AuthenticationServiceTest : BaseTest
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
+        Assert.AreEqual(AuthenticationStatuses.Cancelled, session.Status);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
     }

@@ -29,7 +29,7 @@ public class EnterpriseSigningTestDocumentEndpoints: BaseTest
     [Test]
     public async Task UploadSessionDocumentAsyncShouldReturnNotNull()
     {
-        var result = await _service.UploadSessionDocumentAsync("dummy.pdf", File.ReadAllBytes(@"Services/Signing/dummy.pdf"));
+        var result = await _service.UploadSessionDocumentAsync("dummy.pdf", await File.ReadAllBytesAsync(@"Services/Signing/dummy.pdf"));
         Assert.That(result.DocumentId,Is.Not.Empty);
         Console.WriteLine(result.DocumentId);
     }
@@ -65,6 +65,7 @@ public class EnterpriseSigningTestDocumentEndpoints: BaseTest
         var result = _service.UploadSessionDocument("dummy.pdf", fileData);
 
         var document = _service.GetDocument(result.DocumentId);
+        Assert.IsNotNull(document);
         
         _service.DeleteDocument(result.DocumentId);
     }
