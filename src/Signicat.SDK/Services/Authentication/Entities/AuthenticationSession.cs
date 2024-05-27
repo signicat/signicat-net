@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Signicat.Authentication
@@ -60,7 +61,7 @@ namespace Signicat.Authentication
         /// <summary>
         ///     Details about the subject's environment.
         /// </summary>
-        public SessionEnvironment SessionEnvironment { get; set; }
+        public SessionEnvironment Environment { get; set; }
         
         /// <summary>
         ///     Error details.
@@ -71,6 +72,11 @@ namespace Signicat.Authentication
         ///     Message transport properties.
         /// </summary>
         public MessageTransportProperties MessageTransportProperties { get; set; }
+        
+        /// <summary>
+        /// A set of support optional tags to group and filter webhooks.
+        /// </summary>
+        public IList<string> Tags { get; set; }
 
         /// <summary>
         ///     A list of eID providers that can be used for identification. If not specified, the user will be able to chose from
@@ -107,13 +113,23 @@ namespace Signicat.Authentication
         public string ExternalReference { get; set; }
         
         /// <summary>
-        ///     Specifies the domain you want to use for this specific session. The domain will be visible in the end-user's browser. This domain needs to be correctly configured on your account.
+        ///     An usage external reference for you to group your billing.
         /// </summary>
-        public string RequestDomain { get; set; }
+        public string UsageReference { get; set; }
         
         /// <summary>
         ///     Lifetime of session in seconds.
         /// </summary>
         public int SessionLifetime { get; set; }
+        
+        /// <summary>
+        ///     Specifies the domain you want to use for this specific session. The domain will be visible in the end-user's browser. This domain needs to be correctly configured on your account.
+        /// </summary>
+        public string RequestDomain { get; set; }
+
+        /// <summary>
+        /// DateTime expiry of session.
+        /// </summary>
+        public DateTime? ExpiresAt { get; set; }
     }
 }
