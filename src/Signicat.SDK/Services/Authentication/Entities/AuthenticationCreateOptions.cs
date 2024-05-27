@@ -85,10 +85,5 @@ namespace Signicat.Authentication
         ///     This domain needs to be correctly configured on your account.
         /// </summary>
         public string RequestDomain { get; set; }
-        
-        /// <summary>
-        /// DateTime expiry of session.
-        /// </summary>
-        public DateTime? ExpiresAt { get; set; }
     }
 }
