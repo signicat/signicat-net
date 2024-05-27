@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Signicat.Authentication
@@ -28,6 +29,11 @@ namespace Signicat.Authentication
         ///     Specifies the LoA (Level of Assurance).
         /// </summary>
         public string RequestedLoa { get; set; }
+
+        /// <summary>
+        /// A set of support optional tags to group and filter webhooks.
+        /// </summary>
+        public IList<string> Tags { get; set; }
         
         /// <summary>
         ///     A list of eID providers that can be used for identification. If not specified, the user will be able to chose from
@@ -63,6 +69,11 @@ namespace Signicat.Authentication
         ///     An external reference for you, will be returned as a URL parameter on callbackUrls.
         /// </summary>
         public string ExternalReference { get; set; }
+        
+        /// <summary>
+        ///     An usage external reference for you to group your billing.
+        /// </summary>
+        public string UsageReference { get; set; }
 
         /// <summary>
         ///     Lifetime of session in seconds.

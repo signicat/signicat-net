@@ -42,6 +42,7 @@ public class AuthenticationServiceTest : BaseTest
                 RequestedAttributes.LastName,
                 RequestedAttributes.NationalIdentifierNumber
             },
+            Tags = new List<string>(){Guid.NewGuid().ToString("n")},
             SessionLifetime = 60
         };
         
@@ -54,6 +55,7 @@ public class AuthenticationServiceTest : BaseTest
                 AllowedProviderTypes.SwedishBankID
             },
             ExternalReference = Guid.NewGuid().ToString("n"),
+            UsageReference = Guid.NewGuid().ToString("n"),
             CallbackUrls = new CallbackUrls
             {
                 Abort = "https://mytest.com#abort",
@@ -81,11 +83,10 @@ public class AuthenticationServiceTest : BaseTest
 
         var session = _authenticationService.GetSession(createSession.Id);
 
-        Assert.IsNotNull(session);
-        Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.AuthenticationUrl);
+        ValidateCreateAndGetSession(session, createSession);
     }
+
+    
 
     [Test]
     public async Task GetSessionAsync()
@@ -93,10 +94,26 @@ public class AuthenticationServiceTest : BaseTest
         var createSession = await _authenticationService.CreateSessionAsync(_options);
         var session = await _authenticationService.GetSessionAsync(createSession.Id);
 
+        ValidateCreateAndGetSession(session, createSession);
+    }
+    
+    private void ValidateCreateAndGetSession(AuthenticationSession session, AuthenticationSession createSession)
+    {
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
+        Assert.IsNotEmpty(session.Tags);
+        Assert.AreEqual(_options.Tags.First(),session.Tags.First());
         Assert.IsNotEmpty(session.AuthenticationUrl);
+        
+        Assert.IsNotEmpty(session.ExternalReference);
+        Assert.AreEqual(_options.ExternalReference,session.ExternalReference);
+        
+        Assert.IsNotEmpty(session.UsageReference);
+        Assert.AreEqual(_options.UsageReference,session.UsageReference);
+        
+        
+        Assert.AreEqual(_options.Language,session.Language);
     }
 
 
@@ -108,6 +125,7 @@ public class AuthenticationServiceTest : BaseTest
         Assert.IsNotNull(session);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
+        Assert.IsNotEmpty(session.Tags);
     }
 
     [Test]
