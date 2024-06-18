@@ -1,6 +1,6 @@
 namespace Signicat.Constants
 {
-    public class AuthenticationStatuses
+    public abstract class AuthenticationStatuses
     {
         /// <summary>
         ///     The authentication process was successfull

@@ -20,9 +20,8 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         {
             get
             {
-                var recordType = RecordTypes.OTHER;
                 if (SystemMetadata is not null && SystemMetadata.ContainsKey("type") &&
-                    Enum.TryParse(SystemMetadata["type"].ToString(), out recordType))
+                    Enum.TryParse(SystemMetadata["type"].ToString(), out RecordTypes recordType))
                 {
                     return recordType;
                 }
@@ -66,9 +65,8 @@ namespace Signicat.DigitalEvidenceManagement.Entities
         {
             get
             {
-                var auditLevel = Entities.AuditLevels.SIMPLE;
                 if (SystemMetadata is not null && SystemMetadata.ContainsKey("auditLevel") &&
-                    Enum.TryParse(SystemMetadata["auditLevel"].ToString(), out auditLevel))
+                    Enum.TryParse(SystemMetadata["auditLevel"].ToString(), out AuditLevels auditLevel))
                 {
                     return auditLevel;
                 }

@@ -93,7 +93,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public void CancelDocument(Guid documentId, string reason = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
                 new Dictionary<string, object>()
                 {
                     {"reason", reason}
@@ -110,7 +110,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task CancelDocumentAsync(Guid documentId, string reason = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
                 new Dictionary<string, object>()
                 {
                     {"reason", reason}
@@ -189,7 +189,7 @@ namespace Signicat.Services.Signing.Express
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
                 new Dictionary<string, object>()
                 {
                     {"externalId", externalId},
@@ -242,7 +242,7 @@ namespace Signicat.Services.Signing.Express
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
                 new Dictionary<string, object>()
                 {
                     {"externalId", externalId},
@@ -490,7 +490,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetFile(Guid documentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -507,7 +507,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetFileAsync(Guid documentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -525,7 +525,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetFileForSigner(Guid documentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -543,7 +543,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetFileForSignerAsync(Guid documentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -561,7 +561,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetAttachmentFile(Guid documentId, Guid attachmentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -579,7 +579,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetAttachmentFileAsync(Guid documentId, Guid attachmentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
@@ -598,7 +598,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetAttachmentFileForSigner(Guid documentId, Guid attachmentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
@@ -618,7 +618,7 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetAttachmentFileForSignerAsync(Guid documentId, Guid attachmentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
@@ -761,7 +761,7 @@ namespace Signicat.Services.Signing.Express
         private static string ListSignMethodsUrlWithParams(string url, SignatureMechanism mechanism, FileType fileType, Language language,
             bool signableAttachments)
         {
-            url = APIHelper.AppendQueryParams(url,
+            url = ApiHelper.AppendQueryParams(url,
                 new Dictionary<string, object>()
                 {
                     {"mechanism", mechanism},

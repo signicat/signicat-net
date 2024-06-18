@@ -14,30 +14,29 @@
 namespace System.Web
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Runtime.InteropServices;
+    using Collections.Generic;
+    using IO;
 
     public static class MimeMapping
         {
-            private static MimeMappingDictionaryBase _mappingDictionary = new MimeMappingDictionaryClassic();
+            private static readonly MimeMappingDictionaryBase MappingDictionary = new MimeMappingDictionaryClassic();
 
             public static string GetMimeMapping(string fileName)
             {
                 if (fileName == null)
                 {
-                    throw new ArgumentNullException("fileName");
+                    throw new ArgumentNullException(nameof(fileName));
                 }
 
-                return _mappingDictionary.GetMimeMapping(fileName);
+                return MappingDictionary.GetMimeMapping(fileName);
             }
 
 
 
             private abstract class MimeMappingDictionaryBase
             {
-                private readonly Dictionary<string, string> _mappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                private static readonly char[] _pathSeparatorChars = new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar }; // from Path.GetFileName()
+                private readonly Dictionary<string, string> _mappings = new(StringComparer.OrdinalIgnoreCase);
+                private static readonly char[] _pathSeparatorChars = new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar }; // from Path.GetFileName()
 
                 private bool _isInitialized = false;
 
@@ -92,8 +91,7 @@ namespace System.Web
                         if (fileName[i] == '.')
                         {
                             // potential extension - consult dictionary
-                            string mimeType;
-                            if (_mappings.TryGetValue(fileName.Substring(i), out mimeType))
+                            if (_mappings.TryGetValue(fileName.Substring(i), out var mimeType))
                             {
                                 // found!
                                 return mimeType;

@@ -22,7 +22,7 @@ public class APIHelperTest : BaseTest
             {"mock", null}
         };
 
-        var url = APIHelper.AppendQueryParams("https://api.signicat.io", q);
+        var url = ApiHelper.AppendQueryParams("https://api.signicat.io", q);
 
         Assert.IsNotEmpty(url);
         Assert.AreEqual(
@@ -33,7 +33,7 @@ public class APIHelperTest : BaseTest
     [Test]
     public void BuildsQueryString()
     {
-        var q = APIHelper.ToQueryString(new NameValueCollection
+        var q = ApiHelper.ToQueryString(new NameValueCollection
         {
             {"foo", "bar"},
             {"test_param", "test_value"}

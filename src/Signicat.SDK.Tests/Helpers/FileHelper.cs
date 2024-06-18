@@ -9,7 +9,7 @@ public static class FileHelper
 {
     public static string CreateTempPdfFileName()
     {
-        return System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
+        return Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
     }
 
     public static void OpenFile(string filename)

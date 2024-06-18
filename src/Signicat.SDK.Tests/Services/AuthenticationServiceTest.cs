@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Authentication;
 using Signicat.Constants;
 using Signicat.Infrastructure;
 
-namespace Signicat.SDK.Tests;
+namespace Signicat.SDK.Tests.Services;
 
 public class AuthenticationServiceTest : BaseTest
 {
@@ -149,7 +147,7 @@ public class AuthenticationServiceTest : BaseTest
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
+        Assert.AreEqual(AuthenticationStatuses.Cancelled, session.Status);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
     }
@@ -163,13 +161,13 @@ public class AuthenticationServiceTest : BaseTest
 
         Assert.IsNotNull(session);
         Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
+        Assert.AreEqual(AuthenticationStatuses.Cancelled, session.Status);
         Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
         Assert.IsNotEmpty(session.AuthenticationUrl);
     }
     
     [Test]
-    public async Task TestDeserializeSubject()
+    public void TestDeserializeSubject()
     {
         var subject =
             "{\"dateOfBirth\":\"1992-01-28\",\"firstName\":\"Donald\",\"id\":\"12345\",\"idpId\":\"54321\"," +
