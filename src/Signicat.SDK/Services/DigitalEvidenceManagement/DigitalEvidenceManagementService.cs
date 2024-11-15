@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Signicat.DigitalEvidenceManagement.Entities;
 using Signicat.Infrastructure;
@@ -169,10 +170,11 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns>byte array with a PDF file</returns>
         public byte[] GetReport(Guid id)
         {
-            var base64Data = Get($"{Urls.Dem}/reports/{id}");
-
-            return !string.IsNullOrWhiteSpace(base64Data) ? Convert.FromBase64String(base64Data) : null;
+            using MemoryStream ms = new MemoryStream();
+            GetFile($"{Urls.Dem}/reports/{id}").CopyTo(ms);
+            return ms.ToArray();
         }
+    
 
         /// <summary>
         ///     Get report asynchronously
@@ -181,9 +183,11 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns></returns>
         public async Task<byte[]> GetReportAsync(Guid id)
         {
-            var base64Data = await GetAsync($"{Urls.Dem}/reports/{id}");
-
-            return !string.IsNullOrWhiteSpace(base64Data) ? Convert.FromBase64String(base64Data) : null;
+            var stream = await GetFileAsync($"{Urls.Dem}/reports/{id}");
+            using MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            return ms.ToArray();
+            
         }
     }
 }
