@@ -99,21 +99,21 @@ public class AuthenticationServiceTest : BaseTest
     
     private void ValidateCreateAndGetSession(AuthenticationSession session, AuthenticationSession createSession)
     {
-        Assert.IsNotNull(session);
-        Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.Tags);
-        Assert.AreEqual(_options.Tags.First(),session.Tags.First());
-        Assert.IsNotEmpty(session.AuthenticationUrl);
+        Assert.That(session , Is.Not.Null);
+        Assert.That(createSession.Id, Is.EqualTo(session.Id));
+        Assert.That("a-spge-JoXJ5et0okvIKE10LN70",Is.EqualTo( session.AccountId));
+        Assert.That(session.Tags, Is.Not.Empty);
+        Assert.That(_options.Tags.First(),Is.EqualTo(session.Tags.First()));
+        Assert.That(session.AuthenticationUrl, Is.Not.Empty);
         
-        Assert.IsNotEmpty(session.ExternalReference);
-        Assert.AreEqual(_options.ExternalReference,session.ExternalReference);
+        Assert.That(session.ExternalReference, Is.Not.Empty);
+        Assert.That(_options.ExternalReference,Is.EqualTo(session.ExternalReference));
         
-        Assert.IsNotEmpty(session.UsageReference);
-        Assert.AreEqual(_options.UsageReference,session.UsageReference);
+        Assert.That(session.UsageReference, Is.Not.Empty);
+        Assert.That(_options.UsageReference,Is.EqualTo(session.UsageReference));
         
         
-        Assert.AreEqual(_options.Language,session.Language);
+        Assert.That(_options.Language,Is.EqualTo(session.Language));
     }
 
 
@@ -122,10 +122,10 @@ public class AuthenticationServiceTest : BaseTest
     {
         var session = _authenticationService.CreateSession(_options);
 
-        Assert.IsNotNull(session);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.AuthenticationUrl);
-        Assert.IsNotEmpty(session.Tags);
+        Assert.That(session , Is.Not.Null);
+        Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
+        Assert.That(session.AuthenticationUrl, Is.Not.Empty);
+        Assert.That(session.Tags , Is.Not.Empty);
     }
 
     [Test]
@@ -133,9 +133,9 @@ public class AuthenticationServiceTest : BaseTest
     {
         var session = await _authenticationService.CreateSessionAsync(_options);
 
-        Assert.IsNotNull(session);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.AuthenticationUrl);
+        Assert.That(session, Is.Not.Null);
+        Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
+        Assert.That(session.AuthenticationUrl, Is.Not.Empty);
     }
     
     
@@ -147,11 +147,11 @@ public class AuthenticationServiceTest : BaseTest
         
         var session = _authenticationService.CancelSession(createSession.Id);
 
-        Assert.IsNotNull(session);
-        Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.AuthenticationUrl);
+        Assert.That(session, Is.Not.Null);
+        Assert.That(createSession.Id, Is.EqualTo(session.Id));
+        Assert.That(Constants.AuthenticationStatuses.Cancelled, Is.EqualTo(session.Status));
+        Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
+        Assert.That(session.AuthenticationUrl, Is.Not.Empty);
     }
 
     [Test]
@@ -161,15 +161,15 @@ public class AuthenticationServiceTest : BaseTest
         
         var session = await _authenticationService.CancelSessionAsync(createSession.Id);
 
-        Assert.IsNotNull(session);
-        Assert.AreEqual(createSession.Id, session.Id);
-        Assert.AreEqual(Constants.AuthenticationStatuses.Cancelled, session.Status);
-        Assert.AreEqual("a-spge-JoXJ5et0okvIKE10LN70", session.AccountId);
-        Assert.IsNotEmpty(session.AuthenticationUrl);
+        Assert.That(session, Is.Not.Null);
+        Assert.That(createSession.Id, Is.EqualTo(session.Id));
+        Assert.That(Constants.AuthenticationStatuses.Cancelled, Is.EqualTo(session.Status));
+        Assert.That("a-spge-JoXJ5et0okvIKE10LN70",Is.EqualTo( session.AccountId));
+        Assert.That(session.AuthenticationUrl, Is.Not.Empty);
     }
     
     [Test]
-    public async Task TestDeserializeSubject()
+    public void TestDeserializeSubject()
     {
         var subject =
             "{\"dateOfBirth\":\"1992-01-28\",\"firstName\":\"Donald\",\"id\":\"12345\",\"idpId\":\"54321\"," +
@@ -180,15 +180,15 @@ public class AuthenticationServiceTest : BaseTest
             "\"9562-2000-4-478603\",\"nbidAuthTime\":\"1695727322\",\"nbidIdp\":\"BID\"}";
         var deserialized = Mapper.MapFromJson<Subject>(subject);
         
-        Assert.AreEqual(deserialized.Id, "12345");
-        Assert.AreEqual(deserialized.LastName, "Duck");
-        Assert.NotNull(deserialized.IdpAttributes);
-        Assert.IsTrue(deserialized.IdpAttributes.Any());
-        Assert.AreEqual(deserialized.IdpAttributes["nbidIdp"].GetString(), "BID");
-        Assert.AreEqual(deserialized.IdpAttributes["nbidAuthTime"].GetString(), "1695727322");
+        Assert.That(deserialized.Id, Is.EqualTo("12345"));
+        Assert.That(deserialized.LastName,Is.EqualTo( "Duck"));
+        Assert.That(deserialized.IdpAttributes, Is.Not.Null);
+        Assert.That(deserialized.IdpAttributes.Any(), Is.True);
+        Assert.That(deserialized.IdpAttributes["nbidIdp"].GetString(), Is.EqualTo("BID"));
+        Assert.That(deserialized.IdpAttributes["nbidAuthTime"].GetString(), Is.EqualTo("1695727322"));
         var certInfo = Mapper.MapFromJson<NbidCertInfo>(deserialized.IdpAttributes["nbidAdditionalCertInfo"].GetString());
-        Assert.AreEqual(certInfo.KeyAlgorithm, "RSA");
-        Assert.IsFalse(deserialized.IdpAttributes.ContainsKey("dateOfBirth"));
+        Assert.That(certInfo.KeyAlgorithm, Is.EqualTo("RSA"));
+        Assert.That(deserialized.IdpAttributes.ContainsKey("dateOfBirth"), Is.False);
     }
     
     private class NbidCertInfo

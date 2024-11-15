@@ -66,12 +66,12 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                         },
 
                     },
-                    Authentication = new Services.Signing.Enterprise.Entities.Authentication()
+                    Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                     {
-                        Methods = new List<string>()
-                        {
-                            "scid-sms",
-                        },
+                        Methods =
+                        [
+                            "scid-sms"
+                        ],
 
                     },
                     Language = "en",
@@ -138,13 +138,13 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
 
         var response = _service.Create(validSignRequest);
-        Assert.IsNotEmpty(response.Id);
+        Assert.That(response.Id, Is.Not.Empty);
         signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
@@ -156,13 +156,13 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
         var response = await _service.CreateAsync(validSignRequest);
 
-        Assert.IsNotEmpty(response.Id);
+        Assert.That(response.Id, Is.Not.Empty);
         signOrderIds.Add(response.Id);
     }
 
@@ -171,19 +171,19 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
 
         var response = _service.Create(validSignRequest);
 
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         signOrderIds.Add(response.Id);
         Console.WriteLine(response.Id);
         var taskResponseInfo = _service.GetTaskStatus(response.Id, taskId);
 
-        Assert.IsNotNull(taskResponseInfo);
+        Assert.That(taskResponseInfo, Is.Not.Null);
 
         Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
 
@@ -196,19 +196,19 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
 
         var response = await _service.CreateAsync(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
         var taskResponseInfo = await _service.GetTaskStatusAsync(response.Id, taskId);
 
-        Assert.IsNotNull(taskResponseInfo);
+        Assert.That(taskResponseInfo, Is.Not.Null);
 
         Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
 
@@ -221,19 +221,19 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
         Console.WriteLine(taskId);
         var response = _service.Create(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
         var order = _service.GetOrder(response.Id);
 
-        Assert.IsNotNull(order);
+        Assert.That(order, Is.Not.Null);
 
         Assert.That(order.Id, Is.EqualTo(response.Id));
         Assert.That(order.Tasks.First().Id, Is.EqualTo(validSignRequest.Tasks.First().Id));
@@ -244,19 +244,19 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
 
         var response = await _service.CreateAsync(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         signOrderIds.Add(response.Id);
         Console.WriteLine(response.Id);
         
         var order = await _service.GetOrderAsync(response.Id);
 
-        Assert.IsNotNull(order);
+        Assert.That(order, Is.Not.Null);
 
         Assert.That(order.Id, Is.EqualTo(response.Id));
         Assert.That(order.Tasks.First().Id, Is.EqualTo(validSignRequest.Tasks.First().Id));
@@ -269,19 +269,19 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
 
         Console.WriteLine(taskId);
         var response = _service.Create(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         signOrderIds.Add(response.Id);
         
         
         var taskEvents = _service.GetTaskEvents(response.Id, taskId);
-        Assert.IsNotNull(taskEvents);
-        Assert.AreEqual(2, taskEvents.Count());
+        Assert.That(taskEvents, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(taskEvents.Count()));
         Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(taskEvents));
     }
 
@@ -292,18 +292,18 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-        Assert.IsNotNull(documentId);
+        Assert.That(documentId, Is.Not.Null);
         documentIds.Add(documentId.DocumentId);
         documents.First().DocumentRef = documentId.DocumentId;
         
         var response = await _service.CreateAsync(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         Console.WriteLine(response.Id);
         signOrderIds.Add(response.Id);
         
         var taskEvents = await _service.GetTaskEventsAsync(response.Id, taskId);
-        Assert.IsNotNull(taskEvents);
-        Assert.AreEqual(2, taskEvents.Count());
+        Assert.That(taskEvents, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(taskEvents.Count()));
 
     }
 
@@ -312,13 +312,13 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var document = _service.UploadSessionDocument("dummy.pdf", fileData);
-        Assert.IsNotNull(document);
+        Assert.That(document, Is.Not.Null);
         documentIds.Add(document.DocumentId);
         documents.First().DocumentRef = document.DocumentId;
 
         Console.WriteLine(taskId);
         var response = _service.Create(validSignRequest);
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         _service.DeleteSignOrder(response.Id);
 
 
@@ -329,23 +329,22 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {
 
         var document = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-        Assert.IsNotNull(document);
+        Assert.That(document, Is.Not.Null);
         documentIds.Add(document.DocumentId);
         documents.First().DocumentRef = document.DocumentId;
 
 
         var response = await _service.CreateAsync(validSignRequest);
 
-        Assert.IsNotNull(response.Id);
+        Assert.That(response.Id, Is.Not.Null);
         await _service.DeleteSignOrderAsync(response.Id);
 
     }
     
 
     [Test]
-    public async Task TestCreateSigningOrderInvalidMapErrorCorrect()
+    public void TestCreateSigningOrderInvalidMapErrorCorrect()
     {
-
         var ex = Assert.ThrowsAsync<SignicatException>(async () =>
         {
             var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
@@ -370,7 +369,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                             },
 
                         },
-                        Authentication = new Services.Signing.Enterprise.Entities.Authentication()
+                        Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                         {
                             Methods = new List<string>()
                             {

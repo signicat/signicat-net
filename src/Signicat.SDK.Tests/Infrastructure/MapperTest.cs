@@ -19,9 +19,9 @@ public class MapperTests
         var result = Mapper.MapFromJson<Person>(json);
         
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual("John", result.Name);
-        Assert.AreEqual(30, result.Age);
+        Assert.That(result, Is.Not.Null);
+        Assert.That("John", Is.EqualTo(result.Name));
+        Assert.That(30, Is.EqualTo(result.Age));
     }
     
     [Test]
@@ -34,7 +34,7 @@ public class MapperTests
         var result = Mapper.MapFromJson<Person>(json);
         
         // Assert
-        Assert.AreEqual(default(Person), result);
+        Assert.That(default(Person),Is.EqualTo( result));
     }
     
     [Test]
@@ -48,7 +48,7 @@ public class MapperTests
         
         // Assert
         var expectedJson = "{\"name\":\"John\",\"age\":30}";
-        Assert.AreEqual(expectedJson, result);
+        Assert.That(expectedJson, Is.EqualTo(result));
     }
     
     [Test]
@@ -61,9 +61,9 @@ public class MapperTests
         var result = Mapper.MapFromJson<Person>(response);
         
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual("John", result.Name);
-        Assert.AreEqual(30, result.Age);
+        Assert.That(result, Is.Not.Null);
+        Assert.That("John", Is.EqualTo(result.Name));
+        Assert.That(30, Is.EqualTo(result.Age));
     }
 
     [Test]
@@ -80,7 +80,7 @@ public class MapperTests
 
         Console.WriteLine(json);
         
-        Assert.AreEqual("{\"field\":\"key\",\"operator\":\"eq\",\"value\":\"value\"}",json);
+        Assert.That("{\"field\":\"key\",\"operator\":\"eq\",\"value\":\"value\"}",Is.EqualTo(json));
     }
 
     [Test]
@@ -91,7 +91,7 @@ public class MapperTests
         Console.WriteLine(newDate);
         var value = Mapper.MapFromJson<ClassWithDateTime>(json);
         
-        Assert.IsNotNull(value.Date);
+        Assert.That(value.Date, Is.Not.Null);
         Assert.That(value.Date, Is.Not.EqualTo(DateTime.MinValue));
         Console.WriteLine(value.Date);
         Console.WriteLine(value.Date.Value.Kind);

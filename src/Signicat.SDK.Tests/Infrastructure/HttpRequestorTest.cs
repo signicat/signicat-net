@@ -18,16 +18,16 @@ public class HttpRequestorTest : BaseTest
 
         var request = HttpRequestor.GetRequestMessage(url, HttpMethod.Get, token);
 
-        Assert.IsNotNull(request);
+        Assert.That(request, Is.Not.Null);
 
-        Assert.AreEqual(new Uri(url).AddParameter("signicat-accountId", token.ParseOutAccountIdFromJwt()),
-            request.RequestUri);
+        Assert.That(new Uri(url).AddParameter("signicat-accountId", token.ParseOutAccountIdFromJwt()),
+            Is.EqualTo(request.RequestUri));
 
-        Assert.AreEqual($"Bearer {token}", request.Headers.GetValues("Authorization").FirstOrDefault());
+        Assert.That($"Bearer {token}",Is.EqualTo( request.Headers.GetValues("Authorization").FirstOrDefault()));
 
-        Assert.AreEqual($"dotnet {SignicatConfiguration.SdkVersion}",
-            request.Headers.GetValues("Signicat-SDK").FirstOrDefault());
+        Assert.That($"dotnet {SignicatConfiguration.SdkVersion}",
+            Is.EqualTo(request.Headers.GetValues("Signicat-SDK").FirstOrDefault()));
 
-        Assert.AreEqual(HttpMethod.Get, request.Method);
+        Assert.That(HttpMethod.Get,Is.EqualTo( request.Method));
     }
 }

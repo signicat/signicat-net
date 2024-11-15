@@ -20,8 +20,8 @@ public class InformationServiceTest : BaseTest
     {
         var result = await _informationService.GetBasicOrganizationInfoAsync("NO", "989584022");
 
-        Assert.IsNotNull(result);
-        Assert.IsTrue("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase));
+        Assert.That(result, Is.Not.Null);
+        Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
     }
 
     [Test]
@@ -29,7 +29,7 @@ public class InformationServiceTest : BaseTest
     {
         var result = _informationService.GetBasicOrganizationInfo("NO", "989584022");
 
-        Assert.IsNotNull(result);
-        Assert.IsTrue("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase));
+        Assert.That(result, Is.Not.Null);
+        Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
     }
 }

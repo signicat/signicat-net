@@ -16,10 +16,10 @@ public class AuthenticationFluentBuilderTest
             .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.SwedishBankID)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.AllowedProviders.Count);
-        Assert.IsTrue(options.AllowedProviders.Contains("nbid"));
-        Assert.IsTrue(options.AllowedProviders.Contains("sbid"));
+        Assert.That(options, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(options.AllowedProviders.Count));
+        Assert.That(options.AllowedProviders.Contains("nbid"),Is.True);
+        Assert.That(options.AllowedProviders.Contains("sbid"),Is.True);
     }
 
     [Test]
@@ -29,8 +29,8 @@ public class AuthenticationFluentBuilderTest
             .WithLanguage("no")
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual("no", options.Language);
+        Assert.That(options, Is.Not.Null);
+        Assert.That("no", Is.EqualTo(options.Language));
     }
 
     [Test]
@@ -41,8 +41,8 @@ public class AuthenticationFluentBuilderTest
             .WithPrefilledInput(nin: "1")
             .Build();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(AuthenticationFlow.Headless, Is.EqualTo(options.Flow));
     }
 
     [Test]
@@ -53,8 +53,8 @@ public class AuthenticationFluentBuilderTest
             .WithFlow(AuthenticationFlow.Headless)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(AuthenticationFlow.Headless, Is.EqualTo(options.Flow));
     }
 
 
@@ -65,10 +65,10 @@ public class AuthenticationFluentBuilderTest
             .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.RequestedAttributes.Count);
-        Assert.IsTrue(options.RequestedAttributes.Contains(RequestedAttributes.FirstName));
-        Assert.IsTrue(options.RequestedAttributes.Contains(RequestedAttributes.LastName));
+        Assert.That(options, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(options.RequestedAttributes.Count));
+        Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.FirstName),Is.True);
+        Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.LastName),Is.True);
     }
 
     [Test]
@@ -78,10 +78,10 @@ public class AuthenticationFluentBuilderTest
             .WithCallbackUrls("success", "abort", "error")
             .Build();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual("success", options.CallbackUrls.Success);
-        Assert.AreEqual("abort", options.CallbackUrls.Abort);
-        Assert.AreEqual("error", options.CallbackUrls.Error);
+        Assert.That(options, Is.Not.Null);
+        Assert.That("success", Is.EqualTo(options.CallbackUrls.Success));
+        Assert.That("abort", Is.EqualTo(options.CallbackUrls.Abort));
+        Assert.That("error",Is.EqualTo( options.CallbackUrls.Error));
     }
 
     [Test]
@@ -92,8 +92,8 @@ public class AuthenticationFluentBuilderTest
             .WithExternalReference(externalRef)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(externalRef, options.ExternalReference);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(externalRef, Is.EqualTo(options.ExternalReference));
     }
 
     [Test]
@@ -103,8 +103,8 @@ public class AuthenticationFluentBuilderTest
             .WithSessionLifetime(95)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(95, options.SessionLifetime);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(95, Is.EqualTo(options.SessionLifetime));
     }
 
     [Test]
@@ -115,8 +115,8 @@ public class AuthenticationFluentBuilderTest
             .WithThemeId(theme)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(theme, options.ThemeId);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(theme, Is.EqualTo(options.ThemeId));
     }
 
     [Test]
@@ -125,7 +125,7 @@ public class AuthenticationFluentBuilderTest
         var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
             .WithFlow(AuthenticationFlow.Redirect)
             .Build());
-        Assert.AreEqual("Abort url must be set when using flow redirect", exception.Message);
+        Assert.That("Abort url must be set when using flow redirect", Is.EqualTo(exception.Message));
     }
 
     [Test]
@@ -135,7 +135,7 @@ public class AuthenticationFluentBuilderTest
             .WithFlow(AuthenticationFlow.Headless)
             .Build());
 
-        Assert.AreEqual("One or more prefilled fields must be set when using flow headless", exception.Message);
+        Assert.That("One or more prefilled fields must be set when using flow headless", Is.EqualTo(exception.Message));
     }
 
     [Test]

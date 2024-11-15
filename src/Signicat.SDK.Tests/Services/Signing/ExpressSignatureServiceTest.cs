@@ -57,8 +57,8 @@ public class ExpressSignatureServiceTest : BaseTest
     public async Task A_CreateDocumentAsync()
     {
         var document = await _expressSignatureService.CreateDocumentAsync(_options);
-        Assert.AreEqual(document.ExternalId, _options.ExternalId);
-        Assert.IsNotNull(document);
+        Assert.That(document.ExternalId,Is.EqualTo( _options.ExternalId));
+        Assert.That(document, Is.Not.Null);
         _documentId = document.DocumentId;
         _signerId = document.Signers.First().Id;
     }
@@ -67,8 +67,8 @@ public class ExpressSignatureServiceTest : BaseTest
     public async Task B_GetDocumentAsync()
     {
         var document = await _expressSignatureService.GetDocumentAsync(_documentId);
-        Assert.IsNotNull(document);
-        Assert.AreEqual(document.ExternalId, _options.ExternalId);
+        Assert.That(document, Is.Not.Null);
+        Assert.That(document.ExternalId, Is.EqualTo(_options.ExternalId));
     }
 
     [Test]
@@ -81,9 +81,9 @@ public class ExpressSignatureServiceTest : BaseTest
         
         var document = await _expressSignatureService.UpdateDocumentAsync(_documentId, options);
 
-        Assert.IsNotNull(document);
-        Assert.AreEqual(document.ExternalId, _options.ExternalId);
-        Assert.AreEqual(document.Title, options.Title);
+        Assert.That(document, Is.Not.Null);
+        Assert.That(document.ExternalId, Is.EqualTo(_options.ExternalId));
+        Assert.That(document.Title, Is.EqualTo(options.Title));
     }
     
     [Test]
@@ -92,9 +92,9 @@ public class ExpressSignatureServiceTest : BaseTest
         
         var signer = await _expressSignatureService.GetSignerAsync(_documentId, _signerId);
 
-        Assert.IsNotNull(signer);
-        Assert.AreEqual(signer.Id, _signerId);
-        Assert.AreEqual(signer.ExternalSignerId, _options.Signers.First().ExternalSignerId);
+        Assert.That(signer, Is.Not.Null);
+        Assert.That(signer.Id, Is.EqualTo(_signerId));
+        Assert.That(signer.ExternalSignerId, Is.EqualTo(_options.Signers.First().ExternalSignerId));
     }
 
     [Test]
@@ -109,8 +109,8 @@ public class ExpressSignatureServiceTest : BaseTest
         };
         var attachment = await _expressSignatureService.CreateAttachmentAsync(_documentId, opts);
 
-        Assert.IsNotNull(attachment);
-        Assert.AreEqual(attachment.Title, opts.Title);
+        Assert.That(attachment, Is.Not.Null);
+        Assert.That(attachment.Title, Is.EqualTo(opts.Title));
     }
     
     [Test]
@@ -118,21 +118,21 @@ public class ExpressSignatureServiceTest : BaseTest
     {
         var status = await _expressSignatureService.GetDocumentStatusAsync(_documentId);
 
-        Assert.IsNotNull(status);
-        Assert.AreEqual(status.DocumentStatus, DocumentStatus.Unsigned);
+        Assert.That(status, Is.Not.Null);
+        Assert.That(status.DocumentStatus, Is.EqualTo(DocumentStatus.Unsigned));
     }
     
     [Test]
     public async Task G_ListDocumentsAsync()
     {
         var docs = await _expressSignatureService.ListDocumentSummariesAsync();
-        Assert.IsNotNull(docs?.Data);
+        Assert.That(docs?.Data, Is.Not.Null);
         var doc = docs.Data.FirstOrDefault(d => d.DocumentId == _documentId);
-        Assert.IsNotNull(doc);
+        Assert.That(doc, Is.Not.Null);
     }
     
     [Test]
-    public async Task H_CreateDocumentInvalidMapErrorCorrectAsync()
+    public void H_CreateDocumentInvalidMapErrorCorrectAsync()
     {
         _options.Title = null;
         var error = Assert.ThrowsAsync<SignicatException>(async () =>
@@ -152,8 +152,8 @@ public class ExpressSignatureServiceTest : BaseTest
         await _expressSignatureService.CancelDocumentAsync(_documentId, "Tesing");
         var doc = await _expressSignatureService.GetDocumentAsync(_documentId);
         await Task.Delay(2000);
-        Assert.IsNotNull(doc);
-        Assert.AreEqual(doc.Status.DocumentStatus, DocumentStatus.Canceled);
+        Assert.That(doc, Is.Not.Null);
+        Assert.That(doc.Status.DocumentStatus, Is.EqualTo(DocumentStatus.Canceled));
     }
 
     [Test]
@@ -169,8 +169,8 @@ public class ExpressSignatureServiceTest : BaseTest
             DataToSign = "SGVsbG8sIFRoaXMgdGV4dCBpcyBuaWNlIHRvIHNpZ24Kw6bDuMOl"
         };
         var response = await _expressSignatureService.MerchantSignatureAsync(request);
-        Assert.IsNotNull(response);
-        Assert.IsNotNull(response.SignedData);
-        Assert.IsNotNull(response.SignCertificateBase64String);
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.SignedData, Is.Not.Null);
+        Assert.That(response.SignCertificateBase64String, Is.Not.Null);
     }
 }

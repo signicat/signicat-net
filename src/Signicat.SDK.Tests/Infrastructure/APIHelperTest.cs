@@ -24,10 +24,10 @@ public class APIHelperTest : BaseTest
 
         var url = APIHelper.AppendQueryParams("https://api.signicat.io", q);
 
-        Assert.IsNotEmpty(url);
-        Assert.AreEqual(
+        Assert.That(url, Is.Not.Empty);
+        Assert.That(
             "https://api.signicat.io?foo=bar&limit=25&fileFormat=standard_packaging&fromDate=2018-01-01T08:00:00Z&toDate=2018-01-01T08:00:00+00:00",
-            url);
+            Is.EqualTo(url));
     }
 
     [Test]
@@ -39,7 +39,7 @@ public class APIHelperTest : BaseTest
             {"test_param", "test_value"}
         });
 
-        Assert.IsNotEmpty(q);
-        Assert.AreEqual("?foo=bar&test_param=test_value", q);
+        Assert.That(q, Is.Not.Empty);
+        Assert.That("?foo=bar&test_param=test_value", Is.EqualTo(q));
     }
 }
