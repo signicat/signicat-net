@@ -11,10 +11,15 @@ namespace Signicat
         private readonly string _clientId;
         private readonly string _clientSecret;
         private OAuthToken _oAuthToken;
-        protected readonly string _organizationId = null;
+        private readonly string _organizationId = null;
 
         protected SignicatBaseService()
         {
+        }
+        
+        protected SignicatBaseService(string organizationId)
+        {
+            _organizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
         }
 
         protected SignicatBaseService(string clientId, string clientSecret)
@@ -29,6 +34,7 @@ namespace Signicat
             _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
             _organizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
         }
+        
 
 
         protected T Get<T>(string url)

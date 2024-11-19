@@ -25,5 +25,9 @@
         
         internal static string AccountManagementInvoices => $"/{AccountManagement}/invoices";
         
+        internal static string Usage => $"usage";
+        
+        internal static string UsageTransactions => $"{Usage}/transactions";
+        
     }
 }

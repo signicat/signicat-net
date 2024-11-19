@@ -44,7 +44,7 @@ public class BaseTest
 
         var url = $"{SignicatConfiguration.OAuthBaseUrl}/.well-known/openid-configuration";
 
-        // Make sure that the we are able to connect to Signicat service
+        // Make sure that we are able to connect to Signicat service
         using (var client = new HttpClient())
         {
             try
