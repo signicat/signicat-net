@@ -19,77 +19,77 @@ namespace Signicat.Infrastructure
             HttpClient = SignicatConfiguration.HttpClient ?? new HttpClient();
         }
 
-        public static SignicatResponse Get(string url, string token = null)
+        public static SignicatResponse Get(string url, string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Get, token);
+            return Send(url, HttpMethod.Get, token, organisationId);
         }
 
-        public static Task<SignicatResponse> GetAsync(string url, string token = null)
+        public static Task<SignicatResponse> GetAsync(string url, string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Get, token);
+            return SendAsync(url, HttpMethod.Get, token, organisationId);
         }
 
-        public static SignicatResponse Post(string url, string jsonBody = null, string token = null)
+        public static SignicatResponse Post(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Post, token, jsonBody);
+            return Send(url, HttpMethod.Post, token, organisationId,  jsonBody);
         }
 
-        public static Task<SignicatResponse> PostAsync(string url, string jsonBody = null, string token = null)
+        public static Task<SignicatResponse> PostAsync(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Post, token, jsonBody);
+            return SendAsync(url, HttpMethod.Post, token, organisationId,  jsonBody);
         }
 
-        public static SignicatResponse PostFormData(string url, NameValueCollection formData, string token = null)
+        public static SignicatResponse PostFormData(string url, NameValueCollection formData, string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Post, token, formData: formData);
+            return Send(url, HttpMethod.Post, token, organisationId, formData: formData);
         }
 
         public static Task<SignicatResponse> PostFormDataAsync(string url, NameValueCollection formData,
-            string token = null)
+            string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Post, token, formData: formData);
+            return SendAsync(url, HttpMethod.Post, token, organisationId, formData: formData);
         }
 
         public static SignicatResponse PostContentFormData(string url, MultipartFormDataContent content,
-            string token = null)
+            string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Post, token, formDataContent: content);
+            return Send(url, HttpMethod.Post, token, organisationId, formDataContent: content);
         }
 
         public static Task<SignicatResponse> PostContentFormDataAsync(string url, MultipartFormDataContent content,
-            string token = null)
+            string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Post, token, formDataContent: content);
+            return SendAsync(url, HttpMethod.Post, token, organisationId, formDataContent: content);
         }
 
-        public static SignicatResponse Patch(string url, string jsonBody = null, string token = null)
+        public static SignicatResponse Patch(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return Send(url, new HttpMethod("PATCH"), token, jsonBody);
+            return Send(url, new HttpMethod("PATCH"), token, organisationId,   jsonBody);
         }
 
-        public static Task<SignicatResponse> PatchAsync(string url, string jsonBody = null, string token = null)
+        public static Task<SignicatResponse> PatchAsync(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return SendAsync(url, new HttpMethod("PATCH"), token, jsonBody);
+            return SendAsync(url, new HttpMethod("PATCH"), token, organisationId,  jsonBody);
         }
 
-        public static SignicatResponse Put(string url, string jsonBody = null, string token = null)
+        public static SignicatResponse Put(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Put, token, jsonBody);
+            return Send(url, HttpMethod.Put, token, organisationId,  jsonBody);
         }
 
-        public static Task<SignicatResponse> PutAsync(string url, string jsonBody = null, string token = null)
+        public static Task<SignicatResponse> PutAsync(string url, string jsonBody = null, string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Put, token, jsonBody);
+            return SendAsync(url, HttpMethod.Put, token, organisationId,  jsonBody);
         }
 
-        public static SignicatResponse Delete(string url, string token = null)
+        public static SignicatResponse Delete(string url, string token = null, string organisationId = null)
         {
-            return Send(url, HttpMethod.Delete, token);
+            return Send(url, HttpMethod.Delete, token, organisationId);
         }
 
-        public static Task<SignicatResponse> DeleteAsync(string url, string token = null)
+        public static Task<SignicatResponse> DeleteAsync(string url, string token = null, string organisationId = null)
         {
-            return SendAsync(url, HttpMethod.Delete, token);
+            return SendAsync(url, HttpMethod.Delete, token, organisationId);
         }
         
         public static SignicatResponse PostFile<T>(string url, string fileName, byte[] fileData, string token=null)
@@ -102,21 +102,21 @@ namespace Signicat.Infrastructure
             return SendAsync(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
         }
 
-        public static Stream GetStream(string url, string token = null)
+        public static Stream GetStream(string url, string token = null, string organisationId = null)
         {
-            var request = GetRequestMessage(url, HttpMethod.Get, token);
+            var request = GetRequestMessage(url, HttpMethod.Get, token, organisationId);
 
             return ExecuteRawRequest(request);
         }
 
-        public static Task<Stream> GetStreamAsync(string url, string token = null)
+        public static Task<Stream> GetStreamAsync(string url, string token = null, string organisationId = null)
         {
-            var request = GetRequestMessage(url, HttpMethod.Get, token);
+            var request = GetRequestMessage(url, HttpMethod.Get, token, organisationId);
 
             return ExecuteRawRequestAsync(request);
         }
 
-        internal static HttpRequestMessage GetRequestMessage(string url, HttpMethod method, string token = null,
+        internal static HttpRequestMessage GetRequestMessage(string url, HttpMethod method, string token = null, string organisationId = null,
             string jsonBody = null, NameValueCollection formData = null,
             MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
@@ -124,6 +124,11 @@ namespace Signicat.Infrastructure
 
             request.Headers.Add("Signicat-SDK", $"dotnet {SignicatConfiguration.SdkVersion}");
             request.Headers.Add("User-Agent", $"Signicat-SDK dotnet {SignicatConfiguration.SdkVersion}");
+
+            if (!string.IsNullOrEmpty(organisationId) || !string.IsNullOrEmpty(SignicatConfiguration.OrganisationId))
+            {
+                request.Headers.Add("Signicat-OrganisationId", organisationId ?? SignicatConfiguration.OrganisationId);
+            }
 
             if (!string.IsNullOrWhiteSpace(token))
             {
@@ -134,24 +139,28 @@ namespace Signicat.Infrastructure
                 {
                     request.RequestUri = request.RequestUri.AddParameter("signicat-accountId", accountId);
                 }
+                if (!string.IsNullOrEmpty(organisationId) || !string.IsNullOrEmpty(SignicatConfiguration.OrganisationId))
+                {
+                    request.RequestUri = request.RequestUri.AddParameter("signicat-organisationId", organisationId ?? SignicatConfiguration.OrganisationId);
+                }
             }
 
             return request;
         }
 
-        private static SignicatResponse Send(string url, HttpMethod method, string token = null, string jsonBody = null,
+        private static SignicatResponse Send(string url, HttpMethod method, string token = null, string organisationId = null, string jsonBody = null,
             NameValueCollection formData = null, MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
-            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent, fileContent);
+            var request = GetRequestMessage(url, method, token, organisationId,  jsonBody, formData, formDataContent, fileContent);
 
             return ExecuteRequest(request);
         }
 
-        private static Task<SignicatResponse> SendAsync(string url, HttpMethod method, string token = null,
+        private static Task<SignicatResponse> SendAsync(string url, HttpMethod method, string token = null, string organisationId = null,
             string jsonBody = null, NameValueCollection formData = null,
             MultipartFormDataContent formDataContent = null, FileContent fileContent = null)
         {
-            var request = GetRequestMessage(url, method, token, jsonBody, formData, formDataContent, fileContent);
+            var request = GetRequestMessage(url, method, token, organisationId,  jsonBody, formData, formDataContent, fileContent);
 
             return ExecuteRequestAsync(request);
         }

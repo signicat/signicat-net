@@ -17,7 +17,7 @@ public class BaseTest
     // which lets us verify that the correct HTTP requests are sent.
     private static Mock<HttpClientHandler> _mockHttpClientHandler;
 
-    // Ensures that the we only run initialization once.
+    // Ensures that we only run initialization once.
     private static readonly Lazy<object> Initializer = new(Initialize);
 
     public BaseTest()

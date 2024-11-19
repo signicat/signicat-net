@@ -7,7 +7,8 @@ using Signicat.Services.AccountManagement.Entities;
 
 namespace Signicat.AccountManagement
 {
-    public class AccountManagement: SignicatBaseService, IAccountManagement
+    public class AccountManagement(string clientId, string clientSecret, string organisationId)
+        : SignicatBaseService(clientId, clientSecret, organisationId), IAccountManagement
     {
         public async Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter)
         {

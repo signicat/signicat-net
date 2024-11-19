@@ -11,6 +11,7 @@ namespace Signicat
         private readonly string _clientId;
         private readonly string _clientSecret;
         private OAuthToken _oAuthToken;
+        protected readonly string _organizationId = null;
 
         protected SignicatBaseService()
         {
@@ -21,122 +22,129 @@ namespace Signicat
             _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
         }
+        
+        protected SignicatBaseService(string clientId, string clientSecret, string organizationId)
+        {
+            _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
+            _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
+            _organizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
+        }
 
 
         protected T Get<T>(string url)
         {
-            return Mapper.MapFromJson<T>(HttpRequestor.Get(url, GetToken()));
+            return Mapper.MapFromJson<T>(HttpRequestor.Get(url, GetToken(), _organizationId));
         }
 
         protected async Task<T> GetAsync<T>(string url)
         {
-            return Mapper.MapFromJson<T>(await HttpRequestor.GetAsync(url, GetToken()));
+            return Mapper.MapFromJson<T>(await HttpRequestor.GetAsync(url, GetToken(), _organizationId));
         }
 
         protected string Get(string url)
         {
-            return HttpRequestor.Get(url, GetToken())?.ResponseJson;
+            return HttpRequestor.Get(url, GetToken(), _organizationId)?.ResponseJson;
         }
 
         protected async Task<string> GetAsync(string url)
         {
-            return (await HttpRequestor.GetAsync(url, GetToken()))?.ResponseJson;
+            return (await HttpRequestor.GetAsync(url, GetToken(), _organizationId))?.ResponseJson;
         }
         
         protected Stream GetFile(string url)
         {
-            return HttpRequestor.GetStream(url, GetToken());
+            return HttpRequestor.GetStream(url, GetToken(), _organizationId);
         }
 
         protected async Task<Stream> GetFileAsync(string url)
         {
-            return await HttpRequestor.GetStreamAsync(url, GetToken());
+            return await HttpRequestor.GetStreamAsync(url, GetToken(), _organizationId);
         }
 
         protected T Post<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                HttpRequestor.Post(url, Mapper.MapToJson(requestObject), GetToken()));
+                HttpRequestor.Post(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected async Task<T> PostAsync<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                await HttpRequestor.PostAsync(url, Mapper.MapToJson(requestObject), GetToken()));
+                await HttpRequestor.PostAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected void Post(string url, object requestObject = null)
         {
-            HttpRequestor.Post(url, Mapper.MapToJson(requestObject), GetToken());
+            HttpRequestor.Post(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
 
         protected async Task PostAsync(string url, object requestObject = null)
         {
-            await HttpRequestor.PostAsync(url, Mapper.MapToJson(requestObject), GetToken());
+            await HttpRequestor.PostAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
 
         protected void PostFormContentData(string url, MultipartFormDataContent requestObject = null)
         {
-            HttpRequestor.PostContentFormData(url, requestObject, GetToken());
+            HttpRequestor.PostContentFormData(url, requestObject, GetToken(), _organizationId);
         }
 
         protected async Task PostFormContentDataAsync(string url, MultipartFormDataContent requestObject = null)
         {
-            await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken());
+            await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken(), _organizationId);
         }
         
         protected T PostFormContentData<T>(string url, MultipartFormDataContent requestObject = null)
         {
-            return Mapper.MapFromJson<T>(  HttpRequestor.PostContentFormData(url, requestObject, GetToken()));
+            return Mapper.MapFromJson<T>(  HttpRequestor.PostContentFormData(url, requestObject, GetToken(), _organizationId));
         }
 
         protected async Task<T> PostFormContentDataAsync<T>(string url, MultipartFormDataContent requestObject = null)
         {
-            return Mapper.MapFromJson<T>(await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken()));
+            return Mapper.MapFromJson<T>(await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken(), _organizationId));
         }
 
         protected T Patch<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken()));
+                HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected async Task<T> PatchAsync<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken()));
+                await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected void PatchWithoutResponse(string url, object requestObject = null)
         {
-            HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken());
+            HttpRequestor.Patch(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
 
         protected async Task PatchWithoutResponseAsync(string url, object requestObject = null)
         {
-            await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken());
+            await HttpRequestor.PatchAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
 
         protected T Put<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                HttpRequestor.Put(url, Mapper.MapToJson(requestObject), GetToken()));
+                HttpRequestor.Put(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected async Task<T> PutAsync<T>(string url, object requestObject = null)
         {
             return Mapper.MapFromJson<T>(
-                await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken()));
+                await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId));
         }
 
         protected void Put(string url, object requestObject = null)
         {
-            HttpRequestor.Put(url, Mapper.MapToJson(requestObject), GetToken());
+            HttpRequestor.Put(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
 
         protected async Task PutAsync(string url, object requestObject = null)
         {
-            await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken());
+            await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
         
         protected T PostFile<T>(string url, byte[] filedata,string fileName)
@@ -154,12 +162,12 @@ namespace Signicat
 
         protected void Delete(string url)
         {
-            HttpRequestor.Delete(url, GetToken());
+            HttpRequestor.Delete(url, GetToken(), _organizationId);
         }
 
         protected async Task DeleteAsync(string url)
         {
-            await HttpRequestor.DeleteAsync(url, GetToken());
+            await HttpRequestor.DeleteAsync(url, GetToken(), _organizationId);
         }
 
         private string GetToken()
