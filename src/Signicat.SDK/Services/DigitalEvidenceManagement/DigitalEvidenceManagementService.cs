@@ -170,11 +170,11 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns>byte array with a PDF file</returns>
         public byte[] GetReport(Guid id)
         {
-            using MemoryStream ms = new MemoryStream();
+            using var ms = new MemoryStream();
             GetFile($"{Urls.Dem}/reports/{id}").CopyTo(ms);
             return ms.ToArray();
-        }
-    
+        }   
+
 
         /// <summary>
         ///     Get report asynchronously
@@ -184,10 +184,9 @@ namespace Signicat.DigitalEvidenceManagement
         public async Task<byte[]> GetReportAsync(Guid id)
         {
             var stream = await GetFileAsync($"{Urls.Dem}/reports/{id}");
-            using MemoryStream ms = new MemoryStream();
+            using var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
             return ms.ToArray();
-            
         }
     }
 }
