@@ -28,8 +28,8 @@ public class ExceptionTests
             Assert.ThrowsAsync<SignicatForbiddenException>(() =>
                 _service.CallEndpointThatThisClientDoNotHavePermssionsToCall());
 
-        Assert.IsNotNull(exception);
-        Assert.AreEqual(HttpStatusCode.Forbidden, exception.HttpStatusCode);
+        Assert.That(exception, Is.Not.Null);
+        Assert.That(HttpStatusCode.Forbidden, Is.EqualTo(exception.HttpStatusCode));
         Console.WriteLine(exception);
     }
 
@@ -40,8 +40,8 @@ public class ExceptionTests
             Assert.ThrowsAsync<SignicatUnauthorizedException>(() =>
                 _service.CallEndpointWithoutCredentials());
 
-        Assert.IsNotNull(exception);
-        Assert.AreEqual(HttpStatusCode.Unauthorized, exception.HttpStatusCode);
+        Assert.That(exception, Is.Not.Null);
+        Assert.That(HttpStatusCode.Unauthorized, Is.EqualTo(exception.HttpStatusCode));
         Console.WriteLine(exception);
     }
 }

@@ -2,19 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
 using Signicat.DigitalEvidenceManagement.Entities;
 using Signicat.SDK.Tests.Helpers;
 
-namespace Signicat.SDK.Tests;
+namespace Signicat.SDK.Tests.Services;
 
 public class DigitalEvidenceManagementTest : BaseTest
 {
-    private readonly DemRecordCreateOptions sampleCreate = new()
+    private readonly DemRecordCreateOptions _sampleCreate = new()
     {
         Metadata = new Dictionary<string, object>
         {
@@ -43,10 +41,10 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public async Task CreateNewRecordAsync()
     {
-        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
+        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(_sampleCreate);
 
-        Assert.IsNotNull(record);
-        Assert.AreNotEqual(Guid.Empty, record.Id);
+        Assert.That(record, Is.Not.Null);
+        Assert.That(Guid.Empty, Is.Not.EqualTo(record.Id));
     }
 
     [Test]
@@ -59,41 +57,42 @@ public class DigitalEvidenceManagementTest : BaseTest
                  CoreData = null
              }));
         
-        Assert.AreEqual(HttpStatusCode.BadRequest,exception.HttpStatusCode);
+        Assert.That(exception, Is.Not.Null);
+        Assert.That(HttpStatusCode.BadRequest,Is.EqualTo(exception.HttpStatusCode));
         
     }
 
     [Test]
     public void CreateNewRecord()
     {
-        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+        var record = _digitalEvidenceManagement.CreateDemRecord(_sampleCreate);
 
-        Assert.IsNotNull(record);
-        Assert.AreNotEqual(Guid.Empty, record.Id);
+        Assert.That(record , Is.Not.Null);
+        Assert.That(Guid.Empty, Is.Not.EqualTo(record.Id));
     }
 
     [Test]
     public async Task GetRecordAsync()
     {
-        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
+        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(_sampleCreate);
 
-        Assert.IsNotNull(record);
+        Assert.That(record, Is.Not.Null);
 
         var retrievedRecord = await _digitalEvidenceManagement.GetRecordAsync(record.Id);
 
-        Assert.IsTrue(sampleCreate.IsTheSame(retrievedRecord));
+        Assert.That(_sampleCreate.IsTheSame(retrievedRecord), Is.True);
     }
 
     [Test]
     public void GetRecord()
     {
-        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+        var record = _digitalEvidenceManagement.CreateDemRecord(_sampleCreate);
 
-        Assert.IsNotNull(record);
+        Assert.That(record, Is.Not.Null);
 
         var retrievedRecord = _digitalEvidenceManagement.GetRecord(record.Id);
 
-        Assert.IsTrue(sampleCreate.IsTheSame(retrievedRecord));
+        Assert.That(_sampleCreate.IsTheSame(retrievedRecord), Is.True);
     }
 
     [Test]
@@ -102,7 +101,7 @@ public class DigitalEvidenceManagementTest : BaseTest
         var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions()
         {
          
-            And = new DemRecordSearchQueryCondition[]
+            And = new[]
             {
                 new DemRecordSearchQueryCondition()
                 {
@@ -114,7 +113,7 @@ public class DigitalEvidenceManagementTest : BaseTest
             
         });
 
-        Assert.IsNotNull(searchResult);
+        Assert.That(searchResult, Is.Not.Null);
     }
 
     [Test]
@@ -123,7 +122,7 @@ public class DigitalEvidenceManagementTest : BaseTest
         var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
         {
        
-            And = new DemRecordSearchQueryCondition[]
+            And = new[]
             {
                 new DemRecordSearchQueryCondition()
                 {
@@ -135,7 +134,7 @@ public class DigitalEvidenceManagementTest : BaseTest
             
         });
 
-        Assert.IsNotNull(searchResult);
+        Assert.That(searchResult, Is.Not.Null);
     }
 
     [Test]
@@ -143,7 +142,7 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var statistics = _digitalEvidenceManagement.GetStatistics();
 
-        Assert.IsNotNull(statistics);
+        Assert.That(statistics, Is.Not.Null);
     }
 
     [Test]
@@ -151,7 +150,7 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var statistics = await _digitalEvidenceManagement.GetStatisticsAsync();
 
-        Assert.IsNotNull(statistics);
+        Assert.That(statistics, Is.Not.Null);
     }
 
     [Test]
@@ -159,7 +158,7 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var statistics = _digitalEvidenceManagement.GetCustomFields();
 
-        Assert.IsNotNull(statistics);
+        Assert.That(statistics , Is.Not.Null);
     }
 
     [Test]
@@ -167,7 +166,7 @@ public class DigitalEvidenceManagementTest : BaseTest
     {
         var statistics = await _digitalEvidenceManagement.GetCustomFieldsAsync(RecordTypes.LOG_IN);
 
-        Assert.IsNotNull(statistics);
+        Assert.That(statistics , Is.Not.Null);
     }
     
     
@@ -175,9 +174,9 @@ public class DigitalEvidenceManagementTest : BaseTest
     [Test]
     public async Task GetReportAsync()
     {
-        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(sampleCreate);
+        var record = await _digitalEvidenceManagement.CreateDemRecordAsync(_sampleCreate);
 
-        Assert.IsNotNull(record);
+        Assert.That(record, Is.Not.Null);
 
         var report = await _digitalEvidenceManagement.GetReportAsync(record.Id);
         
@@ -188,15 +187,15 @@ public class DigitalEvidenceManagementTest : BaseTest
             FileHelper.OpenFile(tempFilename);
         #endif
         
-        Assert.IsNotEmpty(report);
+        Assert.That(report, Is.Not.Empty);
     }
 
     [Test]
     public void GetReport()
     {
-        var record = _digitalEvidenceManagement.CreateDemRecord(sampleCreate);
+        var record = _digitalEvidenceManagement.CreateDemRecord(_sampleCreate);
 
-        Assert.IsNotNull(record);
+        Assert.That(record , Is.Not.Null);
 
         var report =  _digitalEvidenceManagement.GetReport(record.Id);
         
@@ -207,6 +206,6 @@ public class DigitalEvidenceManagementTest : BaseTest
         FileHelper.OpenFile(tempFilename);
 #endif
 
-        Assert.IsNotEmpty(report);
+        Assert.That(report, Is.Not.Empty);
     }
 }

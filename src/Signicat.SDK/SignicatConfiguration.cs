@@ -40,17 +40,12 @@ namespace Signicat
         {
             get
             {
-                var assembly = Assembly.GetExecutingAssembly();
+                var assembly = typeof(SignicatConfiguration).GetTypeInfo().Assembly;
                 return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
             }
         }
 
-        internal static string ClientId { get; set; }
-
-        internal static string ClientSecret { get; set; }
-
-        internal static OAuthToken OAuthToken { get; set; }
-
+       
         /// <summary>
         ///     Sets the OAuth client credentials and scopes.
         /// </summary>
@@ -61,5 +56,14 @@ namespace Signicat
             ClientId = clientId;
             ClientSecret = clientSecret;
         }
+        
+        internal static OAuthToken OAuthToken { get; set; }
+        internal static string ClientId { get; set; }
+
+        internal static string ClientSecret { get; set; }
+        
+        internal static string OrganisationId { get; set; }
+        
+        internal static string AcccountId { get; set; }
     }
 }

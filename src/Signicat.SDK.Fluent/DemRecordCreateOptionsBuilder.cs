@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Signicat.DigitalEvidenceManagement.Entities;
 
 [assembly: InternalsVisibleTo("Signicat.SDK.Tests")]

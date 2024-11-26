@@ -19,8 +19,8 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithAuditLevel(AuditLevels.ADVANCED)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(AuditLevels.ADVANCED, options.AuditLevel);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(AuditLevels.ADVANCED, Is.EqualTo(options.AuditLevel));
     }
 
     [Test]
@@ -30,8 +30,8 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithType(RecordTypes.TRANSACTION)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(RecordTypes.TRANSACTION, options.Type);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(RecordTypes.TRANSACTION, Is.EqualTo(options.Type));
     }
 
     [Test]
@@ -42,8 +42,8 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithTimeToLiveInDays(days)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(days, options.TimeToLiveInDays);
+        Assert.That(options, Is.Not.Null);
+        Assert.That(days, Is.EqualTo(options.TimeToLiveInDays));
     }
 
     [Test]
@@ -54,11 +54,11 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithRelations(value1, value2)
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.Relations.Count());
+        Assert.That(options, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(options.Relations.Count()));
 
-        Assert.AreEqual(value1, options.Relations.FirstOrDefault());
-        Assert.AreEqual(value2, options.Relations.Last());
+        Assert.That(value1, Is.EqualTo(options.Relations.FirstOrDefault()));
+        Assert.That(value2, Is.EqualTo(options.Relations.Last()));
     }
 
     [Test]
@@ -73,11 +73,11 @@ public class DigitalEvidenceManagementFluentBuilderTest
             })
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.Metadata.Count());
+        Assert.That(options, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(options.Metadata.Count()));
 
-        Assert.AreEqual(value1, options.Metadata["key1"]);
-        Assert.AreEqual(value2, options.Metadata["key2"]);
+        Assert.That(value1, Is.EqualTo(options.Metadata["key1"]));
+        Assert.That(value2, Is.EqualTo(options.Metadata["key2"]));
     }
 
     [Test]
@@ -92,11 +92,11 @@ public class DigitalEvidenceManagementFluentBuilderTest
             })
             .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.CoreData.Count());
+        Assert.That(options, Is.Not.Null);
+        Assert.That(2, Is.EqualTo(options.CoreData.Count()));
 
-        Assert.AreEqual(value1, options.CoreData["key1"]);
-        Assert.AreEqual(value2, options.CoreData["key2"]);
+        Assert.That(value1, Is.EqualTo(options.CoreData["key1"]));
+        Assert.That(value2, Is.EqualTo(options.CoreData["key2"]));
     }
 
 
@@ -106,7 +106,7 @@ public class DigitalEvidenceManagementFluentBuilderTest
         var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
             .WithFlow(AuthenticationFlow.Redirect)
             .Build());
-        Assert.AreEqual("Abort url must be set when using flow redirect", exception.Message);
+        Assert.That("Abort url must be set when using flow redirect", Is.EqualTo(exception.Message));
     }
 
     [Test]
@@ -115,7 +115,7 @@ public class DigitalEvidenceManagementFluentBuilderTest
         var exception = Assert.Throws<ValidationException>(() => DemRecordCreateOptionsBuilder.Create()
             .Build());
 
-        Assert.AreEqual("RecordType must be set", exception.Message);
+        Assert.That("RecordType must be set", Is.EqualTo(exception.Message));
     }
 
     [Test]
@@ -125,7 +125,7 @@ public class DigitalEvidenceManagementFluentBuilderTest
             .WithType(RecordTypes.SIGNATURE)
             .Build());
 
-        Assert.AreEqual("Core data must contain minimum one property", exception.Message);
+        Assert.That("Core data must contain minimum one property", Is.EqualTo(exception.Message));
     }
 
     [Test]

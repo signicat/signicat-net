@@ -30,7 +30,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -46,7 +46,7 @@ namespace Signicat.Information
             string idType = null, string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -64,7 +64,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/authorization",
                 new Dictionary<string, object>
                 {
@@ -84,7 +84,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/authorization",
                 new Dictionary<string, object>
                 {
@@ -104,7 +104,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/ownership",
                 new Dictionary<string, object>
                 {
@@ -124,7 +124,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/ownership",
                 new Dictionary<string, object>
                 {
@@ -144,7 +144,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/roles",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/roles",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -163,7 +163,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/roles",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/roles",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -182,7 +182,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/ultimate-beneficial-owners",
                 new Dictionary<string, object>
                 {
@@ -199,7 +199,7 @@ namespace Signicat.Information
             string idType = null, string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.Information}/countries/{country}/organizations/{id}/ultimate-beneficial-owners",
                 new Dictionary<string, object>
                 {
@@ -219,7 +219,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/finance",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/finance",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -238,7 +238,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/finance",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/organizations/{id}/finance",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -261,7 +261,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/organizations/screening",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/organizations/screening",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -290,7 +290,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/organizations/screening",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/organizations/screening",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -319,7 +319,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/organizations/search",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/organizations/search",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -347,7 +347,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/organizations/search",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/organizations/search",
                 new Dictionary<string, object>
                 {
                     {"idType", idType},
@@ -379,7 +379,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -413,7 +413,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -447,7 +447,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -481,7 +481,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -515,7 +515,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/finance",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/finance",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -549,7 +549,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/finance",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/finance",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -583,7 +583,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address/verify",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address/verify",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -617,7 +617,7 @@ namespace Signicat.Information
             string source = null,
             bool? rawJson = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address/verify",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/countries/{country}/persons/address/verify",
                 new Dictionary<string, object>
                 {
                     {"identityNumber", identityNumber},
@@ -649,7 +649,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/persons/screening",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/persons/screening",
                 new Dictionary<string, object>
                 {
                     {"dateOfBirth", dateOfBirth},
@@ -680,7 +680,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/persons/screening",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/persons/screening",
                 new Dictionary<string, object>
                 {
                     {"dateOfBirth", dateOfBirth},
@@ -710,7 +710,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/persons/search",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/persons/search",
                 new Dictionary<string, object>
                 {
                     {"dateOfBirth", dateOfBirth},
@@ -739,7 +739,7 @@ namespace Signicat.Information
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/persons/search",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/persons/search",
                 new Dictionary<string, object>
                 {
                     {"dateOfBirth", dateOfBirth},
@@ -785,7 +785,7 @@ namespace Signicat.Information
         /// <inheritdoc />
         public IEnumerable<CountryListItem> ListCountries(string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}
@@ -797,7 +797,7 @@ namespace Signicat.Information
         /// <inheritdoc />
         public Task<IEnumerable<CountryListItem>> ListCountriesAsync(string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}
@@ -809,7 +809,7 @@ namespace Signicat.Information
         /// <inheritdoc />
         public CountryInfo GetCountryInfo(string countryCode, string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}
@@ -821,7 +821,7 @@ namespace Signicat.Information
         /// <inheritdoc />
         public Task<CountryInfo> GetCountryInfoAsync(string countryCode, string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}
@@ -833,7 +833,7 @@ namespace Signicat.Information
         /// <inheritdoc />
         public IEnumerable<DivisionListItem> ListCountrySubdivisions(string countryCode, string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}/subdivisions",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}/subdivisions",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}
@@ -846,7 +846,7 @@ namespace Signicat.Information
         public Task<IEnumerable<DivisionListItem>> ListCountrySubdivisionsAsync(string countryCode,
             string lang = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}/subdivisions",
+            var url = ApiHelper.AppendQueryParams($"{Urls.Information}/geodata/countries/{countryCode}/subdivisions",
                 new Dictionary<string, object>
                 {
                     {"lang", lang}

@@ -175,6 +175,7 @@ namespace Signicat.DigitalEvidenceManagement
             return ms.ToArray();
         }   
 
+
         /// <summary>
         ///     Get report asynchronously
         /// </summary>

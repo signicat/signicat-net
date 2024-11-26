@@ -17,7 +17,7 @@ public class BaseTest
     // which lets us verify that the correct HTTP requests are sent.
     private static Mock<HttpClientHandler> _mockHttpClientHandler;
 
-    // Ensures that the we only run initialization once.
+    // Ensures that we only run initialization once.
     private static readonly Lazy<object> Initializer = new(Initialize);
 
     public BaseTest()
@@ -44,7 +44,7 @@ public class BaseTest
 
         var url = $"{SignicatConfiguration.OAuthBaseUrl}/.well-known/openid-configuration";
 
-        // Make sure that the we are able to connect to Signicat service
+        // Make sure that we are able to connect to Signicat service
         using (var client = new HttpClient())
         {
             try
