@@ -82,8 +82,17 @@ public class APIHelperTest : BaseTest
     {
         string url = "https://api.signicat.com/someapi".AppendQueryParam("aggregateByLevel", AggregateByLevel.ORGANISATION);
         Assert.That(url, Is.Not.Empty);
-        Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
         Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByLevel=organisation"));
+        
+    }
+    
+    [Test]
+    public void AppendsQueryParamConditionalyShouldNotAddWhenFalse()
+    {
+        string url = "https://api.signicat.com/someapi".AppendQueryParam(false, "aggregateByLevel", AggregateByLevel.ORGANISATION);
+        Assert.That(url, Is.Not.Empty);
+        Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
+        Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi"));
         
     }
 

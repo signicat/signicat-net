@@ -6,7 +6,7 @@ using Signicat.Services.AccountManagement.Entities;
 
 namespace Signicat.AccountManagement
 {
-    public interface IAccountManagement
+    public interface IAccountManagementService
     {
         /// <summary>
         /// List invoices
@@ -14,7 +14,7 @@ namespace Signicat.AccountManagement
         /// <param name="invoiceDateBefore"></param>
         /// <param name="invoiceDateAfter"></param>
         /// <returns></returns>
-        Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter);
+        Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter = null);
         
         /// <summary>
         /// List invoices
@@ -22,7 +22,7 @@ namespace Signicat.AccountManagement
         /// <param name="invoiceDateBefore"></param>
         /// <param name="invoiceDateAfter"></param>
         /// <returns></returns>
-        IEnumerable<InvoiceListItem> ListInvoices(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter);
+        IEnumerable<InvoiceListItem> ListInvoices(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter = null);
 
         /// <summary>
         /// Retrieve single invoice with details and lines

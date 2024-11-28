@@ -13,9 +13,9 @@ namespace Signicat.Infrastructure
     {
         private static readonly string DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
 
-        internal static string AppendQueryParam(this string url, string key, object? value = null, string? dateFormat = null)
+        internal static string AppendQueryParam(this string url, bool conditionalAdd, string key, object? value = null, string? dateFormat = null)
         {
-            if (string.IsNullOrWhiteSpace(url) || value is null)
+            if (string.IsNullOrWhiteSpace(url) || value is null || !conditionalAdd)
                 return url;
             
             var urlBuilder = new StringBuilder(url)
@@ -33,6 +33,11 @@ namespace Signicat.Infrastructure
             
             urlBuilder.Append(val);
             return urlBuilder.ToString();
+        }
+        
+        internal static string AppendQueryParam(this string url, string key, object? value = null, string? dateFormat = null)
+        {
+            return url.AppendQueryParam(true, key, value, dateFormat);
         }
         
         internal static string AppendQueryParams(this string url, Dictionary<string, object> queryParams, string? dateFormat = null)
@@ -72,13 +77,13 @@ namespace Signicat.Infrastructure
             return "?" + string.Join("&", array);
         }
 
-        private static string ToDateTime(this object value, string dateFormat = null)
+        private static string ToDateTime(this object value, string? dateFormat = null)
         {
             DateTime time = (DateTime)value;
             return time.ToString(dateFormat);
         }
         
-        private static string ToDateTimeOffset(this object value, string dateFormat = null)
+        private static string ToDateTimeOffset(this object value, string? dateFormat = null)
         {
             DateTimeOffset time = (DateTimeOffset)value;
             return time.ToString(dateFormat);
