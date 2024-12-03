@@ -1,9 +1,11 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.AccountManagement;
+using Signicat.SDK.Tests.Helpers;
 using Signicat.Services.AccountManagement.Entities;
 
 namespace Signicat.SDK.Tests.Services;
@@ -17,7 +19,6 @@ public class AccountManagementServiceTest:BaseTest
         SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_ID"),
             Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_SECRET"));
         
-        SignicatConfiguration.SetClientCredentials("org-prod-drab-bucket-469","pVqNJwpPFpRa0uBOC81B4MlDqZcQltL4sdm6pgCcajyKpXY5");
         
         _accountManagementService = new AccountManagementService(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_ORGANISATIONID"));
     }
@@ -55,6 +56,40 @@ public class AccountManagementServiceTest:BaseTest
         var invoice =  _accountManagementService.RetrieveInvoice(invoiceNumberToTestWith);
         Assert.That(invoice, Is.Not.Null);
         ValidateInvoice(invoice);
+    }
+    
+    [Test]
+    public async Task DownloadInvoiceAsyncCheckThatItsCorrect()
+    {
+        Stream invoiceStream = await _accountManagementService.DownloadInvoiceAsync(invoiceNumberToTestWith);
+        var bytes = invoiceStream.ToByteArray();
+        Assert.That(bytes, Is.Not.Null);
+        Assert.That(bytes.Length, Is.GreaterThan(1));
+#if DEBUG
+        string tempFilename = FileHelper.CreateTempPdfFileName(); 
+        File.WriteAllBytes(tempFilename, bytes);
+            
+        FileHelper.OpenFile(tempFilename);
+#endif
+
+        
+    }
+
+    [Test]
+    public void DownloadInvoiceCheckThatItsCorrect()
+    {
+        var stream = _accountManagementService.DownloadInvoice(invoiceNumberToTestWith);
+        var bytes = stream.ToByteArray();
+        Assert.That(bytes, Is.Not.Null);
+        Assert.That(bytes.Length, Is.GreaterThan(1));
+
+#if DEBUG
+        string tempFilename = FileHelper.CreateTempPdfFileName(); 
+        File.WriteAllBytes(tempFilename, bytes);
+            
+        FileHelper.OpenFile(tempFilename);
+#endif
+        
     }
     
     private void ValidateInvoice(Invoice invoice)

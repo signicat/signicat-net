@@ -19,7 +19,6 @@ public record UsageItem
     public string ProductName { get; set; }
 
     public  string? AccountId { get; set; }
-
     
     public string OrganisationId { get; set; }
 }
