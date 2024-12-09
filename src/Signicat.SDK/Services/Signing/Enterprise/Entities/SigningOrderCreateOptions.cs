@@ -229,6 +229,9 @@ namespace Signicat.Services.Signing.Enterprise.Entities
         [JsonPropertyName("signText")]
         public string SignText { get; set; }
 
+        [JsonPropertyName("signingUrl")]
+        public string SigningUrl { get; set; }
+
         [JsonPropertyName("subject")]
         public Subject Subject { get; set; }
 
