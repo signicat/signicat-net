@@ -82,7 +82,6 @@ namespace Signicat.DigitalEvidenceManagement
         public async Task UpdateTimeToLiveForRecordAsync(Guid id, int days)
         {
             await PatchWithoutResponseAsync($"{Urls.Dem}/records/{id}", new {ttl = days});
-            ;
         }
 
         /// <summary>
@@ -101,7 +100,6 @@ namespace Signicat.DigitalEvidenceManagement
         public DemRecordsSearchResult Query(DemRecordSearchCreateOptions demRecordSearchCreateOptions)
         {
             return Post<DemRecordsSearchResult>($"{Urls.Dem}/records/query", demRecordSearchCreateOptions);
-            ;
         }
 
         /// <summary>

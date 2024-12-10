@@ -332,3 +332,4 @@ ASALocalRun/
 *.user
 src/.DS_Store
 src/Signicat.SDK.Tests/.DS_Store
+src/qodana.yaml

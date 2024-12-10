@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Signicat.DigitalEvidenceManagement.Entities;
 using Signicat.Services.Signing.Enterprise.Entities;
 
 namespace Signicat.Services.Signing.Enterprise

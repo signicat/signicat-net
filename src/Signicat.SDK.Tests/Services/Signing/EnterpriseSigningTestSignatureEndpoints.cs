@@ -1,38 +1,35 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Signicat.SDK.Tests.Helpers;
 using Signicat.Services.Signing.Enterprise;
 using Signicat.Services.Signing.Enterprise.Entities;
 
-
-namespace Signicat.SDK.Tests.Signing;
+namespace Signicat.SDK.Tests.Services.Signing;
 
 public class EnterpriseSigningTestSignatureEndpoints : BaseTest
 {
     private IEnterpriseSignatureService _service;
-    private Guid taskId, packagingTaskId;
-    private byte[] fileData = File.ReadAllBytes(@"Services/Signing/dummy.pdf");
-    private List<TaskDocument> documents;
-    private SigningOrderCreateOptions validSignRequest;
-    private HashSet<string> documentIds = new HashSet<string>(), signOrderIds = new HashSet<string>();
+    private Guid _taskId, _packagingTaskId;
+    private readonly byte[] _fileData = File.ReadAllBytes(@"Services/Signing/dummy.pdf");
+    private List<TaskDocument> _documents;
+    private SigningOrderCreateOptions _validSignRequest;
+    private readonly HashSet<string> _documentIds = new HashSet<string>(), _signOrderIds = new HashSet<string>();
 
     [SetUp]
     public void Setup()
     {
         _service = new EnterpriseSignatureService();
-        taskId = Guid.NewGuid();
-        packagingTaskId = Guid.NewGuid();
+        _taskId = Guid.NewGuid();
+        _packagingTaskId = Guid.NewGuid();
 
-        Console.WriteLine("TaskId: {0}", taskId);
-        Console.WriteLine("PackagingTaskId: {0}", packagingTaskId);
+        Console.WriteLine("TaskId: {0}", _taskId);
+        Console.WriteLine("PackagingTaskId: {0}", _packagingTaskId);
 
-        documents = new List<TaskDocument>()
+        _documents = new List<TaskDocument>()
         {
             new TaskDocument()
             {
@@ -46,9 +43,9 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
             }
         };
 
-        Console.WriteLine("DocumentId: {0}", documents[0].Id);
+        Console.WriteLine("DocumentId: {0}", _documents[0].Id);
 
-        validSignRequest = new SigningOrderCreateOptions()
+        _validSignRequest = new SigningOrderCreateOptions()
         {
             ClientReference = Guid.NewGuid(),
             DaysUntilDeletion = 1,
@@ -57,7 +54,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
             {
                 new SignatureTask()
                 {
-                    Id = taskId,
+                    Id = _taskId,
                     SignatureMethods = new List<SignatureMethod>()
                     {
                         new SignatureMethod()
@@ -66,7 +63,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                         },
 
                     },
-                    Authentication = new Services.Signing.Enterprise.Entities.Authentication()
+                    Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                     {
                         Methods = new List<string>()
                         {
@@ -75,11 +72,11 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
 
                     },
                     Language = "en",
-                    Documents = documents,
+                    Documents = _documents,
                     DaysToLive = 1,
-                    OnTaskComplete = "http://www.vg.no#success",
-                    OnTaskReject = "http://www.vg.no#reject",
-                    OnTaskPostpone = "http://www.vg.no#postpone",
+                    OnTaskComplete = "https://signicat.com#success",
+                    OnTaskReject = "httsp://signicat.com#reject",
+                    OnTaskPostpone = "https://signicat.com#postpone",
                     Notifications = new List<TaskNotification>()
                     {
                         new TaskNotification()
@@ -105,16 +102,16 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
             {
                 new PackagingTask()
                 {
-                    Id = packagingTaskId,
+                    Id = _packagingTaskId,
                     Method = "pades",
                     Documents = new List<PackagingTaskDocument>()
                     {
                         new PackagingTaskDocument()
                         {
-                            TaskId = taskId,
+                            TaskId = _taskId,
                             DocumentIds = new List<string>()
                             {
-                                documents[0].Id.ToString()
+                                _documents[0].Id.ToString()
                             },
                         },
                     },
@@ -137,15 +134,15 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public void TestCreateSigninOrderSuccess()
     {
 
-        var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
+        var documentId = _service.UploadSessionDocument("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
 
-        var response = _service.Create(validSignRequest);
+        var response = _service.Create(_validSignRequest);
         Assert.IsNotEmpty(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
 
@@ -155,37 +152,37 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public async Task TestCreateSigninOrderSuccessAsync()
     {
 
-        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
+        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
-        var response = await _service.CreateAsync(validSignRequest);
+        var response = await _service.CreateAsync(_validSignRequest);
 
         Assert.IsNotEmpty(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
     }
 
     [Test]
     public void TestGetTaskStatusSuccess()
     {
 
-        var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
+        var documentId = _service.UploadSessionDocument("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
 
-        var response = _service.Create(validSignRequest);
+        var response = _service.Create(_validSignRequest);
 
         Assert.IsNotNull(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         Console.WriteLine(response.Id);
-        var taskResponseInfo = _service.GetTaskStatus(response.Id, taskId);
+        var taskResponseInfo = _service.GetTaskStatus(response.Id, _taskId);
 
         Assert.IsNotNull(taskResponseInfo);
 
-        Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
+        Assert.That(taskResponseInfo.TaskId, Is.EqualTo(_taskId));
 
         Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(taskResponseInfo));
 
@@ -195,22 +192,22 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public async Task TestGetTaskStatusSuccessAsync()
     {
 
-        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
+        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
 
-        var response = await _service.CreateAsync(validSignRequest);
+        var response = await _service.CreateAsync(_validSignRequest);
         Assert.IsNotNull(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
-        var taskResponseInfo = await _service.GetTaskStatusAsync(response.Id, taskId);
+        var taskResponseInfo = await _service.GetTaskStatusAsync(response.Id, _taskId);
 
         Assert.IsNotNull(taskResponseInfo);
 
-        Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
+        Assert.That(taskResponseInfo.TaskId, Is.EqualTo(_taskId));
 
         Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(taskResponseInfo));
 
@@ -220,15 +217,15 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public void TestGetGetOrderSuccess()
     {
 
-        var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
+        var documentId = _service.UploadSessionDocument("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
-        Console.WriteLine(taskId);
-        var response = _service.Create(validSignRequest);
+        Console.WriteLine(_taskId);
+        var response = _service.Create(_validSignRequest);
         Assert.IsNotNull(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         
         Console.WriteLine(response.Id);
         var order = _service.GetOrder(response.Id);
@@ -236,22 +233,22 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
         Assert.IsNotNull(order);
 
         Assert.That(order.Id, Is.EqualTo(response.Id));
-        Assert.That(order.Tasks.First().Id, Is.EqualTo(validSignRequest.Tasks.First().Id));
+        Assert.That(order.Tasks.First().Id, Is.EqualTo(_validSignRequest.Tasks.First().Id));
     }
 
     [Test]
     public async Task TestGetGetOrderSuccessAsync()
     {
 
-        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
+        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
 
-        var response = await _service.CreateAsync(validSignRequest);
+        var response = await _service.CreateAsync(_validSignRequest);
         Assert.IsNotNull(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         Console.WriteLine(response.Id);
         
         var order = await _service.GetOrderAsync(response.Id);
@@ -259,7 +256,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
         Assert.IsNotNull(order);
 
         Assert.That(order.Id, Is.EqualTo(response.Id));
-        Assert.That(order.Tasks.First().Id, Is.EqualTo(validSignRequest.Tasks.First().Id));
+        Assert.That(order.Tasks.First().Id, Is.EqualTo(_validSignRequest.Tasks.First().Id));
 
     }
 
@@ -268,19 +265,20 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public void TestGetTaskEventsSuccess()
     {
 
-        var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
+        var documentId = _service.UploadSessionDocument("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
 
-        Console.WriteLine(taskId);
-        var response = _service.Create(validSignRequest);
+        Console.WriteLine(_taskId);
+        var response = _service.Create(_validSignRequest);
         Assert.IsNotNull(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         
         
-        var taskEvents = _service.GetTaskEvents(response.Id, taskId);
+        var taskEvents = _service.GetTaskEvents(response.Id, _taskId);
         Assert.IsNotNull(taskEvents);
+        // ReSharper disable once PossibleMultipleEnumeration
         Assert.AreEqual(2, taskEvents.Count());
         Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(taskEvents));
     }
@@ -291,17 +289,17 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public async Task TestGetTaskEventsSuccessAsync()
     {
 
-        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
+        var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
         Assert.IsNotNull(documentId);
-        documentIds.Add(documentId.DocumentId);
-        documents.First().DocumentRef = documentId.DocumentId;
+        _documentIds.Add(documentId.DocumentId);
+        _documents.First().DocumentRef = documentId.DocumentId;
         
-        var response = await _service.CreateAsync(validSignRequest);
+        var response = await _service.CreateAsync(_validSignRequest);
         Assert.IsNotNull(response.Id);
         Console.WriteLine(response.Id);
-        signOrderIds.Add(response.Id);
+        _signOrderIds.Add(response.Id);
         
-        var taskEvents = await _service.GetTaskEventsAsync(response.Id, taskId);
+        var taskEvents = await _service.GetTaskEventsAsync(response.Id, _taskId);
         Assert.IsNotNull(taskEvents);
         Assert.AreEqual(2, taskEvents.Count());
 
@@ -311,13 +309,13 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public void TestDeleterSignOrderSuccess()
     {
 
-        var document = _service.UploadSessionDocument("dummy.pdf", fileData);
+        var document = _service.UploadSessionDocument("dummy.pdf", _fileData);
         Assert.IsNotNull(document);
-        documentIds.Add(document.DocumentId);
-        documents.First().DocumentRef = document.DocumentId;
+        _documentIds.Add(document.DocumentId);
+        _documents.First().DocumentRef = document.DocumentId;
 
-        Console.WriteLine(taskId);
-        var response = _service.Create(validSignRequest);
+        Console.WriteLine(_taskId);
+        var response = _service.Create(_validSignRequest);
         Assert.IsNotNull(response.Id);
         _service.DeleteSignOrder(response.Id);
 
@@ -328,13 +326,13 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     public async Task TestDeleteSignOrderSuccessAsync()
     {
 
-        var document = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
+        var document = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
         Assert.IsNotNull(document);
-        documentIds.Add(document.DocumentId);
-        documents.First().DocumentRef = document.DocumentId;
+        _documentIds.Add(document.DocumentId);
+        _documents.First().DocumentRef = document.DocumentId;
 
 
-        var response = await _service.CreateAsync(validSignRequest);
+        var response = await _service.CreateAsync(_validSignRequest);
 
         Assert.IsNotNull(response.Id);
         await _service.DeleteSignOrderAsync(response.Id);
@@ -343,16 +341,16 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     
 
     [Test]
-    public async Task TestCreateSigningOrderInvalidMapErrorCorrect()
+    public void TestCreateSigningOrderInvalidMapErrorCorrect()
     {
 
         var ex = Assert.ThrowsAsync<SignicatException>(async () =>
         {
-            var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
-            documents.First().DocumentRef = documentId.DocumentId;
-            documentIds.Add(documentId.DocumentId);
+            var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", _fileData);
+            _documents.First().DocumentRef = documentId.DocumentId;
+            _documentIds.Add(documentId.DocumentId);
 
-            var response = await _service.CreateAsync(new SigningOrderCreateOptions()
+            await _service.CreateAsync(new SigningOrderCreateOptions()
             {
                 ClientReference = Guid.NewGuid(),
                 DaysUntilDeletion = 1,
@@ -361,7 +359,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                 {
                     new SignatureTask()
                     {
-                        Id = taskId,
+                        Id = _taskId,
                         SignatureMethods = new List<SignatureMethod>()
                         {
                             new SignatureMethod()
@@ -370,7 +368,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                             },
 
                         },
-                        Authentication = new Services.Signing.Enterprise.Entities.Authentication()
+                        Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                         {
                             Methods = new List<string>()
                             {
@@ -390,11 +388,11 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                             }
                         },
                         Language = "nb",
-                        Documents = documents,
+                        Documents = _documents,
                         DaysToLive = 1,
-                        OnTaskComplete = "http://www.vg.no#success",
-                        OnTaskReject = "http://www.vg.no#reject",
-                        OnTaskPostpone = "http://www.vg.no#postpone",
+                        OnTaskComplete = "https://signicat.com#success",
+                        OnTaskReject = "https://signicat.com#reject",
+                        OnTaskPostpone = "https://signicat.com#postpone",
                         Notifications = new List<TaskNotification>()
                         {
                             new TaskNotification()
@@ -420,16 +418,16 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
                 {
                     new PackagingTask()
                     {
-                        Id = packagingTaskId,
+                        Id = _packagingTaskId,
                         Method = "pades",
                         Documents = new List<PackagingTaskDocument>()
                         {
                             new PackagingTaskDocument()
                             {
-                                TaskId = taskId,
+                                TaskId = _taskId,
                                 DocumentIds = new List<string>()
                                 {
-                                    documents[0].Id.ToString()
+                                    _documents[0].Id.ToString()
                                 },
                             },
                         },
@@ -449,6 +447,7 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
 
         });
 
+        Assert.That(ex, Is.Not.Null);
         Assert.That(ex.Error, Is.Not.Null);
         Assert.That(ex.Error.ValidationErrors, Is.Not.Empty);
         Assert.That(ex.HttpStatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
@@ -466,8 +465,8 @@ public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     [OneTimeTearDown]
     public async Task Cleanup()
     {
-        List<Task> tasks = documentIds.Select(documentId => _service.DeleteDocumentAsync(documentId)).ToList();
-        tasks.AddRange(signOrderIds.Select(orderId => _service.DeleteSignOrderAsync(orderId)));
+        List<Task> tasks = _documentIds.Select(documentId => _service.DeleteDocumentAsync(documentId)).ToList();
+        tasks.AddRange(_signOrderIds.Select(orderId => _service.DeleteSignOrderAsync(orderId)));
 
         await Task.WhenAll(tasks);
     }

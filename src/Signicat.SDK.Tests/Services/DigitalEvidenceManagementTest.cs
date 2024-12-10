@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
@@ -102,14 +100,10 @@ public class DigitalEvidenceManagementTest : BaseTest
         var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions()
         {
          
-            And = new DemRecordSearchQueryCondition[]
+            And = new[]
             {
-                new DemRecordSearchQueryCondition()
-                {
-                    Field = "metadata.hash",
-                    Operator = DemRecordSearchQueryOperator.Equal,
-                    Value = "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"
-                }
+                new DemRecordSearchQueryCondition(field: "metadata.hash", @operator: DemRecordSearchQueryOperator.Equal,
+                    value: "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3")
             }
             
         });
@@ -123,14 +117,10 @@ public class DigitalEvidenceManagementTest : BaseTest
         var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
         {
        
-            And = new DemRecordSearchQueryCondition[]
+            And = new[]
             {
-                new DemRecordSearchQueryCondition()
-                {
-                    Field = "metadata.identityProvider",
-                    Operator = DemRecordSearchQueryOperator.Equal,
-                    Value = "WayneEnterpriseCorporateId"
-                }
+                new DemRecordSearchQueryCondition(field: "metadata.identityProvider",
+                    @operator: DemRecordSearchQueryOperator.Equal, value: "WayneEnterpriseCorporateId")
             }
             
         });

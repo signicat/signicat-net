@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Signicat.Services.Signing.Express;
 using Signicat.Services.Signing.Express.Entities;
 
-namespace Signicat.SDK.Tests.Signing;
+namespace Signicat.SDK.Tests.Services.Signing;
 
 [TestFixture]
 public class ExpressSignatureServiceTest : BaseTest
@@ -103,7 +103,7 @@ public class ExpressSignatureServiceTest : BaseTest
         var opts = new AttachmentOptions()
         {
             FileName = "a.txt",
-            Title = "Attahment 1",
+            Title = "Attachment 1",
             Data = "VGhpcyB0ZXh0IGNhbiBzYWZlbHkgYmUgc2lnbmVk",
             ConvertToPdf = true
         };
@@ -132,12 +132,13 @@ public class ExpressSignatureServiceTest : BaseTest
     }
     
     [Test]
-    public async Task H_CreateDocumentInvalidMapErrorCorrectAsync()
+    public void H_CreateDocumentInvalidMapErrorCorrectAsync()
     {
         _options.Title = null;
         var error = Assert.ThrowsAsync<SignicatException>(async () =>
             await _expressSignatureService.CreateDocumentAsync(_options));
-
+        
+        Assert.IsNotNull(error);
         Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(error.Error));
         Assert.That(error.HttpStatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         
@@ -149,7 +150,7 @@ public class ExpressSignatureServiceTest : BaseTest
     [Test]
     public async Task Z_CancelDocumentAsync()
     {
-        await _expressSignatureService.CancelDocumentAsync(_documentId, "Tesing");
+        await _expressSignatureService.CancelDocumentAsync(_documentId, "Testing");
         var doc = await _expressSignatureService.GetDocumentAsync(_documentId);
         await Task.Delay(2000);
         Assert.IsNotNull(doc);

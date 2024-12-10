@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Moq;
 using NUnit.Framework;
 using Signicat.SDK.Tests.Helpers;
 using Signicat.Services.Signing.Enterprise;
 
-namespace Signicat.SDK.Tests.Signing;
+namespace Signicat.SDK.Tests.Services.Signing;
 
 public class EnterpriseSigningTestDocumentEndpoints: BaseTest
 {
@@ -30,7 +29,7 @@ public class EnterpriseSigningTestDocumentEndpoints: BaseTest
     [Test]
     public async Task UploadSessionDocumentAsyncShouldReturnNotNull()
     {
-        var result = await _service.UploadSessionDocumentAsync("dummy.pdf", File.ReadAllBytes(@"Services/Signing/dummy.pdf"));
+        var result = await _service.UploadSessionDocumentAsync("dummy.pdf", await File.ReadAllBytesAsync(@"Services/Signing/dummy.pdf"));
         Assert.That(result.DocumentId,Is.Not.Empty);
         Console.WriteLine(result.DocumentId);
     }
@@ -66,6 +65,7 @@ public class EnterpriseSigningTestDocumentEndpoints: BaseTest
         var result = _service.UploadSessionDocument("dummy.pdf", fileData);
 
         var document = _service.GetDocument(result.DocumentId);
+        Assert.IsNotNull(document);
         
         _service.DeleteDocument(result.DocumentId);
     }

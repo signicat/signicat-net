@@ -171,7 +171,7 @@ namespace Signicat.Infrastructure
 
             if (string.IsNullOrWhiteSpace(jsonBody) && formData != null)
             {
-                postData = APIHelper.ToQueryString(formData).Substring(1);
+                postData = ApiHelper.ToQueryString(formData).Substring(1);
                 contentType = "application/x-www-form-urlencoded";
             }
 
