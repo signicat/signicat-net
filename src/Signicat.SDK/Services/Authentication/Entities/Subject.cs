@@ -19,6 +19,11 @@ namespace Signicat.Authentication
         ///     The idp identifier of the subject.
         /// </summary>
         public string IdpId { get; set; }
+        
+        /// <summary>
+        ///     The full name of the subject.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         ///     The first name of the subject.
