@@ -16,7 +16,7 @@ public class TestApiService : SignicatBaseService
 
     public async Task CallEndpointThatThisClientDoNotHavePermssionsToCall()
     {
-        await GetAsync<object>($"{Urls.BaseUrl}/auth/open/config/apis");
+        await GetAsync<object>($"{Urls.BaseUrl}/auth/open/config/clients");
     }
 
     public async Task CallEndpointWithoutCredentials()
