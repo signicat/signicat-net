@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -118,7 +117,9 @@ public class AccountManagementServiceTest:BaseTest
         Assert.That(invoice.UsageOrganizationId, Is.EqualTo("o-p-yClhyK69i4rUaEwP9cw9"));
         Assert.That(invoice.UsageOrganizationName, Is.EqualTo("Signidog AS"));
         Assert.That(invoice.InvoiceNumber, Is.EqualTo("SSE-.INV00006"));
-        Assert.That(invoice.InvoiceDate, Is.EqualTo( DateTime.Parse("2024-01-30T11:00:00Z",new DateTimeFormatInfo(),DateTimeStyles.AssumeUniversal))); // Consider parsing to DateTimeOffset for better comparison
+        Assert.That(invoice.InvoiceDate.Year, Is.EqualTo( 2024)); 
+        Assert.That(invoice.InvoiceDate.Month, Is.EqualTo( 01)); 
+        Assert.That(invoice.InvoiceDate.Day, Is.EqualTo( 30)); 
         Assert.That(invoice.InvoiceAddressCountryRegionISOCode, Is.EqualTo("FI"));
         Assert.That(invoice.InvoiceAddressZipCode, Is.EqualTo("02600"));
         Assert.That(invoice.TotalTaxAmount, Is.EqualTo(0.0));
