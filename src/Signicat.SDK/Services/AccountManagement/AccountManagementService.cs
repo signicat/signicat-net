@@ -7,14 +7,35 @@ using Signicat.Services.AccountManagement.Entities;
 
 namespace Signicat.AccountManagement
 {
+    /// <summary>
+    /// Service that provides access to invoices. Requires an Organisation API client.
+    /// </summary>
     public class AccountManagementService : SignicatBaseService, IAccountManagementService
     {
         public AccountManagementService(string clientId, string clientSecret, string organisationId):base(clientId,clientSecret,organisationId)
         {
+            if (!string.IsNullOrEmpty(clientId) && !clientId.StartsWith("org-"))
+            {
+                throw new ArgumentException("You must use an API Client on Organisation level to use the invoice endpoint", nameof(clientId));
+            }
+
+            if (string.IsNullOrWhiteSpace(organisationId) || !organisationId.StartsWith("o-"))
+            {
+                throw new ArgumentException("Organisation ID must start with 'o-' and is required to use the invoice endpoint", nameof(organisationId));
+            }
         }
         
         public AccountManagementService(string organisationId) : base(organisationId)
         {
+            if (string.IsNullOrWhiteSpace(organisationId) || !organisationId.StartsWith("o-"))
+            {
+                throw new ArgumentException("Organisation ID must start with 'o-' and is required to use the invoice endpoint", nameof(organisationId));
+            }
+            
+            if (!string.IsNullOrEmpty(SignicatConfiguration.ClientId) && !SignicatConfiguration.ClientId.StartsWith("org-"))
+            {
+                throw new Exception("You must use an API Client on Organisation level to use the invoice endpoint");
+            }
         }
         
         public async Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter = null)

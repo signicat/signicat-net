@@ -16,11 +16,28 @@ public class AccountManagementServiceTest:BaseTest
     private const string invoiceNumberToTestWith = "SSE-.INV00006";
     public AccountManagementServiceTest()
     {
-        SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_ID"),
-            Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_SECRET"));
         
-        
-        _accountManagementService = new AccountManagementService(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_ORGANISATIONID"));
+        _accountManagementService = new AccountManagementService(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_ID"),
+            Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_CLIENT_SECRET"),Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_ORGANISATIONID"));
+    }
+
+    [Test]
+    public void TestCreatingAccountManagementServiceWithoutOrganisationIdShouldThrowException()
+    {
+        Assert.Throws<ArgumentNullException>(() => _accountManagementService = new AccountManagementService(null));
+        Assert.Throws<ArgumentException>(() => _accountManagementService = new AccountManagementService(String.Empty));
+        Assert.Throws<ArgumentException>(() => _accountManagementService = new AccountManagementService("test"));
+    }
+    
+    [Test]
+    public void TestCreatingAccountManagementServiceWithNonOrganisationApiClientShouldThrowException()
+    {
+        var ex=Assert.Throws<ArgumentException>(() => _accountManagementService = new AccountManagementService(Environment.GetEnvironmentVariable("SIGNICAT_INVOICE_TEST_ORGANISATIONID"),Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
+            Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET")));
+
+        Assert.That(ex, Is.Not.Null);
+        Assert.That("You must use an API Client on Organisation level to use the invoice endpoint (Parameter 'clientId')", Is.EqualTo(ex.Message));
+
     }
 
     [Test]

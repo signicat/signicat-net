@@ -220,6 +220,41 @@ var document = await expressSignatureService.CreateDocumentAsync(signOptions);
 var document = await _expressSignatureService.GetDocumentAsync(documentId);
 ```
 
+## Management APIs
+
+### Account management
+##### Get the list of invoices
+```csharp
+var _accountManagementService = new AccountManagementService("my-orgaisationid"); // You can find this in the dashboard, starts with o-xxxxx
+
+var list =  _accountManagementService.ListInvoices(new DateTime(2024, 12, 31),new DateTime(2024, 1, 1)).ToArray(); 
+```
+
+##### Retrieve a single invoice 
+```csharp
+var _accountManagementService = new AccountManagementService("my-orgaisationid"); // You can find this in the dashboard, starts with o-xxxxx
+
+var invoice =  _accountManagementService.RetrieveInvoice("SSE-.INV00006"); 
+```
+
+##### Download an invoice as PDF
+```csharp
+var _accountManagementService = new AccountManagementService("my-orgaisationid"); // You can find this in the dashboard, starts with o-xxxxx
+
+Stream invoiceStream = await _accountManagementService.DownloadInvoiceAsync("SSE-.INV00006");
+var bytes = invoiceStream.ToByteArray();
+```
+
+### Usage
+This endpoint give you access to get all the usage transactions with filtering for your Organisation. 
+
+#### Get Usage transactions
+```csharp
+var _usageService = new UsageService("my-orgaisationid"); // You can find this in the dashboard, starts with o-xxxxx
+
+var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31));
+```
+
 ## Support
 
 - Open an [issue](https://github.com/signicat/signicat-net/issues) to report bugs or submit feature requests.

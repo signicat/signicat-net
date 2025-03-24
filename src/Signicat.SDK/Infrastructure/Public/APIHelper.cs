@@ -26,10 +26,13 @@ namespace Signicat.Infrastructure
             {
                 DateTime => value.ToDateTime(dateFormat ?? DateTimeFormat),
                 DateTimeOffset => value.ToDateTimeOffset(dateFormat ?? DateTimeFormat),
-                bool  => value.ToString().ToLower(),
+                int => Int32.Parse(value.ToString()) >0 ? value.ToString() : null,
+                bool  => (value as bool?).GetValueOrDefault() ? "true" : null,
                 Enum @enum => value.ToEnumMemberString(),
                 _ => value.ToString()
             };
+            if (val == null || string.IsNullOrWhiteSpace(val))
+                return url;
             
             urlBuilder.Append(val);
             return urlBuilder.ToString();
@@ -46,30 +49,26 @@ namespace Signicat.Infrastructure
                 .Where(kvp => kvp.Value != null)
                 .Select(kvp =>
                 {
-                    string val;
-                    switch (kvp.Value)
+                    var val = kvp.Value switch
                     {
-                        case DateTime time:
-                            val = time.ToString(dateFormat ?? DateTimeFormat);
-                            break;
-                        case DateTimeOffset offset:
-                            val = offset.ToString(dateFormat ?? DateTimeFormat);
-                            break;
-                        case Enum @enum:
-                            val = kvp.Value.ToEnumMemberString();
-                            break;
-                        default:
-                            val = kvp.Value.ToString();
-                            break;
+                        DateTime time => time.ToString(dateFormat ?? DateTimeFormat),
+                        DateTimeOffset offset => offset.ToString(dateFormat ?? DateTimeFormat),
+                        Enum @enum => kvp.Value.ToEnumMemberString(),
+                        int => Int32.Parse(kvp.Value.ToString()) >0 ? kvp.Value.ToString() : null,
+                        bool => (kvp.Value as bool?).GetValueOrDefault() ? "true" : null,
+                        _ => kvp.Value.ToString()
+                    };
+                    if (val != null && !string.IsNullOrWhiteSpace(val))
+                    {
+                        return $"{kvp.Key}={val}";    
                     }
-
-                    return $"{kvp.Key}={val}";
+                    return String.Empty;
                 }));
 
             return string.IsNullOrWhiteSpace(q) ? url : $"{url}?{q}";
         }
 
-        public static string ToQueryString(NameValueCollection nvc)
+        internal static string ToQueryString(NameValueCollection nvc)
         {
             var array = (from key in nvc.AllKeys
                 from value in nvc.GetValues(key)
@@ -89,7 +88,7 @@ namespace Signicat.Infrastructure
             return time.ToString(dateFormat);
         }
 
-        public static string ToEnumMemberString(this object enumValue)
+        private static string ToEnumMemberString(this object enumValue)
         {
             var type = enumValue.GetType();
             var info = type.GetField(enumValue.ToString());

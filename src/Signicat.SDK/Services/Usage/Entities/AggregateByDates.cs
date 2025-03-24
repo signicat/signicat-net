@@ -4,7 +4,8 @@ namespace Signicat;
 
 public enum AggregateByDates
 {
-    [EnumMember(Value = "day")] DAY,
-    [EnumMember(Value = "month")] MONTH,
-    [EnumMember(Value = "year")] YEAR
+    [EnumMember(Value = "daily")] DAILY,
+    [EnumMember(Value = "monthly")] MONTHLY,
+    [EnumMember(Value = "quarterly")] QUARTERLY,
+    [EnumMember(Value = "yearly")] YEARLY
 }

@@ -58,6 +58,24 @@ public class APIHelperTest : BaseTest
     }
     
     [Test]
+    public void AppendsQueryParamInUrlWithIntParams()
+    {
+        string url = "https://api.signicat.com/someapi".AppendQueryParam("include", 16);
+        Assert.That(url, Is.Not.Empty);
+        Assert.That(url, Is.EqualTo("https://api.signicat.com/someapi?include=16"));
+        
+    }
+    
+    [Test]
+    public void DoesNotAppendsQueryParamInUrlWithIntParams0()
+    {
+        string url = "https://api.signicat.com/someapi".AppendQueryParam("include", 0);
+        Assert.That(url, Is.Not.Empty);
+        Assert.That(url, Is.EqualTo("https://api.signicat.com/someapi"));
+        
+    }
+    
+    [Test]
     public void AppendsQueryParamInUrlWithDateParams()
     {
         string url = "https://api.signicat.com/someapi".AppendQueryParam("from", DateTime.Now,"yyyy-MM-dd");
@@ -70,26 +88,26 @@ public class APIHelperTest : BaseTest
     [Test]
     public void AppendsQueryParamInUrlWithEnumParams()
     {
-        string url = "https://api.signicat.com/someapi".AppendQueryParam("aggregateByDate", AggregateByDates.MONTH);
+        string url = "https://api.signicat.com/someapi".AppendQueryParam("aggregateByDate", AggregateByDates.MONTHLY);
         Assert.That(url, Is.Not.Empty);
         Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
-        Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByDate=month"));
+        Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByDate=monthly"));
         
     }
     
     [Test]
     public void AppendsQueryParamInUrlWithEnumParamsSecond()
     {
-        string url = "https://api.signicat.com/someapi".AppendQueryParam("aggregateByLevel", AggregateByLevel.ORGANISATION);
+        string url = "https://api.signicat.com/someapi".AppendQueryParam("aggregateByLevel", AggregateByLevel.ORGANIZATION);
         Assert.That(url, Is.Not.Empty);
-        Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByLevel=organisation"));
+        Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByLevel=organization"));
         
     }
     
     [Test]
     public void AppendsQueryParamConditionalyShouldNotAddWhenFalse()
     {
-        string url = "https://api.signicat.com/someapi".AppendQueryParam(false, "aggregateByLevel", AggregateByLevel.ORGANISATION);
+        string url = "https://api.signicat.com/someapi".AppendQueryParam(false, "aggregateByLevel", AggregateByLevel.ORGANIZATION);
         Assert.That(url, Is.Not.Empty);
         Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
         Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi"));

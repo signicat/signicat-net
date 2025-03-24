@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Signicat.Entities;
 
@@ -8,12 +7,11 @@ namespace Signicat.Services.Usage;
 public interface IUsageService
 {
     /// <summary>
-    /// Get usage records async and paged
+    /// Get usage records page async 
     /// </summary>
-    /// <param name="next">Next pointer</param>
-    /// <param name="limit">How many records to fetch</param>
+    /// <param name="nextOrPrevious">Next or previous pointer</param>
     /// <returns></returns>
-    Task<UsagePaginationResult> GetUsageAsync(string next, int limit = 100);
+    Task<UsagePaginationResult> GetUsageAsync(string nextOrPrevious);
     
     /// <summary>
     /// Get usage records async for an Organisation
@@ -25,17 +23,17 @@ public interface IUsageService
     /// <param name="aggregateByLevel">Aggregate by Organisation or account level (account|organisation)</param>
     /// <param name="includeChildOrganisations">Include child Organisation, only relevant for partners with nested Organisation structures</param>
     /// <param name="limit">How many records to fetch</param>
+    /// <param name="offset">How many records to offset</param>
     /// <returns></returns>
     Task<UsagePaginationResult> GetUsageAsync(DateTime fromDate, DateTime? toDate = null, bool includeExternalReference = false, 
-        AggregateByDates? aggregateByDate = null, AggregateByLevel? aggregateByLevel = null, bool includeChildOrganisations = false, int limit = 100);
+        AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY, AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false, int limit = 0, int offset = 0);
     
     /// <summary>
-    /// Get usage records and paged
+    /// Get usage records page async
     /// </summary>
-    /// <param name="next">Next pointer</param>
-    /// <param name="limit">How many records to fetch</param>
+    /// <param name="nextOrPrevious">Next or previous pointer</param>
     /// <returns></returns>
-    UsagePaginationResult GetUsage(string next, int limit = 100);
+    UsagePaginationResult GetUsage(string nextOrPrevious);
     
     /// <summary>
     /// Get usage records for an Organisation
@@ -47,7 +45,8 @@ public interface IUsageService
     /// <param name="aggregateByLevel">Aggregate by Organisation or account level (account|organisation)</param>
     /// <param name="includeChildOrganisations">Include child Organisation, only relevant for partners with nested Organisation structures</param>
     /// <param name="limit">How many records to fetch</param>
+    /// <param name="offset">How many records to offset</param>
     /// <returns></returns>
     UsagePaginationResult GetUsage(DateTime fromDate, DateTime? toDate = null, bool includeExternalReference = false, 
-        AggregateByDates? aggregateByDate = null, AggregateByLevel? aggregateByLevel = null, bool includeChildOrganisations = false, int limit = 100);
+        AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY, AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false, int limit = 0, int offset = 0);
 }

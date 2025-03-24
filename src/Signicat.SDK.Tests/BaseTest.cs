@@ -24,9 +24,13 @@ public class BaseTest
     {
         // Triggers the lazy initialization
         var init = Initializer.Value;
+        
+        SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
+            Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
+        
     }
 
-    private static object Initialize()
+    protected static object Initialize()
     {
         _mockHttpClientHandler = new Mock<HttpClientHandler>
         {
@@ -39,6 +43,7 @@ public class BaseTest
 
         SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
             Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
+        SignicatConfiguration.OrganisationId = null;
 
         Console.WriteLine($"ClientId: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID")}, secret: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET")}");
 
