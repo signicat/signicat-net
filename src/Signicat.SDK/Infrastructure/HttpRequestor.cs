@@ -142,7 +142,6 @@ namespace Signicat.Infrastructure
                 }
                 if (!string.IsNullOrEmpty(organisationId) || !string.IsNullOrEmpty(SignicatConfiguration.OrganisationId))
                 {
-                    request.RequestUri = request.RequestUri.AddParameter("signicat-organisationId", organisationId ?? SignicatConfiguration.OrganisationId);
                     request.RequestUri = request.RequestUri.AddParameter("signicat-organizationId", organisationId ?? SignicatConfiguration.OrganisationId);
                 }
             }

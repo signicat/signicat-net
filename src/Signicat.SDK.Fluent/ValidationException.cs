@@ -1,3 +1,11 @@
-namespace Signicat;
+using System;
 
-public class ValidationException(string exceptionMessage) : Exception(exceptionMessage);
+namespace Signicat
+{
+    public class ValidationException : Exception
+    {
+        public ValidationException(string exceptionMessage) : base(exceptionMessage)
+        {
+        }
+    }
+}

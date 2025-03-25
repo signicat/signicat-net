@@ -3,33 +3,34 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Information;
 
-namespace Signicat.SDK.Tests;
-
-public class InformationServiceTest : BaseTest
+namespace Signicat.SDK.Tests
 {
-    private IInformationService _informationService;
-
-    [SetUp]
-    public void Setup()
+    public class InformationServiceTest : BaseTest
     {
-        _informationService = new InformationService();
-    }
+        private IInformationService _informationService;
 
-    [Test]
-    public async Task TestBrregAsync()
-    {
-        var result = await _informationService.GetBasicOrganizationInfoAsync("NO", "989584022");
+        [SetUp]
+        public void Setup()
+        {
+            _informationService = new InformationService();
+        }
 
-        Assert.That(result, Is.Not.Null);
-        Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
-    }
+        [Test]
+        public async Task TestBrregAsync()
+        {
+            var result = await _informationService.GetBasicOrganizationInfoAsync("NO", "989584022");
 
-    [Test]
-    public void TestBrreg()
-    {
-        var result = _informationService.GetBasicOrganizationInfo("NO", "989584022");
+            Assert.That(result, Is.Not.Null);
+            Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
+        }
 
-        Assert.That(result, Is.Not.Null);
-        Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
+        [Test]
+        public void TestBrreg()
+        {
+            var result = _informationService.GetBasicOrganizationInfo("NO", "989584022");
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That("Signicat AS".Equals(result.Name, StringComparison.CurrentCultureIgnoreCase), Is.True);
+        }
     }
 }

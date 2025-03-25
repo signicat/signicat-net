@@ -1,10 +1,11 @@
 using System.Runtime.Serialization;
 
-namespace Signicat;
-
-public enum AggregateByLevel
+namespace Signicat
 {
-    [EnumMember(Value = "account")] ACCOUNT,
-    [EnumMember(Value = "organization")] ORGANIZATION,
+    public enum AggregateByLevel
+    {
+        [EnumMember(Value = "account")] ACCOUNT,
+        [EnumMember(Value = "organization")] ORGANIZATION,
     
+    }
 }

@@ -16,7 +16,7 @@
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/signicat/signicat-net</RepositoryUrl>
-        <LangVersion>latestmajor</LangVersion>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="9.0.0" />

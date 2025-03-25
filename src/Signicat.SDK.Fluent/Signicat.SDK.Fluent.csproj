@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <VersionPrefix>1.12.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
@@ -20,7 +18,7 @@
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/signicat/signicat-net</RepositoryUrl>
-        <LangVersion>latestmajor</LangVersion>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
