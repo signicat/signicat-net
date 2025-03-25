@@ -31,6 +31,10 @@ jobs:
         env:
           SIGNICAT_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           SIGNICAT_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          SIGNICAT_INVOICE_TEST_CLIENT_ID: ${{ secrets.INVOICE_TEST_CLIENT_ID }}
+          SIGNICAT_INVOICE_TEST_CLIENT_SECRET: ${{ secrets.INVOICE_TEST_CLIENT_SECRET }}
+          SIGNICAT_INVOICE_TEST_ORGANISATIONID: ${{ secrets.INVOICE_TEST_ORGANISATIONID }}
+          SIGNICAT_USAGE_TEST_ORGANISATIONID: ${{ secrets.USAGE_TEST_ORGANISATIONID }}
 
       - name: Pack SDK
         run: dotnet pack src/Signicat.SDK -c Release -o .
