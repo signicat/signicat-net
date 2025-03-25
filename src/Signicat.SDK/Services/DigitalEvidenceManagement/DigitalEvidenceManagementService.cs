@@ -148,8 +148,8 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns></returns>
         public IEnumerable<string> GetCustomFields(RecordTypes? type = null)
         {
-            
-            return Get<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty: $"/{type}")}");
+            return Get<IEnumerable<string>>(
+                $"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty : $"/{type}")}");
         }
 
         /// <summary>
@@ -160,7 +160,8 @@ namespace Signicat.DigitalEvidenceManagement
         /// <returns></returns>
         public Task<IEnumerable<string>> GetCustomFieldsAsync(RecordTypes? type = null)
         {
-            return GetAsync<IEnumerable<string>>($"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty: $"/{type}")}");
+            return GetAsync<IEnumerable<string>>(
+                $"{Urls.Dem}/info/custom-fields{(type is null ? string.Empty : $"/{type}")}");
         }
 
         /// <summary>
@@ -173,7 +174,8 @@ namespace Signicat.DigitalEvidenceManagement
             using var ms = new MemoryStream();
             GetFile($"{Urls.Dem}/reports/{id}").CopyTo(ms);
             return ms.ToArray();
-        }   
+        }
+
 
         /// <summary>
         ///     Get report asynchronously

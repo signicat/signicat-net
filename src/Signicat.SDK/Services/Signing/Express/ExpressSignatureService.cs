@@ -12,7 +12,6 @@ namespace Signicat.Services.Signing.Express
     /// </summary>
     public class ExpressSignatureService : SignicatBaseService, IExpressSignatureService
     {
-
         public ExpressSignatureService(string clientId, string clientSecret)
             : base(clientId, clientSecret)
         {
@@ -20,7 +19,6 @@ namespace Signicat.Services.Signing.Express
 
         public ExpressSignatureService()
         {
-            
         }
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Post<Document>($"{Urls.ExpressSign}/documents", documentCreateOptions);
         }
-        
+
         /// <summary>
         /// Creates a new document.
         /// </summary>
@@ -62,7 +60,7 @@ namespace Signicat.Services.Signing.Express
         {
             return await PostAsync<Document>($"{Urls.ExpressSign}/documents", documentCreateOptions);
         }
-        
+
         /// <summary>
         /// Updates a document.
         /// </summary>
@@ -73,7 +71,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Patch<Document>($"{Urls.ExpressSign}/documents/{documentId}", documentUpdateOptions);
         }
-        
+
         /// <summary>
         /// Updates a document.
         /// </summary>
@@ -93,12 +91,12 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public void CancelDocument(Guid documentId, string reason = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
+            var url = $"{Urls.ExpressSign}/documents/{documentId}/cancel".AppendQueryParams(
                 new Dictionary<string, object>()
                 {
                     {"reason", reason}
                 });
-            
+
             Post(url);
         }
 
@@ -110,15 +108,15 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task CancelDocumentAsync(Guid documentId, string reason = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/cancel",
+            var url = $"{Urls.ExpressSign}/documents/{documentId}/cancel".AppendQueryParams(
                 new Dictionary<string, object>()
                 {
                     {"reason", reason}
                 });
-            
+
             await PostAsync(url);
         }
-        
+
         /// <summary>
         /// Retrieves the status of a document.
         /// </summary>
@@ -147,7 +145,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<DocumentSummary>($"{Urls.ExpressSign}/documents/{documentId}/summary");
         }
-        
+
         /// <summary>
         /// Retrieves information about a document.
         /// </summary>
@@ -189,7 +187,7 @@ namespace Signicat.Services.Signing.Express
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
                 new Dictionary<string, object>()
                 {
                     {"externalId", externalId},
@@ -206,10 +204,10 @@ namespace Signicat.Services.Signing.Express
                     {"offset", offset},
                     {"limit", limit}
                 });
-            
+
             return Get<CollectionWithPaging<DocumentSummary>>(url);
         }
-        
+
         /// <summary>
         /// Queries your documents using the provided parameters.
         /// </summary>
@@ -242,7 +240,7 @@ namespace Signicat.Services.Signing.Express
             int? offset = null,
             int? limit = null)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/summary",
                 new Dictionary<string, object>()
                 {
                     {"externalId", externalId},
@@ -259,7 +257,7 @@ namespace Signicat.Services.Signing.Express
                     {"offset", offset},
                     {"limit", limit}
                 });
-            
+
             return await GetAsync<CollectionWithPaging<DocumentSummary>>(url);
         }
 
@@ -273,7 +271,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<Signer>($"{Urls.ExpressSign}/documents/{documentId}/signers/{signerId}");
         }
-        
+
         /// <summary>
         /// Retrieves the details of a single signer.
         /// </summary>
@@ -295,7 +293,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Post<Signer>($"{Urls.ExpressSign}/documents/{documentId}/signers", signerOptions);
         }
-        
+
         /// <summary>
         /// Creates a new signer.
         /// </summary>
@@ -318,7 +316,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Patch<Signer>($"{Urls.ExpressSign}/documents/{documentId}/signers/{signerId}", signerOptions);
         }
-        
+
         /// <summary>
         /// Updates a signer.
         /// </summary>
@@ -340,7 +338,7 @@ namespace Signicat.Services.Signing.Express
         {
             Delete($"{Urls.ExpressSign}/documents/{documentId}/signers/{signerId}");
         }
-        
+
         /// <summary>
         /// Deletes a signer.
         /// </summary>
@@ -360,7 +358,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<List<Signer>>($"{Urls.ExpressSign}/documents/{documentId}/signers");
         }
-        
+
         /// <summary>
         /// Lists all signers of a document.
         /// </summary>
@@ -381,7 +379,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<Attachment>($"{Urls.ExpressSign}/documents/{documentId}/attachments/{attachmentId}");
         }
-        
+
         /// <summary>
         /// Retrieves the details of a single attachment.
         /// </summary>
@@ -403,7 +401,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Post<Attachment>($"{Urls.ExpressSign}/documents/{documentId}/attachments", attachmentOptions);
         }
-        
+
         /// <summary>
         /// Adds an attachment to the specified document.
         /// </summary>
@@ -428,7 +426,7 @@ namespace Signicat.Services.Signing.Express
             return Patch<Attachment>($"{Urls.ExpressSign}/documents/{documentId}/attachments/{attachmentId}",
                 attachmentOptions);
         }
-        
+
         /// <summary>
         /// Updates the specified attachment (Will only take affect if no one has signed the document yet).
         /// </summary>
@@ -436,7 +434,8 @@ namespace Signicat.Services.Signing.Express
         /// <param name="attachmentId"></param>
         /// <param name="attachmentOptions"></param>
         /// <returns></returns>
-        public async Task<Attachment> UpdateAttachmentAsync(Guid documentId, Guid attachmentId, AttachmentOptions attachmentOptions)
+        public async Task<Attachment> UpdateAttachmentAsync(Guid documentId, Guid attachmentId,
+            AttachmentOptions attachmentOptions)
         {
             return await PatchAsync<Attachment>($"{Urls.ExpressSign}/documents/{documentId}/attachments/{attachmentId}",
                 attachmentOptions);
@@ -451,7 +450,7 @@ namespace Signicat.Services.Signing.Express
         {
             Delete($"{Urls.ExpressSign}/documents/{documentId}/attachments/{attachmentId}");
         }
-        
+
         /// <summary>
         /// Deletes the specified attachment (Will only take affect if no one has signed the document yet).
         /// </summary>
@@ -471,7 +470,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<List<Attachment>>($"{Urls.ExpressSign}/documents/{documentId}/attachments");
         }
-        
+
         /// <summary>
         /// Returns a list of all attachments for the specified document.
         /// </summary>
@@ -490,15 +489,15 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetFile(Guid documentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return GetFile(url);
         }
-        
+
         /// <summary>
         /// Retrieves the signed document file.
         /// </summary>
@@ -507,12 +506,12 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetFileAsync(Guid documentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return await GetFileAsync(url);
         }
 
@@ -525,15 +524,15 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetFileForSigner(Guid documentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return GetFile(url);
         }
-        
+
         /// <summary>
         /// Retrieves the signed document file for the specified signer.
         /// </summary>
@@ -543,12 +542,12 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetFileForSignerAsync(Guid documentId, Guid signerId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
+            var url = ApiHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return await GetFileAsync(url);
         }
 
@@ -561,15 +560,16 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public Stream GetAttachmentFile(Guid documentId, Guid attachmentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
+            var url = ApiHelper.AppendQueryParams(
+                $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return GetFile(url);
         }
-        
+
         /// <summary>
         /// Retrieves the attachment file.
         /// </summary>
@@ -579,12 +579,13 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<Stream> GetAttachmentFileAsync(Guid documentId, Guid attachmentId, FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams($"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
+            var url = ApiHelper.AppendQueryParams(
+                $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return await GetFileAsync(url);
         }
 
@@ -596,15 +597,16 @@ namespace Signicat.Services.Signing.Express
         /// <param name="signerId"></param>
         /// <param name="fileFormat"></param>
         /// <returns></returns>
-        public Stream GetAttachmentFileForSigner(Guid documentId, Guid attachmentId, Guid signerId, FileFormat fileFormat)
+        public Stream GetAttachmentFileForSigner(Guid documentId, Guid attachmentId, Guid signerId,
+            FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return GetFile(url);
         }
 
@@ -616,15 +618,16 @@ namespace Signicat.Services.Signing.Express
         /// <param name="signerId"></param>
         /// <param name="fileFormat"></param>
         /// <returns></returns>
-        public async Task<Stream> GetAttachmentFileForSignerAsync(Guid documentId, Guid attachmentId, Guid signerId, FileFormat fileFormat)
+        public async Task<Stream> GetAttachmentFileForSignerAsync(Guid documentId, Guid attachmentId, Guid signerId,
+            FileFormat fileFormat)
         {
-            var url = APIHelper.AppendQueryParams(
+            var url = ApiHelper.AppendQueryParams(
                 $"{Urls.ExpressSign}/documents/{documentId}/files/attachments/{attachmentId}/signers/{signerId}",
                 new Dictionary<string, object>()
                 {
                     {"fileFormat", fileFormat}
                 });
-            
+
             return await GetFileAsync(url);
         }
 
@@ -637,7 +640,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<List<NotificationLogItem>>($"{Urls.ExpressSign}/documents/{documentId}/notifications");
         }
-        
+
         /// <summary>
         /// Returns a list of all notifications that has been sent / attempted sent for a document.
         /// </summary>
@@ -645,7 +648,8 @@ namespace Signicat.Services.Signing.Express
         /// <returns></returns>
         public async Task<List<NotificationLogItem>> ListNotificationsAsync(Guid documentId)
         {
-            return await GetAsync<List<NotificationLogItem>>($"{Urls.ExpressSign}/documents/{documentId}/notifications");
+            return await GetAsync<List<NotificationLogItem>>(
+                $"{Urls.ExpressSign}/documents/{documentId}/notifications");
         }
 
         /// <summary>
@@ -659,7 +663,7 @@ namespace Signicat.Services.Signing.Express
             return Post<ManualReminder>($"{Urls.ExpressSign}/documents/{documentId}/notifications/reminder",
                 manualReminder);
         }
-        
+
         /// <summary>
         /// Sends a reminder to the specified signers.
         /// </summary>
@@ -680,7 +684,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<List<ColorTheme>>($"{Urls.ExpressSign}/themes/list/themes");
         }
-        
+
         /// <summary>
         /// Returns a list of all color themes that can be used in the signature application.
         /// </summary>
@@ -698,7 +702,7 @@ namespace Signicat.Services.Signing.Express
         {
             return Get<List<Spinner>>($"{Urls.ExpressSign}/themes/list/spinners");
         }
-        
+
         /// <summary>
         /// Returns a list of all spinners that can be used in the signature application.
         /// </summary>
@@ -708,32 +712,39 @@ namespace Signicat.Services.Signing.Express
             return await GetAsync<List<Spinner>>($"{Urls.ExpressSign}/themes/list/spinners");
         }
 
-        public List<AppSignatureMethod> ListSignatureMethods(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments)
+        public List<AppSignatureMethod> ListSignatureMethods(SignatureMechanism mechanism, FileType fileType,
+            Language language, bool signableAttachments)
         {
-            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods", mechanism, fileType, language, signableAttachments);
+            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods", mechanism, fileType,
+                language, signableAttachments);
             return Get<List<AppSignatureMethod>>(url);
         }
 
-       
 
-        public Task<List<AppSignatureMethod>> ListSignatureMethodsAsync(SignatureMechanism mechanism, FileType fileType, Language language,
+        public Task<List<AppSignatureMethod>> ListSignatureMethodsAsync(SignatureMechanism mechanism, FileType fileType,
+            Language language,
             bool signableAttachments)
         {
-            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods", mechanism, fileType, language, signableAttachments);
+            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods", mechanism, fileType,
+                language, signableAttachments);
             return GetAsync<List<AppSignatureMethod>>(url);
         }
 
-        public List<AppSignatureMethod> ListSignatureMethodsForAccount(SignatureMechanism mechanism, FileType fileType, Language language,
+        public List<AppSignatureMethod> ListSignatureMethodsForAccount(SignatureMechanism mechanism, FileType fileType,
+            Language language,
             bool signableAttachments)
         {
-            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods/account", mechanism, fileType, language, signableAttachments);
+            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods/account", mechanism, fileType,
+                language, signableAttachments);
             return Get<List<AppSignatureMethod>>(url);
         }
 
-        public Task<List<AppSignatureMethod>> ListSignatureMethodsForAccountAsync(SignatureMechanism mechanism, FileType fileType, Language language,
+        public Task<List<AppSignatureMethod>> ListSignatureMethodsForAccountAsync(SignatureMechanism mechanism,
+            FileType fileType, Language language,
             bool signableAttachments)
         {
-            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods/account", mechanism, fileType, language, signableAttachments);
+            var url = ListSignMethodsUrlWithParams($"{Urls.ExpressSign}/signature-methods/account", mechanism, fileType,
+                language, signableAttachments);
             return GetAsync<List<AppSignatureMethod>>(url);
         }
 
@@ -750,7 +761,6 @@ namespace Signicat.Services.Signing.Express
         public Task<MerchantSignResponse> MerchantSignatureAsync(MerchantSignRequest request)
         {
             return PostAsync<MerchantSignResponse>($"{Urls.ExpressSign}/merchant/signature", request);
-
         }
 
         public MerchantSignResponse MerchantSignature(MerchantSignRequest request)
@@ -758,10 +768,11 @@ namespace Signicat.Services.Signing.Express
             return Post<MerchantSignResponse>($"{Urls.ExpressSign}/merchant/signature", request);
         }
 
-        private static string ListSignMethodsUrlWithParams(string url, SignatureMechanism mechanism, FileType fileType, Language language,
+        private static string ListSignMethodsUrlWithParams(string url, SignatureMechanism mechanism, FileType fileType,
+            Language language,
             bool signableAttachments)
         {
-            url = APIHelper.AppendQueryParams(url,
+            url = ApiHelper.AppendQueryParams(url,
                 new Dictionary<string, object>()
                 {
                     {"mechanism", mechanism},
@@ -771,7 +782,5 @@ namespace Signicat.Services.Signing.Express
                 });
             return url;
         }
-        
-        
     }
 }

@@ -6,7 +6,7 @@
         /// The country code.
         /// </summary>
         public string CountryCode { get; set; }
-    
+
         /// <summary>
         /// The mobile number.
         /// </summary>

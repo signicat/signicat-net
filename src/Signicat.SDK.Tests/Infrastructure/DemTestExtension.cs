@@ -1,56 +1,57 @@
 using Signicat.DigitalEvidenceManagement.Entities;
 
-namespace Signicat.SDK.Tests;
-
-public static class DemTestExtension
+namespace Signicat.SDK.Tests
 {
-    internal static bool IsTheSame(this DemRecordCreateOptions options, DemRecord record)
+    public static class DemTestExtension
     {
-        if (!options.Type.Equals(record.RecordType))
+        internal static bool IsTheSame(this DemRecordCreateOptions options, DemRecord record)
         {
-            return false;
-        }
-
-        if (!options.AuditLevel.Equals(record.AuditLevels))
-        {
-            return false;
-        }
-
-        if (options.Metadata != null)
-        {
-            foreach (var item in options.Metadata)
+            if (!options.Type.Equals(record.RecordType))
             {
-                if (!record.Metadata.ContainsKey(item.Key))
+                return false;
+            }
+
+            if (!options.AuditLevel.Equals(record.AuditLevels))
+            {
+                return false;
+            }
+
+            if (options.Metadata != null)
+            {
+                foreach (var item in options.Metadata)
+                {
+                    if (!record.Metadata.ContainsKey(item.Key))
+                    {
+                        return false;
+                    }
+
+                    if (item.Value is not object)
+                    {
+                        if (!item.Value.Equals(options.Metadata[item.Key]))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in options.CoreData)
+            {
+                if (!record.CoreData.ContainsKey(item.Key))
                 {
                     return false;
                 }
 
                 if (item.Value is not object)
                 {
-                    if (!item.Value.Equals(options.Metadata[item.Key]))
+                    if (!item.Value.Equals(options.CoreData[item.Key]))
                     {
                         return false;
                     }
                 }
             }
+
+            return true;
         }
-
-        foreach (var item in options.CoreData)
-        {
-            if (!record.CoreData.ContainsKey(item.Key))
-            {
-                return false;
-            }
-
-            if (item.Value is not object)
-            {
-                if (!item.Value.Equals(options.CoreData[item.Key]))
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

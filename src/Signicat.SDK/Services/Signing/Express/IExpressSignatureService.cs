@@ -384,7 +384,8 @@ namespace Signicat.Services.Signing.Express
         /// <param name="signerId"></param>
         /// <param name="fileFormat"></param>
         /// <returns></returns>
-        Task<Stream> GetAttachmentFileForSignerAsync(Guid documentId, Guid attachmentId, Guid signerId, FileFormat fileFormat);
+        Task<Stream> GetAttachmentFileForSignerAsync(Guid documentId, Guid attachmentId, Guid signerId,
+            FileFormat fileFormat);
 
         /// <summary>
         /// Returns a list of all notifications that has been sent / attempted sent for a document.
@@ -448,7 +449,8 @@ namespace Signicat.Services.Signing.Express
         /// <param name="language">Language for the title/description returned</param>
         /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
         /// <returns></returns>
-        List<AppSignatureMethod> ListSignatureMethods(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments);
+        List<AppSignatureMethod> ListSignatureMethods(SignatureMechanism mechanism, FileType fileType,
+            Language language, bool signableAttachments);
 
         /// <summary>
         /// Returns a list of all the supported signature-methods.
@@ -458,17 +460,8 @@ namespace Signicat.Services.Signing.Express
         /// <param name="language">Language for the title/description returned</param>
         /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
         /// <returns></returns>
-        Task<List<AppSignatureMethod>> ListSignatureMethodsAsync(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments);
-        
-        /// <summary>
-        /// Returns a list of all the supported signature-methods.
-        /// </summary>
-        /// <param name="mechanism">The available signature methods may differ between signature-mechanisms</param>
-        /// <param name="fileType">The available signature methods may differ between file-types</param>
-        /// <param name="language">Language for the title/description returned</param>
-        /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
-        /// <returns></returns>
-        List<AppSignatureMethod> ListSignatureMethodsForAccount(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments);
+        Task<List<AppSignatureMethod>> ListSignatureMethodsAsync(SignatureMechanism mechanism, FileType fileType,
+            Language language, bool signableAttachments);
 
         /// <summary>
         /// Returns a list of all the supported signature-methods.
@@ -478,7 +471,19 @@ namespace Signicat.Services.Signing.Express
         /// <param name="language">Language for the title/description returned</param>
         /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
         /// <returns></returns>
-        Task<List<AppSignatureMethod>> ListSignatureMethodsForAccountAsync(SignatureMechanism mechanism, FileType fileType, Language language, bool signableAttachments);
+        List<AppSignatureMethod> ListSignatureMethodsForAccount(SignatureMechanism mechanism, FileType fileType,
+            Language language, bool signableAttachments);
+
+        /// <summary>
+        /// Returns a list of all the supported signature-methods.
+        /// </summary>
+        /// <param name="mechanism">The available signature methods may differ between signature-mechanisms</param>
+        /// <param name="fileType">The available signature methods may differ between file-types</param>
+        /// <param name="language">Language for the title/description returned</param>
+        /// <param name="signableAttachments">When using signable attachments some signature-methods may not be available</param>
+        /// <returns></returns>
+        Task<List<AppSignatureMethod>> ListSignatureMethodsForAccountAsync(SignatureMechanism mechanism,
+            FileType fileType, Language language, bool signableAttachments);
 
         /// <summary>
         /// Validate redirect jwt which is included in signer redirects or web-messages
@@ -486,21 +491,21 @@ namespace Signicat.Services.Signing.Express
         /// <param name="request"></param>
         /// <returns></returns>
         JwtValidationResult ValidateRedirectJwt(JwtValidationRequest request);
-        
+
         /// <summary>
         /// Validate redirect jwt which is included in signer redirects or web-messages
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<JwtValidationResult> ValidateRedirectJwtAsync(JwtValidationRequest request);
-        
+
         /// <summary>
         /// Sign a document with a merchant (machine) signature only
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<MerchantSignResponse> MerchantSignatureAsync(MerchantSignRequest request);
-        
+
         /// <summary>
         /// Sign a document with a merchant (machine) signature only
         /// </summary>

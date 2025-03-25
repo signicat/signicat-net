@@ -1,32 +1,32 @@
 ﻿namespace Signicat.Services.Signing.Express.Entities
 {
-    public class SignerInfo 
+    public class SignerInfo
     {
         /// <summary>
         /// The signer's first name.
         /// </summary>
         public string FirstName { get; set; }
-    
+
         /// <summary>
         /// The signer's last name.
         /// </summary>
         public string LastName { get; set; }
-    
+
         /// <summary>
         /// The signer's email adress. Define this if you are using notifications.
         /// </summary>
         public string Email { get; set; }
-    
+
         /// <summary>
         /// Prefilled social security number.
         /// </summary>
         public string SocialSecurityNumber { get; set; }
-    
+
         /// <summary>
         /// The signer's mobile number. Define this if you are using notifications.
         /// </summary>
         public Mobile Mobile { get; set; }
-    
+
         /// <summary>
         /// The signer's organization info.
         /// </summary>

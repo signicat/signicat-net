@@ -16,13 +16,13 @@ namespace Signicat.Constants
         ///     User aborted the authentication process
         /// </summary>
         public const string Aborted = "ABORT";
-        
-        
+
+
         /// <summary>
         ///     Authentication process is cancelled
         /// </summary>
         public const string Cancelled = "CANCELLED";
-        
+
         /// <summary>
         ///     Authentication process is waiting for the user to response (example: to a auth request on the mobile)
         /// </summary>

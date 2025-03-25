@@ -9,7 +9,7 @@ namespace Signicat.Services.Signing.Express.Entities
         /// See our documentation for more information about these formats. The native package format is included automatically (i.e. BankID SDO).
         /// </summary>
         public List<SignaturePackageFormat> SignaturePackageFormats { get; set; }
-    
+
         /// <summary>
         /// PAdES settings that can be defined if the `"pades"` package format is selected.
         /// </summary>

@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Signicat
 {
-    
     internal class SignicatInternalError
     {
         /// <summary>
@@ -11,10 +10,9 @@ namespace Signicat
         /// </summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
-        
+
         //Express error property
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
+        [JsonPropertyName("message")] public string Message { get; set; }
 
         /// <summary>
         ///     A short machine readable string indicating the error code. Should be constant.
@@ -39,12 +37,11 @@ namespace Signicat
         /// </summary>
         [JsonPropertyName("traceId")]
         public string TraceId { get; set; }
-        
+
         //Express sign errors
-        [JsonPropertyName("errors")]
-        public IEnumerable<ExpressValidationError>  ExpressValidationErrors { get; set; }
-        
-        
+        [JsonPropertyName("errors")] public IEnumerable<ExpressValidationError> ExpressValidationErrors { get; set; }
+
+
         //Enterprise sign errors
         [JsonPropertyName("violations")]
         public IEnumerable<EnterpriseValidationError> EnterpriseValidationErrors { get; set; }
@@ -60,7 +57,7 @@ namespace Signicat
         [JsonPropertyName("error_description")]
         public string OAuthErrorDescription { get; set; }
     }
-    
+
     public class SignicatError
     {
         /// <summary>

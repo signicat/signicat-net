@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore dependencies
         run: dotnet restore src
@@ -30,3 +30,7 @@ jobs:
         env:
           SIGNICAT_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           SIGNICAT_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          SIGNICAT_INVOICE_TEST_CLIENT_ID: ${{ secrets.INVOICE_TEST_CLIENT_ID }}
+          SIGNICAT_INVOICE_TEST_CLIENT_SECRET: ${{ secrets.INVOICE_TEST_CLIENT_SECRET }}
+          SIGNICAT_INVOICE_TEST_ORGANISATIONID: ${{ secrets.INVOICE_TEST_ORGANISATIONID }}
+          SIGNICAT_USAGE_TEST_ORGANISATIONID: ${{ secrets.USAGE_TEST_ORGANISATIONID }}

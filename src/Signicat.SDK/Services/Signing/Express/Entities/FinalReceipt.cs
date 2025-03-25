@@ -8,12 +8,12 @@ namespace Signicat.Services.Signing.Express.Entities
         /// Determines if you want to include the signed main document as an attachment to the email notification. Not recommended for sensitive documents.
         /// </summary>
         public bool? IncludeSignedFile { get; set; }
-    
+
         /// <summary>
         /// A list of custom email texts to use for the notification. Default texts will be used if not specified.
         /// </summary>
         public List<Email> Email { get; set; }
-    
+
         /// <summary>
         /// A list of custom SMS texts to use for the notification. Default texts will be used if not specified.
         /// </summary>

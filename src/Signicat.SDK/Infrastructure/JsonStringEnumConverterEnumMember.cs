@@ -7,15 +7,14 @@ using System.Text.Json.Serialization;
 
 public class JsonStringEnumConverterEnumMember<TEnum> : JsonConverter<TEnum>
 {
-
     private readonly Dictionary<TEnum, string> _enumToString = new();
     private readonly Dictionary<string, TEnum> _stringToEnum = new();
-    private readonly Dictionary<int, TEnum> _numberToEnum = new ();
+    private readonly Dictionary<int, TEnum> _numberToEnum = new();
 
     public JsonStringEnumConverterEnumMember()
     {
         var type = typeof(TEnum);
-           
+
         foreach (TEnum value in Enum.GetValues(type))
         {
             var enumMember = type.GetMember(value.ToString())[0];
@@ -24,7 +23,7 @@ public class JsonStringEnumConverterEnumMember<TEnum> : JsonConverter<TEnum>
                 .FirstOrDefault();
 
             _stringToEnum.Add(value.ToString(), value);
-            var num =Convert.ToInt32( type.GetField("value__")
+            var num = Convert.ToInt32(type.GetField("value__")
                 .GetValue(value));
             if (attr?.Value != null)
             {
@@ -50,7 +49,7 @@ public class JsonStringEnumConverterEnumMember<TEnum> : JsonConverter<TEnum>
                 return enumValue;
             }
         }
-        else  if (type == JsonTokenType.Number)
+        else if (type == JsonTokenType.Number)
         {
             var numValue = reader.GetInt32();
             _numberToEnum.TryGetValue(numValue, out var enumValue);

@@ -5,157 +5,159 @@ using NUnit.Framework;
 using Signicat.Authentication;
 using Signicat.Constants;
 
-namespace Signicat.SDK.Tests.Fluent;
-
-public class AuthenticationFluentBuilderTest
+namespace Signicat.SDK.Tests.Fluent
 {
-    [Test]
-    public void TestAllowedProvidersIsSet()
+    public class AuthenticationFluentBuilderTest
     {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.SwedishBankID)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestAllowedProvidersIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.SwedishBankID)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.AllowedProviders.Count);
-        Assert.IsTrue(options.AllowedProviders.Contains("nbid"));
-        Assert.IsTrue(options.AllowedProviders.Contains("sbid"));
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(2, Is.EqualTo(options.AllowedProviders.Count));
+            Assert.That(options.AllowedProviders.Contains("nbid"), Is.True);
+            Assert.That(options.AllowedProviders.Contains("sbid"), Is.True);
+        }
 
-    [Test]
-    public void TestLanguageIsSet()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithLanguage("no")
-            .BuildWithOutValidation();
+        [Test]
+        public void TestLanguageIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithLanguage("no")
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual("no", options.Language);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That("no", Is.EqualTo(options.Language));
+        }
 
-    [Test]
-    public void TestFlowIsSet()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithFlow(AuthenticationFlow.Headless)
-            .WithPrefilledInput(nin: "1")
-            .Build();
+        [Test]
+        public void TestFlowIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithFlow(AuthenticationFlow.Headless)
+                .WithPrefilledInput(nin: "1")
+                .Build();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(AuthenticationFlow.Headless, Is.EqualTo(options.Flow));
+        }
 
-    [Test]
-    public void TestFlowIsSetToHeadless()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithPrefilledInput("test@test.com")
-            .WithFlow(AuthenticationFlow.Headless)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestFlowIsSetToHeadless()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithPrefilledInput("test@test.com")
+                .WithFlow(AuthenticationFlow.Headless)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(AuthenticationFlow.Headless, options.Flow);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(AuthenticationFlow.Headless, Is.EqualTo(options.Flow));
+        }
 
 
-    [Test]
-    public void TestRequestedAttributesIsSet()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestRequestedAttributesIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(2, options.RequestedAttributes.Count);
-        Assert.IsTrue(options.RequestedAttributes.Contains(RequestedAttributes.FirstName));
-        Assert.IsTrue(options.RequestedAttributes.Contains(RequestedAttributes.LastName));
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(2, Is.EqualTo(options.RequestedAttributes.Count));
+            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.FirstName), Is.True);
+            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.LastName), Is.True);
+        }
 
-    [Test]
-    public void TestCallbackUrlsIsSet()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithCallbackUrls("success", "abort", "error")
-            .Build();
+        [Test]
+        public void TestCallbackUrlsIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithCallbackUrls("success", "abort", "error")
+                .Build();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual("success", options.CallbackUrls.Success);
-        Assert.AreEqual("abort", options.CallbackUrls.Abort);
-        Assert.AreEqual("error", options.CallbackUrls.Error);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That("success", Is.EqualTo(options.CallbackUrls.Success));
+            Assert.That("abort", Is.EqualTo(options.CallbackUrls.Abort));
+            Assert.That("error", Is.EqualTo(options.CallbackUrls.Error));
+        }
 
-    [Test]
-    public void TestExternalReferenceIsSet()
-    {
-        var externalRef = Guid.NewGuid().ToString();
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithExternalReference(externalRef)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestExternalReferenceIsSet()
+        {
+            var externalRef = Guid.NewGuid().ToString();
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithExternalReference(externalRef)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(externalRef, options.ExternalReference);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(externalRef, Is.EqualTo(options.ExternalReference));
+        }
 
-    [Test]
-    public void TestSessionLifeTimeIsSet()
-    {
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithSessionLifetime(95)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestSessionLifeTimeIsSet()
+        {
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithSessionLifetime(95)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(95, options.SessionLifetime);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(95, Is.EqualTo(options.SessionLifetime));
+        }
 
-    [Test]
-    public void TestThemeIdIsSet()
-    {
-        var theme = Guid.NewGuid().ToString();
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithThemeId(theme)
-            .BuildWithOutValidation();
+        [Test]
+        public void TestThemeIdIsSet()
+        {
+            var theme = Guid.NewGuid().ToString();
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithThemeId(theme)
+                .BuildWithOutValidation();
 
-        Assert.IsNotNull(options);
-        Assert.AreEqual(theme, options.ThemeId);
-    }
+            Assert.That(options, Is.Not.Null);
+            Assert.That(theme, Is.EqualTo(options.ThemeId));
+        }
 
-    [Test]
-    public void TestBuildErrorIfCallbackAreNotSetForRedirect()
-    {
-        var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
-            .WithFlow(AuthenticationFlow.Redirect)
-            .Build());
-        Assert.AreEqual("Abort url must be set when using flow redirect", exception.Message);
-    }
+        [Test]
+        public void TestBuildErrorIfCallbackAreNotSetForRedirect()
+        {
+            var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
+                .WithFlow(AuthenticationFlow.Redirect)
+                .Build());
+            Assert.That("Abort url must be set when using flow redirect", Is.EqualTo(exception.Message));
+        }
 
-    [Test]
-    public void TestBuildErrorIfPrefilledInputNotSetForRedirect()
-    {
-        var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
-            .WithFlow(AuthenticationFlow.Headless)
-            .Build());
+        [Test]
+        public void TestBuildErrorIfPrefilledInputNotSetForRedirect()
+        {
+            var exception = Assert.Throws<ValidationException>(() => AuthenticationCreateOptionsBuilder.Create()
+                .WithFlow(AuthenticationFlow.Headless)
+                .Build());
 
-        Assert.AreEqual("One or more prefilled fields must be set when using flow headless", exception.Message);
-    }
+            Assert.That("One or more prefilled fields must be set when using flow headless",
+                Is.EqualTo(exception.Message));
+        }
 
-    [Test]
-    [Ignore("Only for show")]
-    public async Task PrintToConsoleFluentResult()
-    {
-        var authenticationService = new AuthenticationService("clientId", "secret");
+        [Test]
+        [Ignore("Only for show")]
+        public async Task PrintToConsoleFluentResult()
+        {
+            var authenticationService = new AuthenticationService("clientId", "secret");
 
-        var options = AuthenticationCreateOptionsBuilder.Create()
-            .WithFlow(AuthenticationFlow.Redirect)
-            .WithCallbackUrls("https://myservice.com/success", "https://myservice.com/abort",
-                "https://myservice.com/error")
-            .WithLanguage("no")
-            .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.iDIN)
-            .WithExternalReference(Guid.NewGuid().ToString())
-            .WithThemeId("ab1212")
-            .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName,
-                RequestedAttributes.NationalIdentifierNumber)
-            .Build();
+            var options = AuthenticationCreateOptionsBuilder.Create()
+                .WithFlow(AuthenticationFlow.Redirect)
+                .WithCallbackUrls("https://myservice.com/success", "https://myservice.com/abort",
+                    "https://myservice.com/error")
+                .WithLanguage("no")
+                .WithAllowedProviders(AllowedProviderTypes.NorwegianBankId, AllowedProviderTypes.iDIN)
+                .WithExternalReference(Guid.NewGuid().ToString())
+                .WithThemeId("ab1212")
+                .WithRequestedAttributes(RequestedAttributes.FirstName, RequestedAttributes.LastName,
+                    RequestedAttributes.NationalIdentifierNumber)
+                .Build();
 
-        var response = await authenticationService.CreateSessionAsync(options);
+            var response = await authenticationService.CreateSessionAsync(options);
+        }
     }
 }

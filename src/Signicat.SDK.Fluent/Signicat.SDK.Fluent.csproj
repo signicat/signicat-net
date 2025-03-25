@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <VersionPrefix>1.12.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
@@ -20,10 +18,11 @@
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/signicat/signicat-net</RepositoryUrl>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj" />
+        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj"/>
     </ItemGroup>
 
 </Project>
