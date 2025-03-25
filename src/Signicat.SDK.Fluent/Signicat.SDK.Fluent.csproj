@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>1.12.0</VersionPrefix>
+        <VersionPrefix>1.13.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API fluent builder addon</Description>
         <Authors>Signicat AS</Authors>
@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj"/>
+        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj" />
     </ItemGroup>
 
 </Project>
