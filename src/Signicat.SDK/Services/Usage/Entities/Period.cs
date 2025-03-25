@@ -1,7 +1,7 @@
 #nullable enable
 namespace Signicat.Services.Usage.Entities
 {
-    public record Periode
+    public record Period
     {
         /// <summary>
         /// First date

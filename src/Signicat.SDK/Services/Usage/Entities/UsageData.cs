@@ -63,6 +63,6 @@ namespace Signicat.Services.Usage.Entities
         /// <summary>
         /// Period of dates
         /// </summary>
-        public Periode Periode { get; set; } = new Periode();
+        public Period Period { get; set; } = new Period();
     }
 }

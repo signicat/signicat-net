@@ -136,7 +136,6 @@ namespace Signicat.Infrastructure
 
             if (!string.IsNullOrEmpty(organisationId) || !string.IsNullOrEmpty(SignicatConfiguration.OrganisationId))
             {
-                request.Headers.Add("Signicat-OrganisationId", organisationId ?? SignicatConfiguration.OrganisationId);
                 request.Headers.Add("Signicat-OrganizationId", organisationId ?? SignicatConfiguration.OrganisationId);
             }
 
