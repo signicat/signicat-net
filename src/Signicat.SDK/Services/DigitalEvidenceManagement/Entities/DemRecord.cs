@@ -30,7 +30,7 @@ namespace Signicat.DigitalEvidenceManagement.Entities
                 return null;
             }
         }
-        
+
         /// <summary>
         ///     Can contain any amount of data which will then be searchable in future queries.
         /// </summary>
@@ -76,8 +76,8 @@ namespace Signicat.DigitalEvidenceManagement.Entities
                 return null;
             }
         }
-        
-        public Dictionary<string,DemLinks> Links { get; set; }
+
+        public Dictionary<string, DemLinks> Links { get; set; }
     }
 
     public record DemTimestampData

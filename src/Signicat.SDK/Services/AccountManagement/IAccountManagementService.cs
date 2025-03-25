@@ -14,8 +14,9 @@ namespace Signicat.AccountManagement
         /// <param name="invoiceDateBefore"></param>
         /// <param name="invoiceDateAfter"></param>
         /// <returns></returns>
-        Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore, DateTime? invoiceDateAfter = null);
-        
+        Task<IEnumerable<InvoiceListItem>> ListInvoicesAsync(DateTime? invoiceDateBefore,
+            DateTime? invoiceDateAfter = null);
+
         /// <summary>
         /// List invoices
         /// </summary>
@@ -30,7 +31,7 @@ namespace Signicat.AccountManagement
         /// <param name="invoiceNumber">The invoice number</param>
         /// <returns></returns>
         Task<Invoice> RetrieveInvoiceAsync(string invoiceNumber);
-        
+
         /// <summary>
         /// Retrieve single invoice with details and lines
         /// </summary>
@@ -44,8 +45,8 @@ namespace Signicat.AccountManagement
         /// <param name="invoiceNumber">The invoice number</param>
         /// <returns>Byte array containing the invoice PDF</returns>
         Task<Stream> DownloadInvoiceAsync(string invoiceNumber);
-        
-        
+
+
         /// <summary>
         /// Downloads the invoice PDF file
         /// </summary>

@@ -26,19 +26,20 @@ namespace Signicat.SDK.Tests.Services
         [Test]
         public async Task GetUsageForOrganisationAsync()
         {
-            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),limit:10);
-        
+            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
+                limit: 10);
+
             Assert.That(usage.Next, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
-
         }
-    
+
         [Test]
         public async Task GetUsageForOrganisationUsingNextLinkAsync()
         {
-            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),limit:10);
-        
+            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
+                limit: 10);
+
             Assert.That(usage.Next, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
@@ -50,100 +51,91 @@ namespace Signicat.SDK.Tests.Services
             usage = await _usageService.GetNextAsync(usage);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
-
         }
-    
-    
 
-    
+
         [Test]
         public async Task GetUsageForOrganisationAggregatedOnOrganisationAccountIdShouldBeNullAsync()
         {
-            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31), aggregateByLevel:AggregateByLevel.ORGANIZATION);
-        
+            var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
+                aggregateByLevel: AggregateByLevel.ORGANIZATION);
+
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
             {
                 Assert.That(usageData.AccountId, Is.Null);
             }
-
         }
-    
+
         [Test]
         public async Task GetUsageForOrganisationAggregatedOnAccountLevelAccountIdShouldNotBeNullAsync()
         {
             var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel:AggregateByLevel.ACCOUNT);
-        
+                aggregateByLevel: AggregateByLevel.ACCOUNT);
+
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
             {
                 Assert.That(usageData.AccountId, Is.Not.Null.Or.Empty);
-                Assert.That(usageData.AccountId!.StartsWith("a-"),Is.True);
+                Assert.That(usageData.AccountId!.StartsWith("a-"), Is.True);
             }
-
         }
-    
-    
+
+
         [Test]
         public void GetUsageForOrganisation()
         {
-            var usage =  _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),limit:10);
-        
+            var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31), limit: 10);
+
             Assert.That(usage.Next, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
-
         }
-    
+
         [Test]
         public void GetUsageForOrganisationUsingNextLink()
         {
-            var usage =  _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),limit:10);
-        
+            var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31), limit: 10);
+
             Assert.That(usage.Next, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
 
-            usage =  _usageService.GetUsage(usage.Next);
+            usage = _usageService.GetUsage(usage.Next);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
 
-            usage =  _usageService.GetNext(usage);
+            usage = _usageService.GetNext(usage);
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             Assert.That(usage.Data.Count(), Is.EqualTo(10));
-
         }
-    
-    
 
-    
+
         [Test]
         public void GetUsageForOrganisationAggregatedOnOrganisationAccountIdShouldBeNull()
         {
-            var usage =  _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31), aggregateByLevel:AggregateByLevel.ORGANIZATION);
-        
+            var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
+                aggregateByLevel: AggregateByLevel.ORGANIZATION);
+
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
             {
                 Assert.That(usageData.AccountId, Is.Null);
             }
-
         }
-    
+
         [Test]
         public void GetUsageForOrganisationAggregatedOnAccountLevelAccountIdShouldNotBeNull()
         {
-            var usage =  _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel:AggregateByLevel.ACCOUNT);
-        
+            var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
+                aggregateByLevel: AggregateByLevel.ACCOUNT);
+
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
             {
                 Assert.That(usageData.AccountId, Is.Not.Null.Or.Empty);
-                Assert.That(usageData.AccountId!.StartsWith("a-"),Is.True);
+                Assert.That(usageData.AccountId!.StartsWith("a-"), Is.True);
             }
-
         }
 
 
@@ -194,7 +186,7 @@ namespace Signicat.SDK.Tests.Services
         {
             // Arrange
             var fromDate = new DateTime(2023, 5, 1);
-        
+
             // Act
             var result = UsageService.BuildUrl(fromDate, includeExternalReference: true);
 
@@ -250,7 +242,7 @@ namespace Signicat.SDK.Tests.Services
         {
             // Arrange
             var fromDate = new DateTime(2023, 5, 1);
-        
+
             // Act
             var result = UsageService.BuildUrl(fromDate, includeChildOrganisations: true);
 
@@ -264,7 +256,7 @@ namespace Signicat.SDK.Tests.Services
             StringAssert.DoesNotContain("&aggregateByLevel=", result);
             StringAssert.DoesNotContain("&limit=", result);
         }
-    
+
         [Test]
         public void BuildUrl_WithLimit_ShouldIncludeParameter()
         {
@@ -272,7 +264,7 @@ namespace Signicat.SDK.Tests.Services
             var fromDate = new DateTime(2023, 5, 1);
 
             // Act
-            var result = UsageService.BuildUrl(fromDate, limit:100);
+            var result = UsageService.BuildUrl(fromDate, limit: 100);
 
             // Assert
             StringAssert.StartsWith($"{Urls.UsageTransactions}?fromDate=2023-05-01", result);

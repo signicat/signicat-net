@@ -6,6 +6,5 @@ namespace Signicat
     {
         [EnumMember(Value = "account")] ACCOUNT,
         [EnumMember(Value = "organization")] ORGANIZATION,
-    
     }
 }

@@ -42,7 +42,6 @@ namespace Signicat.SDK.Tests.Signing
                     ExternalReference = Guid.NewGuid(),
                     Id = Guid.NewGuid(),
                     SendResultToArchive = true,
-
                 }
             };
 
@@ -64,7 +63,6 @@ namespace Signicat.SDK.Tests.Signing
                             {
                                 Handwritten = true
                             },
-
                         },
                         Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                         {
@@ -72,7 +70,6 @@ namespace Signicat.SDK.Tests.Signing
                             [
                                 "scid-sms"
                             ],
-
                         },
                         Language = "en",
                         Documents = documents,
@@ -136,7 +133,6 @@ namespace Signicat.SDK.Tests.Signing
         [Test]
         public void TestCreateSigninOrderSuccess()
         {
-
             var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -146,15 +142,13 @@ namespace Signicat.SDK.Tests.Signing
             var response = _service.Create(validSignRequest);
             Assert.That(response.Id, Is.Not.Empty);
             signOrderIds.Add(response.Id);
-        
-            Console.WriteLine(response.Id);
 
+            Console.WriteLine(response.Id);
         }
 
         [Test]
         public async Task TestCreateSigninOrderSuccessAsync()
         {
-
             var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -169,7 +163,6 @@ namespace Signicat.SDK.Tests.Signing
         [Test]
         public void TestGetTaskStatusSuccess()
         {
-
             var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -188,13 +181,11 @@ namespace Signicat.SDK.Tests.Signing
             Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
 
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(taskResponseInfo));
-
         }
 
         [Test]
         public async Task TestGetTaskStatusSuccessAsync()
         {
-
             var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -204,7 +195,7 @@ namespace Signicat.SDK.Tests.Signing
             var response = await _service.CreateAsync(validSignRequest);
             Assert.That(response.Id, Is.Not.Null);
             signOrderIds.Add(response.Id);
-        
+
             Console.WriteLine(response.Id);
             var taskResponseInfo = await _service.GetTaskStatusAsync(response.Id, taskId);
 
@@ -213,13 +204,11 @@ namespace Signicat.SDK.Tests.Signing
             Assert.That(taskResponseInfo.TaskId, Is.EqualTo(taskId));
 
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(taskResponseInfo));
-
         }
 
         [Test]
         public void TestGetGetOrderSuccess()
         {
-
             var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -229,7 +218,7 @@ namespace Signicat.SDK.Tests.Signing
             var response = _service.Create(validSignRequest);
             Assert.That(response.Id, Is.Not.Null);
             signOrderIds.Add(response.Id);
-        
+
             Console.WriteLine(response.Id);
             var order = _service.GetOrder(response.Id);
 
@@ -242,7 +231,6 @@ namespace Signicat.SDK.Tests.Signing
         [Test]
         public async Task TestGetGetOrderSuccessAsync()
         {
-
             var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -253,21 +241,19 @@ namespace Signicat.SDK.Tests.Signing
             Assert.That(response.Id, Is.Not.Null);
             signOrderIds.Add(response.Id);
             Console.WriteLine(response.Id);
-        
+
             var order = await _service.GetOrderAsync(response.Id);
 
             Assert.That(order, Is.Not.Null);
 
             Assert.That(order.Id, Is.EqualTo(response.Id));
             Assert.That(order.Tasks.First().Id, Is.EqualTo(validSignRequest.Tasks.First().Id));
-
         }
 
 
         [Test]
         public void TestGetTaskEventsSuccess()
         {
-
             var documentId = _service.UploadSessionDocument("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
@@ -277,8 +263,8 @@ namespace Signicat.SDK.Tests.Signing
             var response = _service.Create(validSignRequest);
             Assert.That(response.Id, Is.Not.Null);
             signOrderIds.Add(response.Id);
-        
-        
+
+
             var taskEvents = _service.GetTaskEvents(response.Id, taskId);
             Assert.That(taskEvents, Is.Not.Null);
             Assert.That(2, Is.EqualTo(taskEvents.Count()));
@@ -286,31 +272,27 @@ namespace Signicat.SDK.Tests.Signing
         }
 
 
-
         [Test]
         public async Task TestGetTaskEventsSuccessAsync()
         {
-
             var documentId = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
             Assert.That(documentId, Is.Not.Null);
             documentIds.Add(documentId.DocumentId);
             documents.First().DocumentRef = documentId.DocumentId;
-        
+
             var response = await _service.CreateAsync(validSignRequest);
             Assert.That(response.Id, Is.Not.Null);
             Console.WriteLine(response.Id);
             signOrderIds.Add(response.Id);
-        
+
             var taskEvents = await _service.GetTaskEventsAsync(response.Id, taskId);
             Assert.That(taskEvents, Is.Not.Null);
             Assert.That(2, Is.EqualTo(taskEvents.Count()));
-
         }
 
         [Test]
         public void TestDeleterSignOrderSuccess()
         {
-
             var document = _service.UploadSessionDocument("dummy.pdf", fileData);
             Assert.That(document, Is.Not.Null);
             documentIds.Add(document.DocumentId);
@@ -320,14 +302,11 @@ namespace Signicat.SDK.Tests.Signing
             var response = _service.Create(validSignRequest);
             Assert.That(response.Id, Is.Not.Null);
             _service.DeleteSignOrder(response.Id);
-
-
         }
 
         [Test]
         public async Task TestDeleteSignOrderSuccessAsync()
         {
-
             var document = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
             Assert.That(document, Is.Not.Null);
             documentIds.Add(document.DocumentId);
@@ -338,9 +317,8 @@ namespace Signicat.SDK.Tests.Signing
 
             Assert.That(response.Id, Is.Not.Null);
             await _service.DeleteSignOrderAsync(response.Id);
-
         }
-    
+
 
         [Test]
         public void TestCreateSigningOrderInvalidMapErrorCorrect()
@@ -367,7 +345,6 @@ namespace Signicat.SDK.Tests.Signing
                                 {
                                     Handwritten = true
                                 },
-
                             },
                             Authentication = new Signicat.Services.Signing.Enterprise.Entities.Authentication()
                             {
@@ -375,7 +352,6 @@ namespace Signicat.SDK.Tests.Signing
                                 {
                                     "scid-sms",
                                 },
-
                             },
                             Subject = new Subject()
                             {
@@ -445,21 +421,20 @@ namespace Signicat.SDK.Tests.Signing
                         }
                     }
                 });
-
             });
 
             Assert.That(ex.Error, Is.Not.Null);
             Assert.That(ex.Error.ValidationErrors, Is.Not.Empty);
             Assert.That(ex.HttpStatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
 
-            Assert.That(ex.Error.ValidationErrors.First().PropertyName, Is.EqualTo("tasks[0].subject.attributes[0].value"));
+            Assert.That(ex.Error.ValidationErrors.First().PropertyName,
+                Is.EqualTo("tasks[0].subject.attributes[0].value"));
             Assert.That(ex.Error.ValidationErrors.First().Reason, Is.EqualTo("Subject attribute value is required"));
 
             foreach (ValidationError validationError in ex.Error.ValidationErrors)
             {
                 Console.WriteLine($"{validationError.PropertyName}:{validationError.Reason}");
             }
-
         }
 
         [OneTimeTearDown]
@@ -470,7 +445,5 @@ namespace Signicat.SDK.Tests.Signing
 
             await Task.WhenAll(tasks);
         }
-
-
     }
 }

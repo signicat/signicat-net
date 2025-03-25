@@ -33,7 +33,6 @@ namespace Signicat.Infrastructure
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<MerchantEncodingFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<MerchantSigningFormat>());
             SerializerSettings.Converters.Add(new JsonStringEnumConverter(new UpperCaseNamingPolicy()));
-            
         }
 
         public static T MapFromJson<T>(string json)
@@ -69,16 +68,16 @@ namespace Signicat.Infrastructure
             }
 
             var legacyValidationErrors = new List<ValidationError>();
-            
+
             if (error.EnterpriseValidationErrors is not null)
             {
-                legacyValidationErrors.AddRange(error.EnterpriseValidationErrors.Select(validationError => 
+                legacyValidationErrors.AddRange(error.EnterpriseValidationErrors.Select(validationError =>
                     new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Property}));
             }
-            
+
             if (error.ExpressValidationErrors is not null)
             {
-                legacyValidationErrors.AddRange( error.ExpressValidationErrors.Select(validationError =>
+                legacyValidationErrors.AddRange(error.ExpressValidationErrors.Select(validationError =>
                     new ValidationError() {Reason = validationError.Message, PropertyName = validationError.Field}));
             }
 
@@ -89,11 +88,12 @@ namespace Signicat.Infrastructure
                 Detail = error.Detail,
                 Title = error.Title ?? error.Message,
                 TraceId = error.TraceId,
-                ValidationErrors = legacyValidationErrors.Any() ? error.ValidationErrors.Concat(legacyValidationErrors): error.ValidationErrors,
+                ValidationErrors = legacyValidationErrors.Any()
+                    ? error.ValidationErrors.Concat(legacyValidationErrors)
+                    : error.ValidationErrors,
                 OAuthError = error.OAuthError,
                 OAuthErrorDescription = error.OAuthErrorDescription,
             };
         }
     }
 }
-

@@ -16,7 +16,7 @@ namespace Signicat
         protected SignicatBaseService()
         {
         }
-        
+
         protected SignicatBaseService(string organizationId)
         {
             _organizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
@@ -27,14 +27,13 @@ namespace Signicat
             _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
         }
-        
+
         protected SignicatBaseService(string clientId, string clientSecret, string organizationId)
         {
             _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
             _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
             _organizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
         }
-        
 
 
         protected T Get<T>(string url)
@@ -56,7 +55,7 @@ namespace Signicat
         {
             return (await HttpRequestor.GetAsync(url, GetToken(), _organizationId))?.ResponseJson;
         }
-        
+
         protected Stream GetFile(string url)
         {
             return HttpRequestor.GetStream(url, GetToken(), _organizationId);
@@ -98,15 +97,17 @@ namespace Signicat
         {
             await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken(), _organizationId);
         }
-        
+
         protected T PostFormContentData<T>(string url, MultipartFormDataContent requestObject = null)
         {
-            return Mapper.MapFromJson<T>(  HttpRequestor.PostContentFormData(url, requestObject, GetToken(), _organizationId));
+            return Mapper.MapFromJson<T>(
+                HttpRequestor.PostContentFormData(url, requestObject, GetToken(), _organizationId));
         }
 
         protected async Task<T> PostFormContentDataAsync<T>(string url, MultipartFormDataContent requestObject = null)
         {
-            return Mapper.MapFromJson<T>(await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken(), _organizationId));
+            return Mapper.MapFromJson<T>(
+                await HttpRequestor.PostContentFormDataAsync(url, requestObject, GetToken(), _organizationId));
         }
 
         protected T Patch<T>(string url, object requestObject = null)
@@ -152,11 +153,11 @@ namespace Signicat
         {
             await HttpRequestor.PutAsync(url, Mapper.MapToJson(requestObject), GetToken(), _organizationId);
         }
-        
-        protected T PostFile<T>(string url, byte[] filedata,string fileName)
+
+        protected T PostFile<T>(string url, byte[] filedata, string fileName)
         {
             return Mapper.MapFromJson<T>(
-                HttpRequestor.PostFile<T>(url,fileName, filedata, GetToken()));
+                HttpRequestor.PostFile<T>(url, fileName, filedata, GetToken()));
         }
 
         protected async Task<T> PostFileAsync<T>(string url, byte[] filedata, string fileName)

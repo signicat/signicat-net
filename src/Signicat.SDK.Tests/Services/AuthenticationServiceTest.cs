@@ -14,7 +14,7 @@ namespace Signicat.SDK.Tests
     public class AuthenticationServiceTest : BaseTest
     {
         private AuthenticationService _authenticationService;
-        private AuthenticationCreateOptions _options,_headlessOptions;
+        private AuthenticationCreateOptions _options, _headlessOptions;
 
         [SetUp]
         public void Setup()
@@ -42,10 +42,10 @@ namespace Signicat.SDK.Tests
                     RequestedAttributes.LastName,
                     RequestedAttributes.NationalIdentifierNumber
                 },
-                Tags = new List<string>(){Guid.NewGuid().ToString("n")},
+                Tags = new List<string>() {Guid.NewGuid().ToString("n")},
                 SessionLifetime = 60
             };
-        
+
             _headlessOptions = new AuthenticationCreateOptions
             {
                 Flow = AuthenticationFlow.Headless,
@@ -70,8 +70,8 @@ namespace Signicat.SDK.Tests
                 SessionLifetime = 60,
                 AdditionalParameters = new Dictionary<string, string>()
                 {
-                    {"sbid_flow","QR"},
-                    {"sbid_end_user_ip","192.168.1.1"}
+                    {"sbid_flow", "QR"},
+                    {"sbid_end_user_ip", "192.168.1.1"}
                 }
             };
         }
@@ -86,7 +86,6 @@ namespace Signicat.SDK.Tests
             ValidateCreateAndGetSession(session, createSession);
         }
 
-    
 
         [Test]
         public async Task GetSessionAsync()
@@ -96,24 +95,24 @@ namespace Signicat.SDK.Tests
 
             ValidateCreateAndGetSession(session, createSession);
         }
-    
+
         private void ValidateCreateAndGetSession(AuthenticationSession session, AuthenticationSession createSession)
         {
-            Assert.That(session , Is.Not.Null);
+            Assert.That(session, Is.Not.Null);
             Assert.That(createSession.Id, Is.EqualTo(session.Id));
-            Assert.That("a-spge-JoXJ5et0okvIKE10LN70",Is.EqualTo( session.AccountId));
+            Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
             Assert.That(session.Tags, Is.Not.Empty);
-            Assert.That(_options.Tags.First(),Is.EqualTo(session.Tags.First()));
+            Assert.That(_options.Tags.First(), Is.EqualTo(session.Tags.First()));
             Assert.That(session.AuthenticationUrl, Is.Not.Empty);
-        
+
             Assert.That(session.ExternalReference, Is.Not.Empty);
-            Assert.That(_options.ExternalReference,Is.EqualTo(session.ExternalReference));
-        
+            Assert.That(_options.ExternalReference, Is.EqualTo(session.ExternalReference));
+
             Assert.That(session.UsageReference, Is.Not.Empty);
-            Assert.That(_options.UsageReference,Is.EqualTo(session.UsageReference));
-        
-        
-            Assert.That(_options.Language,Is.EqualTo(session.Language));
+            Assert.That(_options.UsageReference, Is.EqualTo(session.UsageReference));
+
+
+            Assert.That(_options.Language, Is.EqualTo(session.Language));
         }
 
 
@@ -122,10 +121,10 @@ namespace Signicat.SDK.Tests
         {
             var session = _authenticationService.CreateSession(_options);
 
-            Assert.That(session , Is.Not.Null);
+            Assert.That(session, Is.Not.Null);
             Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
             Assert.That(session.AuthenticationUrl, Is.Not.Empty);
-            Assert.That(session.Tags , Is.Not.Empty);
+            Assert.That(session.Tags, Is.Not.Empty);
         }
 
         [Test]
@@ -137,14 +136,13 @@ namespace Signicat.SDK.Tests
             Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
             Assert.That(session.AuthenticationUrl, Is.Not.Empty);
         }
-    
-    
+
+
         [Test]
         public void CancelSession()
         {
-        
             var createSession = _authenticationService.CreateSession(_headlessOptions);
-        
+
             var session = _authenticationService.CancelSession(createSession.Id);
 
             Assert.That(session, Is.Not.Null);
@@ -158,16 +156,16 @@ namespace Signicat.SDK.Tests
         public async Task CancelSessionAsync()
         {
             var createSession = await _authenticationService.CreateSessionAsync(_headlessOptions);
-        
+
             var session = await _authenticationService.CancelSessionAsync(createSession.Id);
 
             Assert.That(session, Is.Not.Null);
             Assert.That(createSession.Id, Is.EqualTo(session.Id));
             Assert.That(Constants.AuthenticationStatuses.Cancelled, Is.EqualTo(session.Status));
-            Assert.That("a-spge-JoXJ5et0okvIKE10LN70",Is.EqualTo( session.AccountId));
+            Assert.That("a-spge-JoXJ5et0okvIKE10LN70", Is.EqualTo(session.AccountId));
             Assert.That(session.AuthenticationUrl, Is.Not.Empty);
         }
-    
+
         [Test]
         public void TestDeserializeSubject()
         {
@@ -179,18 +177,19 @@ namespace Signicat.SDK.Tests
                 "\\\"3\\\",\\\"subjectName\\\":\\\"CN=Duck\\\\\\\\,Donald,O=TestBank1AS,C=NO,SERIALNUMBER=9562-2000-4-478603\\\"}\",\"nbidAlternativeSubject\":" +
                 "\"9562-2000-4-478603\",\"nbidAuthTime\":\"1695727322\",\"nbidIdp\":\"BID\"}";
             var deserialized = Mapper.MapFromJson<Subject>(subject);
-        
+
             Assert.That(deserialized.Id, Is.EqualTo("12345"));
-            Assert.That(deserialized.LastName,Is.EqualTo( "Duck"));
+            Assert.That(deserialized.LastName, Is.EqualTo("Duck"));
             Assert.That(deserialized.IdpAttributes, Is.Not.Null);
             Assert.That(deserialized.IdpAttributes.Any(), Is.True);
             Assert.That(deserialized.IdpAttributes["nbidIdp"].GetString(), Is.EqualTo("BID"));
             Assert.That(deserialized.IdpAttributes["nbidAuthTime"].GetString(), Is.EqualTo("1695727322"));
-            var certInfo = Mapper.MapFromJson<NbidCertInfo>(deserialized.IdpAttributes["nbidAdditionalCertInfo"].GetString());
+            var certInfo =
+                Mapper.MapFromJson<NbidCertInfo>(deserialized.IdpAttributes["nbidAdditionalCertInfo"].GetString());
             Assert.That(certInfo.KeyAlgorithm, Is.EqualTo("RSA"));
             Assert.That(deserialized.IdpAttributes.ContainsKey("dateOfBirth"), Is.False);
         }
-    
+
         private class NbidCertInfo
         {
             public string KeyAlgorithm { get; set; }

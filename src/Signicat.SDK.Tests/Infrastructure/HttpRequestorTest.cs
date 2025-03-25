@@ -23,12 +23,12 @@ namespace Signicat.SDK.Tests
             Assert.That(new Uri(url).AddParameter("signicat-accountId", token.ParseOutAccountIdFromJwt()),
                 Is.EqualTo(request.RequestUri));
 
-            Assert.That($"Bearer {token}",Is.EqualTo( request.Headers.GetValues("Authorization").FirstOrDefault()));
+            Assert.That($"Bearer {token}", Is.EqualTo(request.Headers.GetValues("Authorization").FirstOrDefault()));
 
             Assert.That($"dotnet {SignicatConfiguration.SdkVersion}",
                 Is.EqualTo(request.Headers.GetValues("Signicat-SDK").FirstOrDefault()));
 
-            Assert.That(HttpMethod.Get,Is.EqualTo( request.Method));
+            Assert.That(HttpMethod.Get, Is.EqualTo(request.Method));
         }
     }
 }

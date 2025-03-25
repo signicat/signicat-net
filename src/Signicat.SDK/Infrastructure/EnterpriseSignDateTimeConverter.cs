@@ -12,7 +12,7 @@ namespace Signicat.Infrastructure
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-        {          
+        {
             writer.WriteStringValue(DateTime.SpecifyKind(value, DateTimeKind.Unspecified));
         }
     }

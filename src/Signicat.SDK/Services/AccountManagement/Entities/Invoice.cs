@@ -140,7 +140,5 @@ namespace Signicat.Services.AccountManagement.Entities
         /// Invoice lines.
         /// </summary>
         public List<InvoiceLine> Lines { get; set; }
-
-       
     }
 }

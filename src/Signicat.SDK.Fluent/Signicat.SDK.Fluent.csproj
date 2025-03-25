@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj" />
+        <ProjectReference Include="..\Signicat.SDK\Signicat.SDK.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@
         ///     Message level encryption.
         /// </summary>
         public string MessageLevelEncryption { get; set; }
-        
+
         /// <summary>
         ///     Require HSM signing.
         /// </summary>

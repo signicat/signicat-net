@@ -26,7 +26,7 @@ namespace Signicat.SDK.Tests.Signing
                 Title = "SDK Unit test",
                 Signers = new List<SignerOptions>()
                 {
-                    new ()
+                    new()
                     {
                         ExternalSignerId = "Signer1",
                         RedirectSettings = new RedirectSettings()
@@ -50,19 +50,18 @@ namespace Signicat.SDK.Tests.Signing
                 }
             };
         }
-    
-   
-    
+
+
         [Test]
         public async Task A_CreateDocumentAsync()
         {
             var document = await _expressSignatureService.CreateDocumentAsync(_options);
-            Assert.That(document.ExternalId,Is.EqualTo( _options.ExternalId));
+            Assert.That(document.ExternalId, Is.EqualTo(_options.ExternalId));
             Assert.That(document, Is.Not.Null);
             _documentId = document.DocumentId;
             _signerId = document.Signers.First().Id;
         }
-    
+
         [Test]
         public async Task B_GetDocumentAsync()
         {
@@ -78,18 +77,17 @@ namespace Signicat.SDK.Tests.Signing
             {
                 Title = "SDK Unit Test - Updated Doc"
             };
-        
+
             var document = await _expressSignatureService.UpdateDocumentAsync(_documentId, options);
 
             Assert.That(document, Is.Not.Null);
             Assert.That(document.ExternalId, Is.EqualTo(_options.ExternalId));
             Assert.That(document.Title, Is.EqualTo(options.Title));
         }
-    
+
         [Test]
         public async Task D_GetSignerAsync()
         {
-        
             var signer = await _expressSignatureService.GetSignerAsync(_documentId, _signerId);
 
             Assert.That(signer, Is.Not.Null);
@@ -112,7 +110,7 @@ namespace Signicat.SDK.Tests.Signing
             Assert.That(attachment, Is.Not.Null);
             Assert.That(attachment.Title, Is.EqualTo(opts.Title));
         }
-    
+
         [Test]
         public async Task F_GetDocumentStatusAsync()
         {
@@ -121,7 +119,7 @@ namespace Signicat.SDK.Tests.Signing
             Assert.That(status, Is.Not.Null);
             Assert.That(status.DocumentStatus, Is.EqualTo(DocumentStatus.Unsigned));
         }
-    
+
         [Test]
         public async Task G_ListDocumentsAsync()
         {
@@ -130,7 +128,7 @@ namespace Signicat.SDK.Tests.Signing
             var doc = docs.Data.FirstOrDefault(d => d.DocumentId == _documentId);
             Assert.That(doc, Is.Not.Null);
         }
-    
+
         [Test]
         public void H_CreateDocumentInvalidMapErrorCorrectAsync()
         {
@@ -140,12 +138,11 @@ namespace Signicat.SDK.Tests.Signing
 
             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(error.Error));
             Assert.That(error.HttpStatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-        
+
             Assert.That(error.Error.ValidationErrors.First().PropertyName, Is.EqualTo("Title"));
             Assert.That(error.Error.ValidationErrors.First().Reason, Is.EqualTo("The Title field is required."));
-        
         }
-    
+
         [Test]
         public async Task Z_CancelDocumentAsync()
         {

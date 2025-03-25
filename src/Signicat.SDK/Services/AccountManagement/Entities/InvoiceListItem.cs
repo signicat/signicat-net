@@ -4,7 +4,6 @@ namespace Signicat.Services.AccountManagement.Entities
 {
     public record InvoiceListItem
     {
-
         /// <summary>
         /// The ID of the organization.
         /// </summary>
@@ -134,6 +133,5 @@ namespace Signicat.Services.AccountManagement.Entities
         /// Indicates whether the invoice is settled.
         /// </summary>
         public bool Settled { get; set; }
-
     }
 }

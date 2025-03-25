@@ -45,7 +45,7 @@ namespace Signicat
             }
         }
 
-       
+
         /// <summary>
         ///     Sets the OAuth client credentials and scopes.
         /// </summary>
@@ -56,14 +56,14 @@ namespace Signicat
             ClientId = clientId;
             ClientSecret = clientSecret;
         }
-        
+
         internal static OAuthToken OAuthToken { get; set; }
         internal static string ClientId { get; set; }
 
         internal static string ClientSecret { get; set; }
-        
+
         internal static string OrganisationId { get; set; }
-        
+
         internal static string AcccountId { get; set; }
     }
 }

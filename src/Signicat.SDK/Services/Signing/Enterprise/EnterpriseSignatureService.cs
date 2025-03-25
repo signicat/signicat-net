@@ -9,7 +9,6 @@ namespace Signicat.Services.Signing.Enterprise
 {
     public class EnterpriseSignatureService : SignicatBaseService, IEnterpriseSignatureService
     {
-        
         public EnterpriseSignatureService()
         {
         }
@@ -18,7 +17,7 @@ namespace Signicat.Services.Signing.Enterprise
             : base(clientId, clientSecret)
         {
         }
-        
+
         public Stream GetDocument(string documentId)
         {
             return GetFile($"{Urls.EnterpriseSign}/documents/{documentId}");
@@ -68,34 +67,33 @@ namespace Signicat.Services.Signing.Enterprise
         {
             return DeleteAsync($"{Urls.EnterpriseSign}archive-documents/{archiveId}");
         }
-        
-        
-        
+
+
         public SigningOrder Create(SigningOrderCreateOptions signingOrder)
         {
             var url = Urls.EnterpriseSignOrders;
 
             var response = Post<SigningOrder>(url, signingOrder);
-            
+
             return response;
         }
-        
+
         public async Task<SigningOrder> CreateAsync(SigningOrderCreateOptions signingOrder)
         {
             var url = Urls.EnterpriseSignOrders;
             Console.WriteLine(url);
             var response = await PostAsync<SigningOrder>(url, signingOrder);
-            
+
             return response;
         }
-        
+
         public SigningOrder GetOrder(string signOrderId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}";
 
             return Get<SigningOrder>(url);
         }
-        
+
         public async Task<SigningOrder> GetOrderAsync(string signOrderId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}";
@@ -109,15 +107,14 @@ namespace Signicat.Services.Signing.Enterprise
 
             return Get<IEnumerable<TaskForwardDetails>>(url);
         }
-        
+
         public async Task<IEnumerable<TaskForwardDetails>> GetOrderForwardDetailsAsync(string signOrderId, Guid taskId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/forwards";
 
             return await GetAsync<IEnumerable<TaskForwardDetails>>(url);
         }
-        
-        
+
 
         public Stream GetOriginalFile(string signOrderId, Guid taskId, string documentId)
         {
@@ -125,14 +122,14 @@ namespace Signicat.Services.Signing.Enterprise
 
             return GetFile(url);
         }
-        
+
         public Task<Stream> GetOriginalFileAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/original";
 
             return GetFileAsync(url);
         }
-        
+
 
         public Stream GetGeneratedDocument(string signOrderId, Guid taskId, string documentId)
         {
@@ -140,7 +137,7 @@ namespace Signicat.Services.Signing.Enterprise
 
             return GetFile(url);
         }
-        
+
         public Task<Stream> GetGeneratedDocumentAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/generated";
@@ -154,7 +151,7 @@ namespace Signicat.Services.Signing.Enterprise
 
             return GetFile(url);
         }
-        
+
         public Task<Stream> GetSignedDocumentAsync(string signOrderId, Guid taskId, string documentId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/documents/{documentId}/result";
@@ -168,7 +165,7 @@ namespace Signicat.Services.Signing.Enterprise
 
             return GetFile(url);
         }
-        
+
         public Task<Stream> GetPackagedTaskResultAsync(string signOrderId, Guid packagingTaskId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/packaging-tasks/{packagingTaskId}/result";
@@ -182,7 +179,7 @@ namespace Signicat.Services.Signing.Enterprise
 
             return Get<PackagingTaskStatusInfo>(url);
         }
-        
+
         public async Task<PackagingTaskStatusInfo> GetPackagingStatusAsync(string signOrderId, Guid packagingTaskId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/packaging-tasks/{packagingTaskId}/status";
@@ -196,7 +193,7 @@ namespace Signicat.Services.Signing.Enterprise
 
             return Get<TaskStatusInfo>(url);
         }
-        
+
         public async Task<TaskStatusInfo> GetTaskStatusAsync(string signOrderId, Guid taskId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/status";
@@ -209,9 +206,8 @@ namespace Signicat.Services.Signing.Enterprise
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/events";
 
             return Get<IEnumerable<Event>>(url);
-            
         }
-        
+
         public async Task<IEnumerable<Event>> GetTaskEventsAsync(string signOrderId, Guid taskId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}/tasks/{taskId}/events";
@@ -224,12 +220,11 @@ namespace Signicat.Services.Signing.Enterprise
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}";
             Delete(url);
         }
-        
+
         public async Task DeleteSignOrderAsync(string signOrderId)
         {
             var url = $"{Urls.EnterpriseSignOrders}/{signOrderId}";
             await DeleteAsync(url);
         }
-        
     }
 }

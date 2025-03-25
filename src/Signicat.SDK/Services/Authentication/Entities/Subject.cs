@@ -19,7 +19,7 @@ namespace Signicat.Authentication
         ///     The idp identifier of the subject.
         /// </summary>
         public string IdpId { get; set; }
-        
+
         /// <summary>
         ///     The full name of the subject.
         /// </summary>
@@ -29,7 +29,7 @@ namespace Signicat.Authentication
         ///     The first name of the subject.
         /// </summary>
         public string FirstName { get; set; }
-        
+
         /// <summary>
         ///     The middle name of the subject.
         /// </summary>
@@ -49,7 +49,7 @@ namespace Signicat.Authentication
         ///     National identification number.
         /// </summary>
         public Nin Nin { get; set; }
-        
+
         /// <summary>
         ///     The additional parameters of the subject.
         /// </summary>

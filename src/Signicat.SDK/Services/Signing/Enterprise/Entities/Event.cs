@@ -7,7 +7,7 @@ namespace Signicat.Services.Signing.Enterprise.Entities
     public class Event
     {
         public EventType EventType { get; set; }
-        
+
         [JsonConverter(typeof(EnterpriseSignDateTimeConverter))]
         public DateTime? EventTime { get; set; }
 
@@ -16,22 +16,22 @@ namespace Signicat.Services.Signing.Enterprise.Entities
 
     public enum EventType
     {
-        TASK_CREATED, 
-        NOTIFICATION_SENT, 
-        TASK_STARTED, 
-        TASK_REJECTED, 
-        TASK_COMPLETED, 
-        ERROR, 
-        DOCUMENT_UPLOADED, 
+        TASK_CREATED,
+        NOTIFICATION_SENT,
+        TASK_STARTED,
+        TASK_REJECTED,
+        TASK_COMPLETED,
+        ERROR,
+        DOCUMENT_UPLOADED,
         DOCUMENT_SIGNED,
         DOCUMENT_VIEWED,
-        DOCUMENT_SIGN_CANCELLED, 
-        DOCUMENT_DELETED, 
-        USER_AUTHENTICATED, 
-        USER_AUTHENTICATION_CANCELLED, 
+        DOCUMENT_SIGN_CANCELLED,
+        DOCUMENT_DELETED,
+        USER_AUTHENTICATED,
+        USER_AUTHENTICATION_CANCELLED,
         PACKAGING_TASK_CREATED,
-        PACKAGING_TASK_COMPLETED, 
-        PACKAGING_TASK_FAILED, 
+        PACKAGING_TASK_COMPLETED,
+        PACKAGING_TASK_FAILED,
         INTERNAL
     }
 }

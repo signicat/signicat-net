@@ -22,7 +22,7 @@ namespace Signicat.SDK.Tests.Helpers
                 }
             }.Start();
         }
-    
+
         public static byte[] ToByteArray(this Stream stream)
         {
             using var ms = new MemoryStream();

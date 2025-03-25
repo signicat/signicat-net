@@ -7,6 +7,7 @@ namespace Signicat.SDK.Tests
     public class TestApiService : SignicatBaseService
     {
         private readonly string _urlToCall;
+
         public TestApiService()
         {
             _urlToCall = $"{Urls.BaseUrl}/mobileid/core/users/{Guid.NewGuid().ToString().ToLowerInvariant()}";

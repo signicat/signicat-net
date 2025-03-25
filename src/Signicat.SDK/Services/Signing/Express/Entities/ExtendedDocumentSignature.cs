@@ -8,7 +8,7 @@ namespace Signicat.Services.Signing.Express.Entities
         /// The signer's unique identifier.
         /// </summary>
         public Guid? SignerId { get; set; }
-    
+
         /// <summary>
         /// Your reference for the signer.
         /// </summary>

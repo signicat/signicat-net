@@ -53,7 +53,7 @@ namespace Signicat.Services.Usage.Entities
         /// <remarks>Will be null if aggregation level is organisation</remarks>
         /// <example>a-ppge-jkQaJ4Od2e5giZh1BiSp</example>
         public string? AccountId { get; set; }
-    
+
         /// <summary>
         /// Id of organisation owning the account where usage is produced
         /// <example>o-p-8gcrvJvHZ3cYZKrAsmQp</example>

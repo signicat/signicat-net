@@ -11,11 +11,12 @@ namespace Signicat.Services.Usage
         /// <param name="usageService">Usage service</param>
         /// <param name="result">result from a full query</param>
         /// <returns></returns>
-        public static async Task<UsagePaginationResult> GetNextAsync(this IUsageService usageService, UsagePaginationResult result)
+        public static async Task<UsagePaginationResult> GetNextAsync(this IUsageService usageService,
+            UsagePaginationResult result)
         {
             return string.IsNullOrWhiteSpace(result.Next) ? null : await usageService.GetUsageAsync(result.Next);
         }
-    
+
         /// <summary>
         /// Get usage records next page
         /// </summary>
@@ -26,18 +27,21 @@ namespace Signicat.Services.Usage
         {
             return string.IsNullOrWhiteSpace(result.Next) ? null : usageService.GetUsage(result.Next);
         }
-    
+
         /// <summary>
         /// Get usage records previous page async
         /// </summary>
         /// <param name="usageService">Usage service</param>
         /// <param name="result">result from a full query</param>
         /// <returns></returns>
-        public static async Task<UsagePaginationResult> GetPreviousAsync(this IUsageService usageService, UsagePaginationResult result)
+        public static async Task<UsagePaginationResult> GetPreviousAsync(this IUsageService usageService,
+            UsagePaginationResult result)
         {
-            return string.IsNullOrWhiteSpace(result.Previous) ? null : await usageService.GetUsageAsync(result.Previous);
+            return string.IsNullOrWhiteSpace(result.Previous)
+                ? null
+                : await usageService.GetUsageAsync(result.Previous);
         }
-    
+
         /// <summary>
         /// Get usage records previous page
         /// </summary>

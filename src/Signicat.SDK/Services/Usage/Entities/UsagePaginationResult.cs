@@ -16,7 +16,7 @@ namespace Signicat.Entities
         /// <remarks>Url to next page in the set. Null if on first page</remarks>
         /// </summary>
         public string? Next { get; set; }
-    
+
         /// <summary>
         /// Previous pointer
         /// <remarks>Url to previous page in the set. Null if on first page</remarks>

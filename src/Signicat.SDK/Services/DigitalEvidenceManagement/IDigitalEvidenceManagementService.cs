@@ -125,7 +125,5 @@ namespace Signicat.DigitalEvidenceManagement
         /// <param name="id">Unique identifier for a record.</param>
         /// <returns></returns>
         Task<byte[]> GetReportAsync(Guid id);
-        
-        
     }
 }

@@ -4,10 +4,8 @@ namespace Signicat
 {
     public class ExpressValidationError
     {
-        [JsonPropertyName("field")]
-        public string Field { get; set; }
+        [JsonPropertyName("field")] public string Field { get; set; }
 
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
+        [JsonPropertyName("message")] public string Message { get; set; }
     }
 }

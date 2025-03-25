@@ -6,11 +6,11 @@ namespace Signicat.Services.Usage.Entities
         /// <summary>
         /// First date
         /// </summary>
-        public string Start {get; set; }
-    
+        public string Start { get; set; }
+
         /// <summary>
         /// Last date
         /// </summary>
-        public string End {get; set; }
+        public string End { get; set; }
     }
 }

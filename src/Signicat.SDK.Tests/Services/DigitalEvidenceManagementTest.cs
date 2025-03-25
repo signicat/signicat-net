@@ -50,16 +50,15 @@ namespace Signicat.SDK.Tests.Services
         [Test]
         public void CreateNewRecordAsyncInvalidParams()
         {
-            var exception= Assert.ThrowsAsync<SignicatException>(() =>
+            var exception = Assert.ThrowsAsync<SignicatException>(() =>
                 _digitalEvidenceManagement.CreateDemRecordAsync(new DemRecordCreateOptions()
                 {
                     Metadata = null,
                     CoreData = null
                 }));
-        
+
             Assert.That(exception, Is.Not.Null);
-            Assert.That(HttpStatusCode.BadRequest,Is.EqualTo(exception.HttpStatusCode));
-        
+            Assert.That(HttpStatusCode.BadRequest, Is.EqualTo(exception.HttpStatusCode));
         }
 
         [Test]
@@ -67,7 +66,7 @@ namespace Signicat.SDK.Tests.Services
         {
             var record = _digitalEvidenceManagement.CreateDemRecord(_sampleCreate);
 
-            Assert.That(record , Is.Not.Null);
+            Assert.That(record, Is.Not.Null);
             Assert.That(Guid.Empty, Is.Not.EqualTo(record.Id));
         }
 
@@ -100,7 +99,6 @@ namespace Signicat.SDK.Tests.Services
         {
             var searchResult = _digitalEvidenceManagement.Query(new DemRecordSearchCreateOptions()
             {
-         
                 And = new[]
                 {
                     new DemRecordSearchQueryCondition()
@@ -110,7 +108,6 @@ namespace Signicat.SDK.Tests.Services
                         Value = "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"
                     }
                 }
-            
             });
 
             Assert.That(searchResult, Is.Not.Null);
@@ -121,7 +118,6 @@ namespace Signicat.SDK.Tests.Services
         {
             var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
             {
-       
                 And = new[]
                 {
                     new DemRecordSearchQueryCondition()
@@ -131,7 +127,6 @@ namespace Signicat.SDK.Tests.Services
                         Value = "WayneEnterpriseCorporateId"
                     }
                 }
-            
             });
 
             Assert.That(searchResult, Is.Not.Null);
@@ -158,7 +153,7 @@ namespace Signicat.SDK.Tests.Services
         {
             var statistics = _digitalEvidenceManagement.GetCustomFields();
 
-            Assert.That(statistics , Is.Not.Null);
+            Assert.That(statistics, Is.Not.Null);
         }
 
         [Test]
@@ -166,11 +161,10 @@ namespace Signicat.SDK.Tests.Services
         {
             var statistics = await _digitalEvidenceManagement.GetCustomFieldsAsync(RecordTypes.LOG_IN);
 
-            Assert.That(statistics , Is.Not.Null);
+            Assert.That(statistics, Is.Not.Null);
         }
-    
-    
-    
+
+
         [Test]
         public async Task GetReportAsync()
         {
@@ -179,14 +173,14 @@ namespace Signicat.SDK.Tests.Services
             Assert.That(record, Is.Not.Null);
 
             var report = await _digitalEvidenceManagement.GetReportAsync(record.Id);
-        
+
 #if DEBUG
             string tempFilename = FileHelper.CreateTempPdfFileName();
             await File.WriteAllBytesAsync(tempFilename, report);
-            
+
             FileHelper.OpenFile(tempFilename);
 #endif
-        
+
             Assert.That(report, Is.Not.Empty);
         }
 
@@ -195,14 +189,14 @@ namespace Signicat.SDK.Tests.Services
         {
             var record = _digitalEvidenceManagement.CreateDemRecord(_sampleCreate);
 
-            Assert.That(record , Is.Not.Null);
+            Assert.That(record, Is.Not.Null);
 
-            var report =  _digitalEvidenceManagement.GetReport(record.Id);
-        
+            var report = _digitalEvidenceManagement.GetReport(record.Id);
+
 #if DEBUG
-            string tempFilename = FileHelper.CreateTempPdfFileName(); 
+            string tempFilename = FileHelper.CreateTempPdfFileName();
             File.WriteAllBytes(tempFilename, report);
-            
+
             FileHelper.OpenFile(tempFilename);
 #endif
 

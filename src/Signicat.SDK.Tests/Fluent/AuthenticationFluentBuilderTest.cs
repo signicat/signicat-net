@@ -18,8 +18,8 @@ namespace Signicat.SDK.Tests.Fluent
 
             Assert.That(options, Is.Not.Null);
             Assert.That(2, Is.EqualTo(options.AllowedProviders.Count));
-            Assert.That(options.AllowedProviders.Contains("nbid"),Is.True);
-            Assert.That(options.AllowedProviders.Contains("sbid"),Is.True);
+            Assert.That(options.AllowedProviders.Contains("nbid"), Is.True);
+            Assert.That(options.AllowedProviders.Contains("sbid"), Is.True);
         }
 
         [Test]
@@ -67,8 +67,8 @@ namespace Signicat.SDK.Tests.Fluent
 
             Assert.That(options, Is.Not.Null);
             Assert.That(2, Is.EqualTo(options.RequestedAttributes.Count));
-            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.FirstName),Is.True);
-            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.LastName),Is.True);
+            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.FirstName), Is.True);
+            Assert.That(options.RequestedAttributes.Contains(RequestedAttributes.LastName), Is.True);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Signicat.SDK.Tests.Fluent
             Assert.That(options, Is.Not.Null);
             Assert.That("success", Is.EqualTo(options.CallbackUrls.Success));
             Assert.That("abort", Is.EqualTo(options.CallbackUrls.Abort));
-            Assert.That("error",Is.EqualTo( options.CallbackUrls.Error));
+            Assert.That("error", Is.EqualTo(options.CallbackUrls.Error));
         }
 
         [Test]
@@ -135,7 +135,8 @@ namespace Signicat.SDK.Tests.Fluent
                 .WithFlow(AuthenticationFlow.Headless)
                 .Build());
 
-            Assert.That("One or more prefilled fields must be set when using flow headless", Is.EqualTo(exception.Message));
+            Assert.That("One or more prefilled fields must be set when using flow headless",
+                Is.EqualTo(exception.Message));
         }
 
         [Test]

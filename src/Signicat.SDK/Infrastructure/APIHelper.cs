@@ -13,11 +13,12 @@ namespace Signicat.Infrastructure
     {
         private static readonly string DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
 
-        internal static string AppendQueryParam(this string url, bool conditionalAdd, string key, object? value = null, string? dateFormat = null)
+        internal static string AppendQueryParam(this string url, bool conditionalAdd, string key, object? value = null,
+            string? dateFormat = null)
         {
             if (string.IsNullOrWhiteSpace(url) || value is null || !conditionalAdd)
                 return url;
-            
+
             var urlBuilder = new StringBuilder(url)
                 .Append(url.Contains("?") ? "&" : "?")
                 .Append(key).Append("=");
@@ -26,24 +27,26 @@ namespace Signicat.Infrastructure
             {
                 DateTime => value.ToDateTime(dateFormat ?? DateTimeFormat),
                 DateTimeOffset => value.ToDateTimeOffset(dateFormat ?? DateTimeFormat),
-                int => Int32.Parse(value.ToString()) >0 ? value.ToString() : null,
-                bool  => (value as bool?).GetValueOrDefault() ? "true" : null,
+                int => Int32.Parse(value.ToString()) > 0 ? value.ToString() : null,
+                bool => (value as bool?).GetValueOrDefault() ? "true" : null,
                 Enum @enum => value.ToEnumMemberString(),
                 _ => value.ToString()
             };
             if (val == null || string.IsNullOrWhiteSpace(val))
                 return url;
-            
+
             urlBuilder.Append(val);
             return urlBuilder.ToString();
         }
-        
-        internal static string AppendQueryParam(this string url, string key, object? value = null, string? dateFormat = null)
+
+        internal static string AppendQueryParam(this string url, string key, object? value = null,
+            string? dateFormat = null)
         {
             return url.AppendQueryParam(true, key, value, dateFormat);
         }
-        
-        internal static string AppendQueryParams(this string url, Dictionary<string, object> queryParams, string? dateFormat = null)
+
+        internal static string AppendQueryParams(this string url, Dictionary<string, object> queryParams,
+            string? dateFormat = null)
         {
             var q = string.Join("&", queryParams
                 .Where(kvp => kvp.Value != null)
@@ -54,14 +57,15 @@ namespace Signicat.Infrastructure
                         DateTime time => time.ToString(dateFormat ?? DateTimeFormat),
                         DateTimeOffset offset => offset.ToString(dateFormat ?? DateTimeFormat),
                         Enum @enum => kvp.Value.ToEnumMemberString(),
-                        int => Int32.Parse(kvp.Value.ToString()) >0 ? kvp.Value.ToString() : null,
+                        int => Int32.Parse(kvp.Value.ToString()) > 0 ? kvp.Value.ToString() : null,
                         bool => (kvp.Value as bool?).GetValueOrDefault() ? "true" : null,
                         _ => kvp.Value.ToString()
                     };
                     if (val != null && !string.IsNullOrWhiteSpace(val))
                     {
-                        return $"{kvp.Key}={val}";    
+                        return $"{kvp.Key}={val}";
                     }
+
                     return String.Empty;
                 }));
 
@@ -78,13 +82,13 @@ namespace Signicat.Infrastructure
 
         private static string ToDateTime(this object value, string? dateFormat = null)
         {
-            DateTime time = (DateTime)value;
+            DateTime time = (DateTime) value;
             return time.ToString(dateFormat);
         }
-        
+
         private static string ToDateTimeOffset(this object value, string? dateFormat = null)
         {
-            DateTimeOffset time = (DateTimeOffset)value;
+            DateTimeOffset time = (DateTimeOffset) value;
             return time.ToString(dateFormat);
         }
 

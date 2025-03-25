@@ -24,10 +24,9 @@ namespace Signicat.SDK.Tests
         {
             // Triggers the lazy initialization
             var init = Initializer.Value;
-        
+
             SignicatConfiguration.SetClientCredentials(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
                 Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
-        
         }
 
         protected static object Initialize()
@@ -45,7 +44,8 @@ namespace Signicat.SDK.Tests
                 Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET"));
             SignicatConfiguration.OrganisationId = null;
 
-            Console.WriteLine($"ClientId: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID")}, secret: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET")}");
+            Console.WriteLine(
+                $"ClientId: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID")}, secret: {Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET")}");
 
             var url = $"{SignicatConfiguration.OAuthBaseUrl}/.well-known/openid-configuration";
 
@@ -60,10 +60,11 @@ namespace Signicat.SDK.Tests
                 {
                     throw new Exception($"Failed to connect to Signicat Server at {url}");
                 }
+
                 var token = AuthManager.Authorize(Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_ID"),
                     Environment.GetEnvironmentVariable("SIGNICAT_CLIENT_SECRET").Trim());
-           
-                if(token is null || string.IsNullOrWhiteSpace(token.AccessToken))
+
+                if (token is null || string.IsNullOrWhiteSpace(token.AccessToken))
                     throw new Exception($"Failed to get token from Signicat Server at {url}");
             }
 

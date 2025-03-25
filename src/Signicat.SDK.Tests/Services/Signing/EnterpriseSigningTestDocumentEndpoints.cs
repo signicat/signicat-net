@@ -8,7 +8,7 @@ using Signicat.Services.Signing.Enterprise;
 
 namespace Signicat.SDK.Tests.Signing
 {
-    public class EnterpriseSigningTestDocumentEndpoints: BaseTest
+    public class EnterpriseSigningTestDocumentEndpoints : BaseTest
     {
         private IEnterpriseSignatureService _service;
 
@@ -23,18 +23,20 @@ namespace Signicat.SDK.Tests.Signing
         public void UploadSessionDocumentShouldReturnNotNull()
         {
             var result = _service.UploadSessionDocument("dummy.pdf", File.ReadAllBytes(@"Services/Signing/dummy.pdf"));
-            Assert.That(result.DocumentId,Is.Not.Empty);
+            Assert.That(result.DocumentId, Is.Not.Empty);
             Console.WriteLine(result.DocumentId);
         }
-    
+
         [Test]
         public async Task UploadSessionDocumentAsyncShouldReturnNotNull()
         {
-            var result = await _service.UploadSessionDocumentAsync("dummy.pdf", File.ReadAllBytes(@"Services/Signing/dummy.pdf"));
-            Assert.That(result.DocumentId,Is.Not.Empty);
+            var result =
+                await _service.UploadSessionDocumentAsync("dummy.pdf",
+                    File.ReadAllBytes(@"Services/Signing/dummy.pdf"));
+            Assert.That(result.DocumentId, Is.Not.Empty);
             Console.WriteLine(result.DocumentId);
         }
-    
+
         [Test]
         public void DownloadDocumentShouldReturnTheSameDocument()
         {
@@ -42,11 +44,11 @@ namespace Signicat.SDK.Tests.Signing
             var result = _service.UploadSessionDocument("dummy.pdf", fileData);
 
             var document = _service.GetDocument(result.DocumentId);
-        
+
             Assert.That(document, Is.Not.Null);
-            Assert.That(FileHelper.CompareByteArrayAndStream(fileData, document),Is.True);
+            Assert.That(FileHelper.CompareByteArrayAndStream(fileData, document), Is.True);
         }
-    
+
         [Test]
         public async Task DownloadDocumentAsyncShouldReturnTheSameDocument()
         {
@@ -54,11 +56,11 @@ namespace Signicat.SDK.Tests.Signing
             var result = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
 
             var document = await _service.GetDocumentAsync(result.DocumentId);
-        
+
             Assert.That(document, Is.Not.Null);
-            Assert.That(FileHelper.CompareByteArrayAndStream(fileData, document),Is.True);
+            Assert.That(FileHelper.CompareByteArrayAndStream(fileData, document), Is.True);
         }
-    
+
         [Test]
         public void DeleteDocumentShouldBeSuccess()
         {
@@ -66,10 +68,10 @@ namespace Signicat.SDK.Tests.Signing
             var result = _service.UploadSessionDocument("dummy.pdf", fileData);
 
             var document = _service.GetDocument(result.DocumentId);
-        
+
             _service.DeleteDocument(result.DocumentId);
         }
-    
+
         [Test]
         public async Task DeleteDocumentAsyncShouldBeSuccess()
         {
@@ -77,8 +79,6 @@ namespace Signicat.SDK.Tests.Signing
             var result = await _service.UploadSessionDocumentAsync("dummy.pdf", fileData);
 
             await _service.DeleteDocumentAsync(result.DocumentId);
-        
-        
         }
     }
 }

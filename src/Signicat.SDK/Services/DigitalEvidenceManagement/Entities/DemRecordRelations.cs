@@ -9,7 +9,6 @@ namespace Signicat.DigitalEvidenceManagement.Entities
 
         public RecordTypes Type { get; set; }
 
-        [JsonPropertyName("_links")]
-        public Dictionary<string,DemLinks> Links { get; set; }
+        [JsonPropertyName("_links")] public Dictionary<string, DemLinks> Links { get; set; }
     }
 }

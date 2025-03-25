@@ -5,11 +5,9 @@ namespace Signicat.Services.Signing.Enterprise.Entities
 {
     public class PackagingTaskStatusInfo
     {
-        [JsonPropertyName("orderId")]
-        public string OrderId { get; set; }
+        [JsonPropertyName("orderId")] public string OrderId { get; set; }
 
-        [JsonPropertyName("packagingTaskId")]
-        public Guid PackagingTaskId { get; set; }
+        [JsonPropertyName("packagingTaskId")] public Guid PackagingTaskId { get; set; }
 
         [JsonPropertyName("packagingTaskStatus")]
         public string PackagingTaskStatus { get; set; }
@@ -20,6 +18,8 @@ namespace Signicat.Services.Signing.Enterprise.Entities
 
     public enum PackagingTaskStatus
     {
-        CREATED, COMPLETED, FAILED
+        CREATED,
+        COMPLETED,
+        FAILED
     }
 }
