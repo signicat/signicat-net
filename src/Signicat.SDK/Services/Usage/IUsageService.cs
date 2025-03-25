@@ -27,8 +27,8 @@ namespace Signicat.Services.Usage
         /// <returns></returns>
         Task<UsagePaginationResult> GetUsageAsync(DateTime fromDate, DateTime? toDate = null,
             bool includeExternalReference = false,
-            AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY,
-            AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false,
+            AggregateByDates? aggregateByDate = AggregateByDates.Monthly,
+            AggregateByLevel? aggregateByLevel = AggregateByLevel.Organisation, bool includeChildOrganisations = false,
             int limit = 0, int offset = 0);
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace Signicat.Services.Usage
         /// <returns></returns>
         UsagePaginationResult GetUsage(DateTime fromDate, DateTime? toDate = null,
             bool includeExternalReference = false,
-            AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY,
-            AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false,
+            AggregateByDates? aggregateByDate = AggregateByDates.Monthly,
+            AggregateByLevel? aggregateByLevel = AggregateByLevel.Organisation, bool includeChildOrganisations = false,
             int limit = 0, int offset = 0);
     }
 }

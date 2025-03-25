@@ -27,8 +27,8 @@ namespace Signicat.Services.Usage
 
         public Task<UsagePaginationResult> GetUsageAsync(DateTime fromDate,
             DateTime? toDate = null,
-            bool includeExternalReference = false, AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY,
-            AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false,
+            bool includeExternalReference = false, AggregateByDates? aggregateByDate = AggregateByDates.Monthly,
+            AggregateByLevel? aggregateByLevel = AggregateByLevel.Organisation, bool includeChildOrganisations = false,
             int limit = 0, int offset = 0)
         {
             return GetAsync<UsagePaginationResult>(BuildUrl(fromDate, toDate, includeExternalReference, aggregateByDate,
@@ -44,8 +44,8 @@ namespace Signicat.Services.Usage
 
         public UsagePaginationResult GetUsage(DateTime fromDate,
             DateTime? toDate = null,
-            bool includeExternalReference = false, AggregateByDates? aggregateByDate = AggregateByDates.MONTHLY,
-            AggregateByLevel? aggregateByLevel = AggregateByLevel.ORGANIZATION, bool includeChildOrganisations = false,
+            bool includeExternalReference = false, AggregateByDates? aggregateByDate = AggregateByDates.Monthly,
+            AggregateByLevel? aggregateByLevel = AggregateByLevel.Organisation, bool includeChildOrganisations = false,
             int limit = 0, int offset = 0)
         {
             return Get<UsagePaginationResult>(BuildUrl(fromDate, toDate, includeExternalReference, aggregateByDate,

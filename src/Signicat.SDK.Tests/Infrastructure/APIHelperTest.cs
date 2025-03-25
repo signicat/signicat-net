@@ -87,7 +87,7 @@ namespace Signicat.SDK.Tests
         public void AppendsQueryParamInUrlWithEnumParams()
         {
             string url =
-                "https://api.signicat.com/someapi".AppendQueryParam("aggregateByDate", AggregateByDates.MONTHLY);
+                "https://api.signicat.com/someapi".AppendQueryParam("aggregateByDate", AggregateByDates.Monthly);
             Assert.That(url, Is.Not.Empty);
             Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
             Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByDate=monthly"));
@@ -97,7 +97,7 @@ namespace Signicat.SDK.Tests
         public void AppendsQueryParamInUrlWithEnumParamsSecond()
         {
             string url =
-                "https://api.signicat.com/someapi".AppendQueryParam("aggregateByLevel", AggregateByLevel.ORGANIZATION);
+                "https://api.signicat.com/someapi".AppendQueryParam("aggregateByLevel", AggregateByLevel.Organisation);
             Assert.That(url, Is.Not.Empty);
             Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi?aggregateByLevel=organization"));
         }
@@ -107,7 +107,7 @@ namespace Signicat.SDK.Tests
         {
             string url =
                 "https://api.signicat.com/someapi".AppendQueryParam(false, "aggregateByLevel",
-                    AggregateByLevel.ORGANIZATION);
+                    AggregateByLevel.Organisation);
             Assert.That(url, Is.Not.Empty);
             Console.WriteLine($"https://api.signicat.com/someapi?from={DateTime.Now:yyyy-MM-dd}");
             Assert.That(url, Is.EqualTo($"https://api.signicat.com/someapi"));

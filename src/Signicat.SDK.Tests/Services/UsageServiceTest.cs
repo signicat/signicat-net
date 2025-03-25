@@ -58,7 +58,7 @@ namespace Signicat.SDK.Tests.Services
         public async Task GetUsageForOrganisationAggregatedOnOrganisationAccountIdShouldBeNullAsync()
         {
             var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel: AggregateByLevel.ORGANIZATION);
+                aggregateByLevel: AggregateByLevel.Organisation);
 
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
@@ -71,7 +71,7 @@ namespace Signicat.SDK.Tests.Services
         public async Task GetUsageForOrganisationAggregatedOnAccountLevelAccountIdShouldNotBeNullAsync()
         {
             var usage = await _usageService.GetUsageAsync(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel: AggregateByLevel.ACCOUNT);
+                aggregateByLevel: AggregateByLevel.Account);
 
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
@@ -115,7 +115,7 @@ namespace Signicat.SDK.Tests.Services
         public void GetUsageForOrganisationAggregatedOnOrganisationAccountIdShouldBeNull()
         {
             var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel: AggregateByLevel.ORGANIZATION);
+                aggregateByLevel: AggregateByLevel.Organisation);
 
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
@@ -128,7 +128,7 @@ namespace Signicat.SDK.Tests.Services
         public void GetUsageForOrganisationAggregatedOnAccountLevelAccountIdShouldNotBeNull()
         {
             var usage = _usageService.GetUsage(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31),
-                aggregateByLevel: AggregateByLevel.ACCOUNT);
+                aggregateByLevel: AggregateByLevel.Account);
 
             Assert.That(usage.Data, Is.Not.Null.Or.Empty);
             foreach (var usageData in usage.Data)
@@ -206,7 +206,7 @@ namespace Signicat.SDK.Tests.Services
         {
             // Arrange
             var fromDate = new DateTime(2023, 5, 1);
-            var aggregateByDate = AggregateByDates.MONTHLY;
+            var aggregateByDate = AggregateByDates.Monthly;
 
             // Act
             var result = UsageService.BuildUrl(fromDate, aggregateByDate: aggregateByDate);

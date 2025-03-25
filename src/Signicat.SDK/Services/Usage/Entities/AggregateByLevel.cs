@@ -4,7 +4,7 @@ namespace Signicat
 {
     public enum AggregateByLevel
     {
-        [EnumMember(Value = "account")] ACCOUNT,
-        [EnumMember(Value = "organization")] ORGANIZATION,
+        [EnumMember(Value = "account")] Account,
+        [EnumMember(Value = "organization")] Organisation,
     }
 }
