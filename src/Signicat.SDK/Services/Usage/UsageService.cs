@@ -18,6 +18,23 @@ namespace Signicat.Services.Usage
             }
         }
 
+        public UsageService(string clientId, string clientSecret, string organisationId) : base(clientId, clientSecret,
+            organisationId)
+        {
+            if (!string.IsNullOrEmpty(clientId) && !clientId.StartsWith("org-"))
+            {
+                throw new ArgumentException(
+                    "You must use an API Client on Organisation level to use the invoice endpoint", nameof(clientId));
+            }
+
+            if (string.IsNullOrWhiteSpace(organisationId) || !organisationId.StartsWith("o-"))
+            {
+                throw new ArgumentException(
+                    "Organisation ID must start with 'o-' and is required to use the usage endpoint",
+                    nameof(organisationId));
+            }
+        }
+
         public Task<UsagePaginationResult> GetUsageAsync(string nextOrPrevious)
         {
             if (string.IsNullOrWhiteSpace(nextOrPrevious) || !nextOrPrevious.StartsWith("https://"))
