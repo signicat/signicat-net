@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <VersionPrefix>1.13.0</VersionPrefix>
+        <VersionPrefix>1.14.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API</Description>
         <Authors>Signicat AS</Authors>
@@ -19,6 +19,6 @@
         <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="9.0.0"/>
+        <PackageReference Include="System.Text.Json" Version="9.0.0" />
     </ItemGroup>
 </Project>
