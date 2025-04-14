@@ -253,10 +253,21 @@ namespace Signicat.Infrastructure
 
         private static async Task<Stream> ExecuteRawRequestAsync(HttpRequestMessage requestMessage)
         {
-            var response = await HttpClient.SendAsync(requestMessage);
+            var httpClient = SignicatConfiguration.HttpClient ?? new HttpClient(new HttpClientHandler { AllowAutoRedirect = false });
+            var response = await httpClient.SendAsync(requestMessage);
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsStreamAsync();
+            }
+
+            if (response.StatusCode == HttpStatusCode.SeeOther)
+            {
+                var url = response.Headers.Location.OriginalString;
+
+                // 🎣
+                var token = requestMessage.Headers.Authorization.ToString().Split(' ')[1];
+                var request = GetRequestMessage(url, HttpMethod.Get, token);
+                return await ExecuteRawRequestAsync(request);
             }
 
             var errorContent = await response.Content.ReadAsStringAsync();
