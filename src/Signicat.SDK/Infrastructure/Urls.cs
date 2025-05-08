@@ -21,6 +21,8 @@
 
         internal static string EnterpriseSignOrders => $"{EnterpriseSign}/orders";
 
+        internal static string Sign => $"{BaseUrl}/sign";
+
         internal static string AccountManagement => $"{BaseUrl}/account-management";
 
         internal static string AccountManagementInvoices => $"{AccountManagement}/invoices";
