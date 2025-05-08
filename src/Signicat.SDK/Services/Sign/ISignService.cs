@@ -1,9 +1,8 @@
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Signicat.Sign.Entities;
 
-namespace Signicat.Sign
+namespace Signicat.Services.Sign
 {
     public interface ISignService
     {
@@ -24,18 +23,18 @@ namespace Signicat.Sign
         Task<Document> UploadDocumentAsync(string fileName, byte[] fileData);
 
         /// <summary>
-        /// Get a document by ID
+        /// Download a document by ID
         /// </summary>
         /// <param name="documentId">The ID of the document to retrieve</param>
         /// <returns>The document as a stream</returns>
-        Stream GetDocument(string documentId);
+        Stream DownloadDocument(string documentId);
 
         /// <summary>
-        /// Get a document by ID asynchronously
+        /// Download a document by ID asynchronously
         /// </summary>
         /// <param name="documentId">The ID of the document to retrieve</param>
         /// <returns>The document as a stream</returns>
-        Task<Stream> GetDocumentAsync(string documentId);
+        Task<Stream> DownloadDocumentAsync(string documentId);
 
         /// <summary>
         /// Delete a document
@@ -132,5 +131,59 @@ namespace Signicat.Sign
         /// </summary>
         /// <param name="documentCollectionId">The ID of the document collection to delete</param>
         Task DeleteDocumentCollectionAsync(string documentCollectionId);
+
+        /// <summary>
+        /// Create a new sign session
+        /// </summary>
+        /// <param name="signSession">The sign session to create</param>
+        /// <returns>The created sign session</returns>
+        SignSession CreateSignSession(SignSession signSession);
+
+        /// <summary>
+        /// Create a new sign session asynchronously
+        /// </summary>
+        /// <param name="signSession">The sign session to create</param>
+        /// <returns>The created sign session</returns>
+        Task<SignSession> CreateSignSessionAsync(SignSession signSession);
+
+        /// <summary>
+        /// Get a sign session
+        /// </summary>
+        /// <param name="signSessionId">The ID of the sign session</param>
+        /// <returns>The sign session</returns>
+        SignSession GetSignSession(string signSessionId);
+
+        /// <summary>
+        /// Get a sign session asynchronously
+        /// </summary>
+        /// <param name="signSessionId">The ID of the sign session</param>
+        /// <returns>The sign session</returns>
+        Task<SignSession> GetSignSessionAsync(string signSessionId);
+
+        /// <summary>
+        /// Delete a sign session
+        /// </summary>
+        /// <param name="signSessionId">The ID of the sign session to delete</param>
+        void DeleteSignSession(string signSessionId);
+
+        /// <summary>
+        /// Delete a sign session asynchronously
+        /// </summary>
+        /// <param name="signSessionId">The ID of the sign session to delete</param>
+        Task DeleteSignSessionAsync(string signSessionId);
+
+        /// <summary>
+        /// Retrieve an archived document
+        /// </summary>
+        /// <param name="documentId">The ID of the document</param>
+        /// <returns>The archived document information</returns>
+        ArchivedDocument RetrieveArchivedDocument(string documentId);
+
+        /// <summary>
+        /// Retrieve an archived document asynchronously
+        /// </summary>
+        /// <param name="documentId">The ID of the document</param>
+        /// <returns>The archived document information</returns>
+        Task<ArchivedDocument> RetrieveArchivedDocumentAsync(string documentId);
     }
 } 

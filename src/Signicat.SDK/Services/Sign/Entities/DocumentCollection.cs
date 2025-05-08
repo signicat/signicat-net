@@ -7,7 +7,7 @@ namespace Signicat.Sign.Entities
         /// <summary>
         /// The document collection's unique identifier
         /// </summary>
-        public string Id { get; set; }
+        public string DocumentCollectionId { get; set; }
 
         /// <summary>
         /// The document collection's title

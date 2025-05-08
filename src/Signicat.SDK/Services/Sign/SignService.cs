@@ -1,10 +1,10 @@
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Signicat.Infrastructure;
+using Signicat.Sign;
 using Signicat.Sign.Entities;
 
-namespace Signicat.Sign
+namespace Signicat.Services.Sign
 {
     public class SignService : SignicatBaseService, ISignService
     {
@@ -24,21 +24,21 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<Document> UploadDocumentAsync(string fileName, byte[] fileData)
+        public async Task<Document> UploadDocumentAsync(string fileName, byte[] fileData)
         {
-            return PostFileAsync<Document>($"{Urls.Sign}/documents", fileData, fileName);
+            return await PostFileAsync<Document>($"{Urls.Sign}/documents", fileData, fileName);
         }
 
         /// <inheritdoc />
-        public Stream GetDocument(string documentId)
+        public Stream DownloadDocument(string documentId)
         {
             return GetFile($"{Urls.Sign}/documents/{documentId}");
         }
 
         /// <inheritdoc />
-        public Task<Stream> GetDocumentAsync(string documentId)
+        public async Task<Stream> DownloadDocumentAsync(string documentId)
         {
-            return GetFileAsync($"{Urls.Sign}/documents/{documentId}");
+            return await GetFileAsync($"{Urls.Sign}/documents/{documentId}");
         }
 
         /// <inheritdoc />
@@ -48,9 +48,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task DeleteDocumentAsync(string documentId)
+        public async Task DeleteDocumentAsync(string documentId)
         {
-            return DeleteAsync($"{Urls.Sign}/documents/{documentId}");
+            await DeleteAsync($"{Urls.Sign}/documents/{documentId}");
         }
 
         /// <inheritdoc />
@@ -60,9 +60,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<Document> UpdateDocumentMetadataAsync(string documentId, Document document)
+        public async Task<Document> UpdateDocumentMetadataAsync(string documentId, Document document)
         {
-            return PatchAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata", document);
+            return await PatchAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata", document);
         }
 
         /// <inheritdoc />
@@ -72,9 +72,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<Document> GetDocumentMetadataAsync(string documentId)
+        public async Task<Document> GetDocumentMetadataAsync(string documentId)
         {
-            return GetAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata");
+            return await GetAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata");
         }
 
         /// <inheritdoc />
@@ -84,9 +84,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<Stream> GetArchivedDocumentAsync(string archiveDocumentId)
+        public async Task<Stream> GetArchivedDocumentAsync(string archiveDocumentId)
         {
-            return GetFileAsync($"{Urls.Sign}/archive-documents/{archiveDocumentId}");
+            return await GetFileAsync($"{Urls.Sign}/archive-documents/{archiveDocumentId}");
         }
 
         /// <inheritdoc />
@@ -96,9 +96,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<DocumentCollection> CreateDocumentCollectionAsync(DocumentCollection documentCollection)
+        public async Task<DocumentCollection> CreateDocumentCollectionAsync(DocumentCollection documentCollection)
         {
-            return PostAsync<DocumentCollection>($"{Urls.Sign}/document-collections", documentCollection);
+            return await PostAsync<DocumentCollection>($"{Urls.Sign}/document-collections", documentCollection);
         }
 
         /// <inheritdoc />
@@ -108,9 +108,9 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task<GetDocumentCollectionResponse> GetDocumentCollectionAsync(string documentCollectionId)
+        public async Task<GetDocumentCollectionResponse> GetDocumentCollectionAsync(string documentCollectionId)
         {
-            return GetAsync<GetDocumentCollectionResponse>($"{Urls.Sign}/document-collections/{documentCollectionId}");
+            return await GetAsync<GetDocumentCollectionResponse>($"{Urls.Sign}/document-collections/{documentCollectionId}");
         }
 
         /// <inheritdoc />
@@ -120,9 +120,57 @@ namespace Signicat.Sign
         }
 
         /// <inheritdoc />
-        public Task DeleteDocumentCollectionAsync(string documentCollectionId)
+        public async Task DeleteDocumentCollectionAsync(string documentCollectionId)
         {
-            return DeleteAsync($"{Urls.Sign}/document-collections/{documentCollectionId}");
+            await DeleteAsync($"{Urls.Sign}/document-collections/{documentCollectionId}");
+        }
+
+        /// <inheritdoc />
+        public SignSession CreateSignSession(SignSession signSession)
+        {
+            return Post<SignSession>($"{Urls.Sign}/sign-sessions", signSession);
+        }
+
+        /// <inheritdoc />
+        public async Task<SignSession> CreateSignSessionAsync(SignSession signSession)
+        {
+            return await PostAsync<SignSession>($"{Urls.Sign}/sign-sessions", signSession);
+        }
+
+        /// <inheritdoc />
+        public SignSession GetSignSession(string signSessionId)
+        {
+            return Get<SignSession>($"{Urls.Sign}/sign-sessions/{signSessionId}");
+        }
+
+        /// <inheritdoc />
+        public async Task<SignSession> GetSignSessionAsync(string signSessionId)
+        {
+            return await GetAsync<SignSession>($"{Urls.Sign}/sign-sessions/{signSessionId}");
+        }
+
+        /// <inheritdoc />
+        public void DeleteSignSession(string signSessionId)
+        {
+            Delete($"{Urls.Sign}/sign-sessions/{signSessionId}");
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteSignSessionAsync(string signSessionId)
+        {
+            await DeleteAsync($"{Urls.Sign}/sign-sessions/{signSessionId}");
+        }
+
+        /// <inheritdoc />
+        public ArchivedDocument RetrieveArchivedDocument(string documentId)
+        {
+            return Get<ArchivedDocument>($"{Urls.Sign}/archive-documents/{documentId}");
+        }
+
+        /// <inheritdoc />
+        public async Task<ArchivedDocument> RetrieveArchivedDocumentAsync(string documentId)
+        {
+            return await GetAsync<ArchivedDocument>($"{Urls.Sign}/archive-documents/{documentId}");
         }
     }
 } 

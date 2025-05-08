@@ -8,7 +8,7 @@ namespace Signicat.Sign.Entities
         /// <summary>
         /// The document's unique identifier
         /// </summary>
-        public string Id { get; set; }
+        public string DocumentId { get; set; }
 
         /// <summary>
         /// The document's title
