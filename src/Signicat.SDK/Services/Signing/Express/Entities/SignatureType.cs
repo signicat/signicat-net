@@ -11,7 +11,5 @@ namespace Signicat.Services.Signing.Express.Entities
         public List<SignatureMethod> SignatureMethods { get; set; }
 
         public SignatureMechanism Mechanism { get; set; }
-
-        public bool? OnEacceptUseHandWrittenSignature { get; set; }
     }
 }
