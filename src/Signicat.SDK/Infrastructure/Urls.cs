@@ -15,6 +15,8 @@
         internal static string Information => $"{BaseUrl}/info/lookup";
         internal static string Dem => $"{BaseUrl}/dem";
 
+        internal static string Sign => $"{BaseUrl}/sign";
+
         internal static string ExpressSign = $"{BaseUrl}/express/sign";
 
         internal static string EnterpriseSign => $"{BaseUrl}/enterprise/sign";

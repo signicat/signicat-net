@@ -17,7 +17,8 @@ namespace Signicat.Infrastructure
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
 
             SerializerSettings.Converters.Add(new JsonStringEnumConverterEnumMember<RedirectMode>());
