@@ -1,17 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Signicat.SDK.Tests.Helpers;
 using Signicat.Services.Signing.Enterprise;
 using Signicat.Services.Signing.Enterprise.Entities;
 
-
-namespace Signicat.SDK.Tests.Signing
+namespace Signicat.SDK.Tests.Services.Signing
 {
     public class EnterpriseSigningTestSignatureEndpoints : BaseTest
     {

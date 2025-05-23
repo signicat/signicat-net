@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Information;
 
-namespace Signicat.SDK.Tests
+namespace Signicat.SDK.Tests.Services
 {
     public class InformationServiceTest : BaseTest
     {

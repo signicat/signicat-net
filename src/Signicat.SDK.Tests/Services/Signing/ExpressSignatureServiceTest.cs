@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Signicat.Services.Signing.Express;
 using Signicat.Services.Signing.Express.Entities;
 
-namespace Signicat.SDK.Tests.Signing
+namespace Signicat.SDK.Tests.Services.Signing
 {
     [TestFixture]
     public class ExpressSignatureServiceTest : BaseTest

@@ -29,13 +29,7 @@ namespace Signicat.Services.Signing.Sign_v2
         /// <returns>Document entity</returns>
         public Document UploadDocument(string fileName, byte[] fileData)
         {
-            var url = $"{Urls.Sign}/documents";
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                url += $"?filename={fileName}";
-            }
-            
-            return PostFile<Document>(url, fileData, fileName);
+            return PostFile<Document>($"{Urls.Sign}/documents?filename={fileName}", fileData, fileName);
         }
 
         /// <summary>
@@ -46,13 +40,7 @@ namespace Signicat.Services.Signing.Sign_v2
         /// <returns>Document entity</returns>
         public async Task<Document> UploadDocumentAsync(string fileName, byte[] fileData)
         {
-            var url = $"{Urls.Sign}/documents";
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                url += $"?filename={fileName}";
-            }
-            
-            return await PostFileAsync<Document>(url, fileData, fileName);
+            return await PostFileAsync<Document>($"{Urls.Sign}/documents?filename={fileName}", fileData, fileName);
         }
 
         /// <summary>

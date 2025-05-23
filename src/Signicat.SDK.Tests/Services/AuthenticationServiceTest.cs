@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.Authentication;
 using Signicat.Constants;
 using Signicat.Infrastructure;
 
-namespace Signicat.SDK.Tests
+namespace Signicat.SDK.Tests.Services
 {
     public class AuthenticationServiceTest : BaseTest
     {

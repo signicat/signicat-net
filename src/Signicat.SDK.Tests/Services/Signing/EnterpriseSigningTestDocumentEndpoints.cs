@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Moq;
 using NUnit.Framework;
 using Signicat.SDK.Tests.Helpers;
 using Signicat.Services.Signing.Enterprise;
 
-namespace Signicat.SDK.Tests.Signing
+namespace Signicat.SDK.Tests.Services.Signing
 {
     public class EnterpriseSigningTestDocumentEndpoints : BaseTest
     {

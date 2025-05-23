@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat;
+using Signicat.SDK.Tests;
 using Signicat.Services.Signing.Sign_v2;
 using Signicat.Services.Signing.Sign_v2.Entities;
 
-namespace Signicat.SDK.Tests.Services.Sign
+namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
 {
     [TestFixture]
     public class SignServiceTest : BaseTest
@@ -423,19 +424,10 @@ namespace Signicat.SDK.Tests.Services.Sign
         
         private Document CreateTestDocument()
         {
-            // Try to find the dummy.pdf file in different possible locations
-            string[] possiblePaths = new[] {
-                Path.Combine(TestContext.CurrentContext.TestDirectory, "Services", "Signing", "dummy.pdf"),
-                Path.Combine(TestContext.CurrentContext.WorkDirectory, "Services", "Signing", "dummy.pdf"),
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Services", "Signing", "dummy.pdf"),
-                Path.Combine("Signicat.SDK.Tests", "Services", "Signing", "dummy.pdf")
-            };
+            string filePath =@"Services/Signing/dummy.pdf";
+            Assert.That(File.Exists(filePath),Is.True,"Test file dummy.pdf not found");
             
-            string filePath = possiblePaths.FirstOrDefault(File.Exists);
-            Assert.That(filePath, Is.Not.Null, "Test file dummy.pdf not found in any of the expected locations");
-            
-            var fileData = File.ReadAllBytes(filePath);
-            var document = _service.UploadDocument("test.pdf", fileData);
+            var document = _service.UploadDocument("test.pdf", File.ReadAllBytes(filePath));
             
             Console.WriteLine($"Created test document with ID: {document.DocumentId}");
             return document;
