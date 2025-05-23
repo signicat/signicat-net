@@ -8,6 +8,17 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
     /// </summary>
     public class SessionDocument
     {
+        public SessionDocument()
+        {
+        }
+
+        public SessionDocument(string documentCollectionId, SessionDocumentAction action, string documentId)
+        {
+            DocumentCollectionId = documentCollectionId;
+            Action = action;
+            DocumentId = documentId;
+        }
+
         /// <summary>
         /// ID of the document collection
         /// </summary>

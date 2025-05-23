@@ -15,17 +15,13 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// <summary>
         /// Validations to perform on the signer
         /// </summary>
-        public List<string> Validations { get; set; } = new List<string>();
+        public List<SignerValidations> Validations { get; set; } = new List<SignerValidations>();
+    }
+
+    public enum SignerValidations
+    {
+        NATIONAL_IDENTIFICATION_NUMBER
     }
     
-    /// <summary>
-    /// Signer validation types
-    /// </summary>
-    public static class SignerValidationValues
-    {
-        /// <summary>
-        /// Validate the national identification number
-        /// </summary>
-        public const string NationalIdentificationNumber = "national_identification_number";
-    }
+    
 }
