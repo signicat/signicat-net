@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Response when getting document collection details

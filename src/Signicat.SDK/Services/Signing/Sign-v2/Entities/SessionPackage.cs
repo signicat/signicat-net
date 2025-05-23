@@ -1,4 +1,4 @@
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Contains session package metadata

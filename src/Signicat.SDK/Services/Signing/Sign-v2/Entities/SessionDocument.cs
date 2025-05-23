@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Document in a signing session

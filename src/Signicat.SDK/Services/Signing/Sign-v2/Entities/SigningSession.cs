@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Represents a signing session
     /// </summary>
-    public class SignSession
+    public class SigningSession
     {
         /// <summary>
         /// The session's unique identifier

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat;
-using Signicat.Services.Sign;
-using Signicat.Services.Sign.Entities;
+using Signicat.Services.Signing.Sign_v2;
+using Signicat.Services.Signing.Sign_v2.Entities;
 
 namespace Signicat.SDK.Tests.Services.Sign
 {
@@ -120,7 +120,7 @@ namespace Signicat.SDK.Tests.Services.Sign
             try
             {
                 // Create update request
-                var updateRequest = new UpdateDocumentMetadataRequest
+                var updateRequest = new UpdateDocumentMetadataOptions
                 {
                     Title = "Updated Title",
                     Description = "Updated Description"
@@ -279,33 +279,33 @@ namespace Signicat.SDK.Tests.Services.Sign
             try
             {
                 // Create session options
-                var options = new CreateSignSessionOptions
+                var options = new CreateSignSession
                 {
                     Title = "Test Signing Session",
-                    Documents =
-                    [
+                    Documents = new List<SessionDocument>
+                    {
                         new SessionDocument
                         {
                             DocumentCollectionId = testCollection.Id,
                             Action = SessionDocumentAction.SIGN,
                             DocumentId = testDocument.DocumentId
                         }
-                    ],
-                    UserInteractionSetup =
-                    [
+                    },
+                    UserInteractionSetup = new List<UserInteractionSetup>
+                    {
                         new UserInteractionSetup
                         {
-                            IdentityProviders = [new IdentityProvider {IdpName = "nbid"}],
+                            IdentityProviders = new List<IdentityProvider> { new IdentityProvider { IdpName = "nbid" } },
                             SigningFlow = SigningFlow.AUTHENTICATION_BASED
                         }
-                    ],
+                    },
                     Recipient = new Recipient
                     {
                         Email = "test@example.com"
                     },
                     SignText = "Please sign this test document",
                     Language = "en",
-                    PackageTo = [PackageType.pades_container], 
+                    PackageTo = new List<PackageType> { PackageType.pades_container }, 
                     RedirectSettings = new RedirectSettings
                     {
                         Success = "https://example.com/success",
@@ -315,22 +315,30 @@ namespace Signicat.SDK.Tests.Services.Sign
                 };
                 
                 // Act
-                var result = _service.CreateSignSession(options);
+                var sessionsRequest = new CreateSignSessionsOptions { options };
+                var results = _service.CreateSignSessions(sessionsRequest);
 
                 try
                 {
                     // Assert
-                    Assert.That(result, Is.Not.Null);
+                    Assert.That(results, Is.Not.Null);
+                    Assert.That(results.Count, Is.GreaterThan(0));
+                    
+                    var result = results[0]; // Get the first session from the collection
                     Assert.That(result.Id, Is.Not.Null);
                     Assert.That(result.SignatureUrl, Is.Not.Null);
                     Assert.That(result.Title, Is.EqualTo("Test Signing Session"));
                     Console.WriteLine($"Created session with ID: {result.Id}");
                     Console.WriteLine($"Signing URL: {result.SignatureUrl}");
+                    
+                    // Cleanup all created sessions
+                    foreach (var session in results)
+                    {
+                        CleanupSignSession(session.Id);
+                    }
                 }
                 finally
                 {
-                    // Cleanup session
-                    CleanupSignSession(result.Id);
                 }
             }
             finally
@@ -452,9 +460,9 @@ namespace Signicat.SDK.Tests.Services.Sign
             return collection;
         }
         
-        private SignSession CreateTestSession(string collectionId, string documentId)
+        private SigningSession CreateTestSession(string collectionId, string documentId)
         {
-            var options = new CreateSignSessionOptions
+            var options = new CreateSignSession
             {
                 Title = "Test Signing Session",
                 Documents = new List<SessionDocument> 
@@ -491,7 +499,11 @@ namespace Signicat.SDK.Tests.Services.Sign
                 }
             };
             
-            var session = _service.CreateSignSession(options);
+            var sessionsRequest = new CreateSignSessionsOptions { options };
+            var sessions = _service.CreateSignSessions(sessionsRequest);
+            Assert.That(sessions.Count, Is.GreaterThan(0), "No signing sessions were created");
+            
+            var session = sessions[0]; // Take the first session
             Console.WriteLine($"Created test session with ID: {session.Id}");
             return session;
         }

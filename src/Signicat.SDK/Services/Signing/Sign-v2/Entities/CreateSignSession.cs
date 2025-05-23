@@ -1,12 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
+    /// <summary>
+    /// Request containing options for creating signing sessions
+    /// </summary>
+    public class CreateSignSessionsOptions:List<CreateSignSession>
+    {
+        
+    }
+
     /// <summary>
     /// Options for creating a signing session
     /// </summary>
-    public class CreateSignSessionOptions
+    public class CreateSignSession
     {
         /// <summary>
         /// Required title of the signing session

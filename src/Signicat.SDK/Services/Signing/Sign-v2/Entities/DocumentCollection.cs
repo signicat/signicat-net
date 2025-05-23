@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// A collection of documents to be signed together

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Options for creating a document collection

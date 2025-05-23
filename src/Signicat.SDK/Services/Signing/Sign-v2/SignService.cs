@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Signicat.Infrastructure;
-using Signicat.Services.Sign.Entities;
+using Signicat.Services.Signing.Sign_v2.Entities;
 
-namespace Signicat.Services.Sign
+namespace Signicat.Services.Signing.Sign_v2
 {
     /// <summary>
     /// Service for working with the Signicat Sign API.
@@ -100,22 +99,22 @@ namespace Signicat.Services.Sign
         /// Update document metadata.
         /// </summary>
         /// <param name="documentId">Document ID</param>
-        /// <param name="request">Update metadata request</param>
+        /// <param name="options">Update metadata request</param>
         /// <returns>Updated document</returns>
-        public Document UpdateDocumentMetadata(string documentId, UpdateDocumentMetadataRequest request)
+        public Document UpdateDocumentMetadata(string documentId, UpdateDocumentMetadataOptions options)
         {
-            return Patch<Document>($"{Urls.Sign}/documents/{documentId}/metadata", request);
+            return Patch<Document>($"{Urls.Sign}/documents/{documentId}/metadata", options);
         }
 
         /// <summary>
         /// Update document metadata.
         /// </summary>
         /// <param name="documentId">Document ID</param>
-        /// <param name="request">Update metadata request</param>
+        /// <param name="options">Update metadata request</param>
         /// <returns>Updated document</returns>
-        public async Task<Document> UpdateDocumentMetadataAsync(string documentId, UpdateDocumentMetadataRequest request)
+        public async Task<Document> UpdateDocumentMetadataAsync(string documentId, UpdateDocumentMetadataOptions options)
         {
-            return await PatchAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata", request);
+            return await PatchAsync<Document>($"{Urls.Sign}/documents/{documentId}/metadata", options);
         }
 
         /// <summary>
@@ -164,20 +163,20 @@ namespace Signicat.Services.Sign
         /// Retrieve a document collection
         /// </summary>
         /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>Document collection response</returns>
-        public DocumentCollectionResponse GetDocumentCollection(string documentCollectionId)
+        /// <returns>Document collection</returns>
+        public DocumentCollection GetDocumentCollection(string documentCollectionId)
         {
-            return Get<DocumentCollectionResponse>($"{Urls.Sign}/document-collections/{documentCollectionId}");
+            return Get<DocumentCollection>($"{Urls.Sign}/document-collections/{documentCollectionId}");
         }
 
         /// <summary>
         /// Retrieve a document collection
         /// </summary>
         /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>Document collection response</returns>
-        public async Task<DocumentCollectionResponse> GetDocumentCollectionAsync(string documentCollectionId)
+        /// <returns>Document collection</returns>
+        public async Task<DocumentCollection> GetDocumentCollectionAsync(string documentCollectionId)
         {
-            return await GetAsync<DocumentCollectionResponse>($"{Urls.Sign}/document-collections/{documentCollectionId}");
+            return await GetAsync<DocumentCollection>($"{Urls.Sign}/document-collections/{documentCollectionId}");
         }
 
         /// <summary>
@@ -203,23 +202,45 @@ namespace Signicat.Services.Sign
         #region Sign Sessions
 
         /// <summary>
+        /// Create new signing sessions
+        /// </summary>
+        /// <param name="options">Request containing options for creating sign sessions</param>
+        /// <returns>Sign sessions</returns>
+        public SigningSessions CreateSignSessions(CreateSignSessionsOptions options)
+        {
+            return Post<SigningSessions>($"{Urls.Sign}/signing-sessions", options);
+        }
+
+        /// <summary>
+        /// Create new signing sessions
+        /// </summary>
+        /// <param name="options">Request containing options for creating sign sessions</param>
+        /// <returns>Sign sessions</returns>
+        public async Task<SigningSessions> CreateSignSessionsAsync(CreateSignSessionsOptions options)
+        {
+            return await PostAsync<SigningSessions>($"{Urls.Sign}/signing-sessions", options);
+        }
+        
+        /// <summary>
         /// Create a new signing session
         /// </summary>
         /// <param name="options">Options for creating a sign session</param>
-        /// <returns>Sign session</returns>
-        public SignSession CreateSignSession(CreateSignSessionOptions options)
+        /// <returns>Sign sessions</returns>
+        public SigningSessions CreateSignSession(CreateSignSession options)
         {
-            return Post<SignSession>($"{Urls.Sign}/signing-sessions", options);
+            var request = new CreateSignSessionsOptions { options };
+            return CreateSignSessions(request);
         }
 
         /// <summary>
         /// Create a new signing session
         /// </summary>
         /// <param name="options">Options for creating a sign session</param>
-        /// <returns>Sign session</returns>
-        public async Task<SignSession> CreateSignSessionAsync(CreateSignSessionOptions options)
+        /// <returns>Sign sessions</returns>
+        public async Task<SigningSessions> CreateSignSessionAsync(CreateSignSession options)
         {
-            return await PostAsync<SignSession>($"{Urls.Sign}/signing-sessions", options);
+            var request = new CreateSignSessionsOptions { options };
+            return await CreateSignSessionsAsync(request);
         }
 
         /// <summary>
@@ -227,9 +248,9 @@ namespace Signicat.Services.Sign
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>Sign session</returns>
-        public SignSession GetSignSession(string sessionId)
+        public SigningSession GetSignSession(string sessionId)
         {
-            return Get<SignSession>($"{Urls.Sign}/signing-sessions/{sessionId}");
+            return Get<SigningSession>($"{Urls.Sign}/signing-sessions/{sessionId}");
         }
 
         /// <summary>
@@ -237,9 +258,9 @@ namespace Signicat.Services.Sign
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>Sign session</returns>
-        public async Task<SignSession> GetSignSessionAsync(string sessionId)
+        public async Task<SigningSession> GetSignSessionAsync(string sessionId)
         {
-            return await GetAsync<SignSession>($"{Urls.Sign}/signing-sessions/{sessionId}");
+            return await GetAsync<SigningSession>($"{Urls.Sign}/signing-sessions/{sessionId}");
         }
 
         /// <summary>
@@ -264,25 +285,7 @@ namespace Signicat.Services.Sign
 
         #region Archived Documents
 
-        /// <summary>
-        /// Get archived documents for a collection
-        /// </summary>
-        /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>List of archived documents</returns>
-        public List<ArchivedDocument> GetArchivedDocuments(string documentCollectionId)
-        {
-            return Get<List<ArchivedDocument>>($"{Urls.Sign}/document-collections/{documentCollectionId}/archive");
-        }
-
-        /// <summary>
-        /// Get archived documents for a collection
-        /// </summary>
-        /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>List of archived documents</returns>
-        public async Task<List<ArchivedDocument>> GetArchivedDocumentsAsync(string documentCollectionId)
-        {
-            return await GetAsync<List<ArchivedDocument>>($"{Urls.Sign}/document-collections/{documentCollectionId}/archive");
-        }
+        
 
         /// <summary>
         /// Retrieve an archived document
@@ -303,7 +306,6 @@ namespace Signicat.Services.Sign
         {
             return await GetFileAsync($"{Urls.Sign}/archive-documents/{archiveDocumentId}");
         }
-
         #endregion
     }
 }

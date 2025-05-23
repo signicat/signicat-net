@@ -10,7 +10,6 @@ namespace Signicat.Constants
         /// <summary>
         /// SHA-256 hashing algorithm
         /// </summary>
-        [JsonStringEnumMemberName("SHA-256")]
         SHA256
     }
 }

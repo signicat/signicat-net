@@ -1,9 +1,9 @@
-namespace Signicat.Services.Sign.Entities
+namespace Signicat.Services.Signing.Sign_v2.Entities
 {
     /// <summary>
     /// Request to update document metadata
     /// </summary>
-    public class UpdateDocumentMetadataRequest
+    public class UpdateDocumentMetadataOptions
     {
         /// <summary>
         /// A name to use if the document is to be stored as a file

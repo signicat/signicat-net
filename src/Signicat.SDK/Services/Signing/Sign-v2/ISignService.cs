@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Signicat.Services.Sign.Entities;
+using Signicat.Services.Signing.Sign_v2.Entities;
 
-namespace Signicat.Services.Sign
+namespace Signicat.Services.Signing.Sign_v2
 {
     /// <summary>
     /// Interface for the Signicat Sign API service
@@ -60,17 +59,17 @@ namespace Signicat.Services.Sign
         /// Update document metadata.
         /// </summary>
         /// <param name="documentId">Document ID</param>
-        /// <param name="request">Update metadata request</param>
+        /// <param name="options">Update metadata request</param>
         /// <returns>Updated document</returns>
-        Document UpdateDocumentMetadata(string documentId, UpdateDocumentMetadataRequest request);
+        Document UpdateDocumentMetadata(string documentId, UpdateDocumentMetadataOptions options);
         
         /// <summary>
         /// Update document metadata.
         /// </summary>
         /// <param name="documentId">Document ID</param>
-        /// <param name="request">Update metadata request</param>
+        /// <param name="options">Update metadata request</param>
         /// <returns>Updated document</returns>
-        Task<Document> UpdateDocumentMetadataAsync(string documentId, UpdateDocumentMetadataRequest request);
+        Task<Document> UpdateDocumentMetadataAsync(string documentId, UpdateDocumentMetadataOptions options);
         
         /// <summary>
         /// Delete a document.
@@ -106,15 +105,15 @@ namespace Signicat.Services.Sign
         /// Get a document collection by ID.
         /// </summary>
         /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>Document collection response</returns>
-        DocumentCollectionResponse GetDocumentCollection(string documentCollectionId);
+        /// <returns>Document collection</returns>
+        DocumentCollection GetDocumentCollection(string documentCollectionId);
         
         /// <summary>
         /// Get a document collection by ID.
         /// </summary>
         /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>Document collection response</returns>
-        Task<DocumentCollectionResponse> GetDocumentCollectionAsync(string documentCollectionId);
+        /// <returns>Document collection</returns>
+        Task<DocumentCollection> GetDocumentCollectionAsync(string documentCollectionId);
         
         /// <summary>
         /// Delete a document collection.
@@ -133,32 +132,32 @@ namespace Signicat.Services.Sign
         #region Sign Sessions
         
         /// <summary>
-        /// Create a new sign session for a document collection.
+        /// Create new sign sessions for document collections.
         /// </summary>
-        /// <param name="options">Options for creating a sign session</param>
-        /// <returns>Sign session</returns>
-        SignSession CreateSignSession(CreateSignSessionOptions options);
+        /// <param name="options">Request containing options for creating sign sessions</param>
+        /// <returns>Sign sessions</returns>
+        SigningSessions CreateSignSessions(CreateSignSessionsOptions options);
         
         /// <summary>
-        /// Create a new sign session for a document collection.
+        /// Create new sign sessions for document collections.
         /// </summary>
-        /// <param name="options">Options for creating a sign session</param>
-        /// <returns>Sign session</returns>
-        Task<SignSession> CreateSignSessionAsync(CreateSignSessionOptions options);
-        
-        /// <summary>
-        /// Get a sign session by ID.
-        /// </summary>
-        /// <param name="sessionId">Session ID</param>
-        /// <returns>Sign session</returns>
-        SignSession GetSignSession(string sessionId);
+        /// <param name="options">Request containing options for creating sign sessions</param>
+        /// <returns>Sign sessions</returns>
+        Task<SigningSessions> CreateSignSessionsAsync(CreateSignSessionsOptions options);
         
         /// <summary>
         /// Get a sign session by ID.
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>Sign session</returns>
-        Task<SignSession> GetSignSessionAsync(string sessionId);
+        SigningSession GetSignSession(string sessionId);
+        
+        /// <summary>
+        /// Get a sign session by ID.
+        /// </summary>
+        /// <param name="sessionId">Session ID</param>
+        /// <returns>Sign session</returns>
+        Task<SigningSession> GetSignSessionAsync(string sessionId);
         
         /// <summary>
         /// Delete a sign session.
@@ -175,21 +174,6 @@ namespace Signicat.Services.Sign
         #endregion
         
         #region Archived Documents
-        
-        /// <summary>
-        /// Get archived documents for a collection.
-        /// </summary>
-        /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>List of archived documents</returns>
-        List<ArchivedDocument> GetArchivedDocuments(string documentCollectionId);
-        
-        /// <summary>
-        /// Get archived documents for a collection.
-        /// </summary>
-        /// <param name="documentCollectionId">Document Collection ID</param>
-        /// <returns>List of archived documents</returns>
-        Task<List<ArchivedDocument>> GetArchivedDocumentsAsync(string documentCollectionId);
-        
         /// <summary>
         /// Retrieve an archived document
         /// </summary>
@@ -203,7 +187,6 @@ namespace Signicat.Services.Sign
         /// <param name="archiveDocumentId">Archive document ID parameter</param>
         /// <returns>The binary contents of the archived document</returns>
         Task<Stream> GetArchivedDocumentAsync(string archiveDocumentId);
-        
         #endregion
     }
 }
