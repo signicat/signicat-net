@@ -16,7 +16,11 @@ public class ManualSignServiceTest : BaseTest
     [SetUp]
     public void SetUp()
     {
-        _service = new SignService();
+        LaunchSettingsHelper.LoadEnvironmentVariables();
+        string clientId = Environment.GetEnvironmentVariable("PROD_SIGN_LIVE_TEST_CLIENT_ID"),
+            clientSecret = Environment.GetEnvironmentVariable("PROD_SIGN_LIVE_TEST_CLIENT_SECRET");
+        _service = string.IsNullOrWhiteSpace(clientId) ? new SignService():
+            new SignService(clientId,clientSecret);
     }
 
     [Explicit]
@@ -32,53 +36,62 @@ public class ManualSignServiceTest : BaseTest
         var options = new CreateSignSession
         {
             Title = "Test Signing Session",
-            Documents = new List<SessionDocument>
-            {
-                new SessionDocument
-                {
-                    DocumentCollectionId = testCollection.Id,
-                    Action = SessionDocumentAction.SIGN,
-                    DocumentId = testDocument.DocumentId
-                }
-            },
-            UserInteractionSetup = new List<UserInteractionSetup>
-            {
+            Documents =
+            [
+                new SessionDocument(documentCollectionId: testCollection.Id, action: SessionDocumentAction.SIGN,
+                    documentId: testDocument.DocumentId)
+            ],
+            UserInteractionSetup =
+            [
                 new UserInteractionSetup
                 {
-                    IdentityProviders = new List<IdentityProvider> { new IdentityProvider { IdpName = "nbid" } },
-                    SigningFlow = SigningFlow.AUTHENTICATION_BASED
+                    IdentityProviders = [new IdentityProvider { IdpName = "nbid" }],
+                    SigningFlow = SigningFlow.AUTHENTICATION_BASED,
                 }
-            },
+            ],
             Recipient = new Recipient
             {
-                Email = "test@example.com"
             },
             SignText = "Please sign this test document",
             Language = "en",
-            PackageTo = new List<PackageType> { PackageType.pades_container }, 
+            DueDate = DateTime.Now+TimeSpan.FromDays(1),
+            ExternalReference = Guid.NewGuid().ToString("n"),
+            PackageTo = [PackageType.pades_container], 
             RedirectSettings = new RedirectSettings
             {
                 Success = "https://example.com/success",
                 Cancel = "https://example.com/cancel",
                 Error = "https://example.com/error"
-            }
+            },
+           
         };
                 
         // Act
         var sessionsRequest = new CreateSignSessionsOptions { options };
-        var results = await _service.CreateSignSessionsAsync(sessionsRequest);
+        try
+        {
+            var results = await _service.CreateSignSessionsAsync(sessionsRequest);
+            
+            // Assert
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results.Count, Is.GreaterThan(0));
+                    
+            var result = results[0]; // Get the first session from the collection
+            Assert.That(result.Id, Is.Not.Null);
+            Assert.That(result.SignatureUrl, Is.Not.Null);
+            Assert.That(result.Title, Is.EqualTo("Test Signing Session"));
+            Console.WriteLine($"Created session with ID: {result.Id}");
+            Console.WriteLine($"Signing URL: {result.SignatureUrl}");
+        }
+        catch (SignicatException e)
+        {
+            Console.WriteLine(e.Response.ResponseJson);
+            throw;
+        }
+       
 
               
-        // Assert
-        Assert.That(results, Is.Not.Null);
-        Assert.That(results.Count, Is.GreaterThan(0));
-                    
-        var result = results[0]; // Get the first session from the collection
-        Assert.That(result.Id, Is.Not.Null);
-        Assert.That(result.SignatureUrl, Is.Not.Null);
-        Assert.That(result.Title, Is.EqualTo("Test Signing Session"));
-        Console.WriteLine($"Created session with ID: {result.Id}");
-        Console.WriteLine($"Signing URL: {result.SignatureUrl}");
+      
                     
               
     }
