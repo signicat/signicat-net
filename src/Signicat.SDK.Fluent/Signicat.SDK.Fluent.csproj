@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>1.14.2</VersionPrefix>
+        <VersionPrefix>1.15.0</VersionPrefix>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Description>.NET SDK for Signicat REST API fluent builder addon</Description>
         <Authors>Signicat AS</Authors>
