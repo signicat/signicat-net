@@ -58,7 +58,7 @@ namespace Signicat.Services.Usage.Entities
         /// Id of organisation owning the account where usage is produced
         /// <example>o-p-8gcrvJvHZ3cYZKrAsmQp</example>
         /// </summary>
-        public string OrganisationId { get; set; }
+        public string? OrganisationId { get; set; }
 
         /// <summary>
         /// Period of dates

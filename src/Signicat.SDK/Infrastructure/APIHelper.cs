@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
+using Signicat.Services.Signing.Sign_v2.Entities;
 
 namespace Signicat.Infrastructure
 {

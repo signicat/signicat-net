@@ -11,31 +11,43 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// <summary>
         /// The session's unique identifier
         /// </summary>
+        /// <example>f05d0dce-a7af-432b-b6b8-e455ab7c0852</example>
         public string Id { get; set; }
 
         /// <summary>
         /// URL to send the user to for signing
         /// </summary>
+        /// <example>https://signtest-account.sandbox.signicat.com/sign/?sessionId=8ce3dac2-74b3-429c-adf7-fe6d277186d0</example>
         public string SignatureUrl { get; set; }
 
         /// <summary>
-        /// Recipient of notifications
+        /// Time-to-live for the signature URL in minutes
         /// </summary>
-        public Recipient Recipient { get; set; }
+        /// <example>5</example>
+        public int? SignatureUrlTtl { get; set; }
+
+        /// <summary>
+        /// When the signature URL expires
+        /// </summary>
+        /// <example>2026-01-15T14:05:00Z</example>
+        public DateTime? SignatureUrlExpiresAt { get; set; }
 
         /// <summary>
         /// Title of the signing session
         /// </summary>
+        /// <example>Rental agreement</example>
         public string Title { get; set; }
 
         /// <summary>
         /// Text to display when signing
         /// </summary>
+        /// <example>Please sign this document</example>
         public string SignText { get; set; }
 
         /// <summary>
         /// When the session expires
         /// </summary>
+        /// <example>2025-04-01T17:32:28Z</example>
         public DateTime? DueDate { get; set; }
 
         /// <summary>
@@ -51,6 +63,7 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// <summary>
         /// The name of the entity that requested the signature. Displayed while signing.
         /// </summary>
+        /// <example>Corporation incorporated</example>
         public string SenderDisplayName { get; set; }
 
         /// <summary>
@@ -66,17 +79,18 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// <summary>
         /// The user interaction setups for this session describing which IDPs are available for the end-user
         /// </summary>
-        public List<UserInteractionSetup> UserInteractionSetup { get; set; } = new List<UserInteractionSetup>();
+        public List<SigningSetup> SigningSetup { get; set; } = new List<SigningSetup>();
 
         /// <summary>
         /// IDs of signing sessions that must be signed before this one
         /// </summary>
+        /// <example>f05d0dce-a7af-432b-b6b8-e455ab7c0858</example>
         public List<string> SubsequentTo { get; set; } = new List<string>();
 
         /// <summary>
         /// List of formats the session should be packaged to when signed
         /// </summary>
-        public List<string> PackageTo { get; set; } = new List<string>();
+        public List<PackageType> PackageTo { get; set; } = new List<PackageType>();
 
         /// <summary>
         /// The intended signer of the Signing Session
@@ -84,81 +98,18 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         public Signer Signer { get; set; }
 
         /// <summary>
-        /// Define what objects should be added to archive
-        /// </summary>
-        public ArchiveSettings Archive { get; set; }
-
-        /// <summary>
         /// Set up authentication of signer before presenting documents
         /// </summary>
         public PreAuthentication PreAuthentication { get; set; }
 
         /// <summary>
-        /// Specifies the language to be used in the signing UI
+        /// Defines UI settings for the signing session.
         /// </summary>
-        public string Language { get; set; }
+        public Ui Ui { get; set; }
 
         /// <summary>
         /// Define URLs for redirects
         /// </summary>
         public RedirectSettings RedirectSettings { get; set; }
-    }
-
-    /// <summary>
-    /// Contains session lifecycle information
-    /// </summary>
-    public class SessionLifecycle
-    {
-        /// <summary>
-        /// Current state of the session
-        /// </summary>
-        public string State { get; set; }
-
-        /// <summary>
-        /// Indicates if the current state is final
-        /// </summary>
-        public bool StateIsFinal { get; set; }
-    }
-
-    /// <summary>
-    /// Session state values
-    /// </summary>
-    public static class SessionStateValues
-    {
-        /// <summary>
-        /// Session is blocked
-        /// </summary>
-        public const string Blocked = "BLOCKED";
-        
-        /// <summary>
-        /// Session is ready for signing
-        /// </summary>
-        public const string Ready = "READY";
-        
-        /// <summary>
-        /// Session has been signed
-        /// </summary>
-        public const string Signed = "SIGNED";
-        
-        /// <summary>
-        /// Session has been rejected
-        /// </summary>
-        public const string Rejected = "REJECTED";
-    }
-
-    /// <summary>
-    /// Contains session output information
-    /// </summary>
-    public class SessionOutput
-    {
-        /// <summary>
-        /// Signatures in the session
-        /// </summary>
-        public List<SessionSignature> Signatures { get; set; } = new List<SessionSignature>();
-
-        /// <summary>
-        /// Packages in the session
-        /// </summary>
-        public List<SessionPackage> Packages { get; set; } = new List<SessionPackage>();
     }
 }

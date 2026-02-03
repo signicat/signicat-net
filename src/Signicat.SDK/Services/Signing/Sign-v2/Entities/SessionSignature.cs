@@ -9,23 +9,23 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// ID of the document collection
         /// </summary>
         public string DocumentCollectionId { get; set; }
-        
+
         /// <summary>
         /// ID of the result document
         /// </summary>
         public string ResultDocumentId { get; set; }
-        
+
         /// <summary>
         /// ID of the original document
         /// </summary>
         public string OriginalDocumentId { get; set; }
-        
+
         /// <summary>
         /// Type of the signature
         /// </summary>
         public string SignatureType { get; set; }
     }
-    
+
     /// <summary>
     /// Artifact type for signatures
     /// </summary>

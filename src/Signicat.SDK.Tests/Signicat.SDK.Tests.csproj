@@ -24,8 +24,7 @@
         <Content Include="Services\Signing\dummy.pdf">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Properties\launchSettings.dev.json" />
-        <Content Include="Properties\launchSettings.dev.json">
+        <Content Include="Properties\launchSettings.dev.json" Condition="exists('Properties\launchSettings.dev.json')">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

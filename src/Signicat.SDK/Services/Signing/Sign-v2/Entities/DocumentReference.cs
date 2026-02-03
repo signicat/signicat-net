@@ -9,7 +9,7 @@ namespace Signicat.Services.Signing.Sign_v2.Entities
         /// The document's unique identifier
         /// </summary>
         public string DocumentId { get; set; }
-        
+
         /// <summary>
         /// A description of the document for display purposes
         /// </summary>

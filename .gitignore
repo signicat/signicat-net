@@ -336,3 +336,4 @@ src/**/.DS_Store
 src/Signicat.SDK.Tests/.DS_Store
 src/.claude/settings.local.json
 /src/Signicat.SDK.Tests/Properties
+src/declarations.txt

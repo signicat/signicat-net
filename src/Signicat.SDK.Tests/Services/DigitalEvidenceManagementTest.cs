@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Signicat.DigitalEvidenceManagement;
@@ -17,10 +18,11 @@ namespace Signicat.SDK.Tests.Services
             Metadata = new Dictionary<string, object>
             {
                 {"timestamp", DateTime.Now},
-                {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"}
+                {"hash", "fe8df9859245b024ec1c0f6f825a3b4441fc0dee37dc28e09cc64308ba6714f3"},
+                {"identityProvider", "WayneEnterpriseCorporateId"},
             },
             Type = RecordTypes.LOG_IN,
-            TimeToLiveInDays = 2,
+            TimeToLiveInDays = 1,
             CoreData = new Dictionary<string, object>
             {
                 {"name", "Bruce Wayne"},
@@ -116,6 +118,8 @@ namespace Signicat.SDK.Tests.Services
         [Test]
         public async Task QueryAsync()
         {
+            var record = await _digitalEvidenceManagement.CreateDemRecordAsync(_sampleCreate);
+            Thread.Sleep(300);
             var searchResult = await _digitalEvidenceManagement.QueryAsync(new DemRecordSearchCreateOptions()
             {
                 And = new[]

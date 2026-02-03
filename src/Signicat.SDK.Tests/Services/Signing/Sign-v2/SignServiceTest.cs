@@ -14,7 +14,7 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
     [TestFixture]
     public class SignServiceTest : BaseTest
     {
-        private SignService _service;
+        private ISignService _service;
 
         [SetUp]
         public void SetUp()
@@ -39,10 +39,10 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
             string filePath = possiblePaths.FirstOrDefault(File.Exists);
             Assert.That(filePath, Is.Not.Null, "Test file dummy.pdf not found in any of the expected locations");
             
-            var fileData = File.ReadAllBytes(filePath);
+            
             
             // Act
-            var result = _service.UploadDocument("test.pdf", fileData);
+            var result = _service.UploadDocument("test.pdf", File.OpenRead(filePath));
 
             try
             {
@@ -199,6 +199,11 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
                     Assert.That(result.Documents[0].DocumentId, Is.EqualTo(testDocument.DocumentId));
                     Console.WriteLine($"Created collection with ID: {result.Id}");
                 }
+                catch (SignicatException e)
+                {
+                    Console.WriteLine(e.Response.ResponseJson);
+                    throw;
+                }
                 finally
                 {
                     // Cleanup collection
@@ -283,6 +288,7 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
                 var options = new CreateSignSession
                 {
                     Title = "Test Signing Session",
+                    SignatureUrlTimeToLive = 5,
                     Documents = new List<SessionDocument>
                     {
                         new SessionDocument
@@ -292,27 +298,30 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
                             DocumentId = testDocument.DocumentId
                         }
                     },
-                    UserInteractionSetup = new List<UserInteractionSetup>
+                    SigningSetup = new List<SigningSetup>
                     {
-                        new UserInteractionSetup
+                        new SigningSetup
                         {
                             IdentityProviders = new List<IdentityProvider> { new IdentityProvider { IdpName = "nbid" } },
                             SigningFlow = SigningFlow.AUTHENTICATION_BASED
                         }
                     },
-                    Recipient = new Recipient
+                    /*Recipient = new Recipient
                     {
                         Email = "test@example.com"
-                    },
+                    },*/
                     SignText = "Please sign this test document",
-                    Language = "en",
-                    PackageTo = new List<PackageType> { PackageType.pades_container }, 
+                    Ui = new Ui(){Language = "en"},
+                    PackageTo = new List<PackageType> { PackageType.PADES_CONTAINER }, 
                     RedirectSettings = new RedirectSettings
                     {
                         Success = "https://example.com/success",
                         Cancel = "https://example.com/cancel",
                         Error = "https://example.com/error"
-                    }
+                    },
+                    DueDate =  DateTime.Now.AddDays(1),
+                    ExternalReference = Guid.NewGuid().ToString("n"),
+                    
                 };
                 
                 // Act
@@ -424,13 +433,22 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
         
         private Document CreateTestDocument()
         {
-            string filePath =@"Services/Signing/dummy.pdf";
-            Assert.That(File.Exists(filePath),Is.True,"Test file dummy.pdf not found");
+            try
+            {
+                string filePath =@"Services/Signing/dummy.pdf";
+                Assert.That(File.Exists(filePath),Is.True,"Test file dummy.pdf not found");
             
-            var document = _service.UploadDocument("test.pdf", File.ReadAllBytes(filePath));
+                var document = _service.UploadDocument("test.pdf", File.OpenRead(filePath));
             
-            Console.WriteLine($"Created test document with ID: {document.DocumentId}");
-            return document;
+                Console.WriteLine($"Created test document with ID: {document.DocumentId}");
+                return document;
+            }
+            catch (SignicatException e)
+            {
+                Console.WriteLine(e.Response.ResponseJson);
+                throw;
+            }
+          
         }
         
         private DocumentCollection CreateTestCollection(string documentId)
@@ -456,6 +474,7 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
         {
             var options = new CreateSignSession
             {
+                SignatureUrlTimeToLive = 5,
                 Title = "Test Signing Session",
                 Documents = new List<SessionDocument> 
                 { 
@@ -466,9 +485,9 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
                         DocumentId = documentId 
                     } 
                 },
-                UserInteractionSetup = new List<UserInteractionSetup>
+                SigningSetup = new List<SigningSetup>
                 {
-                    new UserInteractionSetup
+                    new SigningSetup
                     {
                         IdentityProviders = new List<IdentityProvider> 
                         { 
@@ -477,12 +496,12 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
                         SigningFlow = SigningFlow.AUTHENTICATION_BASED
                     }
                 },
-                Recipient = new Recipient
+                /*re = new Signer()
                 {
                     Email = "test@example.com"
-                },
+                },*/
                 SignText = "Please sign this test document",
-                Language = "en",
+                Ui = new Ui(){Language = "en"},
                 RedirectSettings = new RedirectSettings
                 {
                     Success = "https://example.com/success",
@@ -492,7 +511,17 @@ namespace Signicat.SDK.Tests.Services.Signing.Sign_v2
             };
             
             var sessionsRequest = new CreateSignSessionsOptions { options };
-            var sessions = _service.CreateSignSessions(sessionsRequest);
+            SigningSessions sessions = null;
+            try
+            {
+                sessions = _service.CreateSignSessions(sessionsRequest);
+            }
+            catch (SignicatException e)
+            {
+                Console.WriteLine(e.Response.ResponseJson);
+                throw;
+            }
+            
             Assert.That(sessions.Count, Is.GreaterThan(0), "No signing sessions were created");
             
             var session = sessions[0]; // Take the first session

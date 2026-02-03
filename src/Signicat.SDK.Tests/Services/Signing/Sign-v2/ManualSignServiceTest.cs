@@ -17,7 +17,7 @@ public class ManualSignServiceTest : BaseTest
     public void SetUp()
     {
         LaunchSettingsHelper.LoadEnvironmentVariables();
-        string clientId = Environment.GetEnvironmentVariable("PROD_SIGN_LIVE_TEST_CLIENT_ID"),
+            string clientId = Environment.GetEnvironmentVariable("PROD_SIGN_LIVE_TEST_CLIENT_ID"),
             clientSecret = Environment.GetEnvironmentVariable("PROD_SIGN_LIVE_TEST_CLIENT_SECRET");
         _service = string.IsNullOrWhiteSpace(clientId) ? new SignService():
             new SignService(clientId,clientSecret);
@@ -41,22 +41,23 @@ public class ManualSignServiceTest : BaseTest
                 new SessionDocument(documentCollectionId: testCollection.Id, action: SessionDocumentAction.SIGN,
                     documentId: testDocument.DocumentId)
             ],
-            UserInteractionSetup =
+            SigningSetup =
             [
-                new UserInteractionSetup
+                new SigningSetup
                 {
                     IdentityProviders = [new IdentityProvider { IdpName = "nbid" }],
                     SigningFlow = SigningFlow.AUTHENTICATION_BASED,
                 }
             ],
-            Recipient = new Recipient
+            /*Recipient = new Recipient
             {
-            },
+                Email = "test@example.com"
+            },*/
             SignText = "Please sign this test document",
-            Language = "en",
+            Ui = new Ui(){Language = "en"},
             DueDate = DateTime.Now+TimeSpan.FromDays(1),
             ExternalReference = Guid.NewGuid().ToString("n"),
-            PackageTo = [PackageType.pades_container], 
+            PackageTo = [PackageType.PADES_CONTAINER], 
             RedirectSettings = new RedirectSettings
             {
                 Success = "https://example.com/success",
@@ -103,7 +104,7 @@ public class ManualSignServiceTest : BaseTest
         string filePath =@"Services/Signing/dummy.pdf";
         Assert.That(File.Exists(filePath),Is.True,"Test file dummy.pdf not found");
             
-        var document = _service.UploadDocument("test.pdf", File.ReadAllBytes(filePath));
+        var document = _service.UploadDocument("test.pdf", File.OpenRead(filePath));
             
         Console.WriteLine($"Created test document with ID: {document.DocumentId}");
         return document;

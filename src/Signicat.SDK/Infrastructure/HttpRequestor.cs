@@ -99,12 +99,24 @@ namespace Signicat.Infrastructure
             return SendAsync(url, HttpMethod.Delete, token, organisationId);
         }
 
-        public static SignicatResponse PostFile<T>(string url, string fileName, byte[] fileData, string token = null)
+        public static SignicatResponse PostFile(string url, string fileName, byte[] fileData, string token = null)
         {
             return Send(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
         }
 
-        public static Task<SignicatResponse> PostFileAsync<T>(string url, string fileName, byte[] fileData,
+        public static Task<SignicatResponse> PostFileAsync(string url, string fileName, byte[] fileData,
+            string token = null)
+        {
+            return SendAsync(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
+        }
+        
+        public static SignicatResponse PostFile(string url, string fileName, Stream fileData, string token = null)
+        {
+            return Send(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
+        }
+
+  
+        public static Task<SignicatResponse> PostFileAsync(string url, string fileName, Stream fileData,
             string token = null)
         {
             return SendAsync(url, HttpMethod.Post, token: token, fileContent: new FileContent(fileName, fileData));
@@ -113,8 +125,8 @@ namespace Signicat.Infrastructure
         public static Stream GetStream(string url, string token = null, string organisationId = null)
         {
             var request = GetRequestMessage(url, HttpMethod.Get, token, organisationId);
-
             return ExecuteRawRequest(request);
+
         }
 
         public static Task<Stream> GetStreamAsync(string url, string token = null, string organisationId = null)
@@ -209,7 +221,14 @@ namespace Signicat.Infrastructure
             //File content
             if (fileContent != null)
             {
-                request.Content = new ByteArrayContent(fileContent.Data);
+                if (fileContent.StreamData != null)
+                {
+                    request.Content = new StreamContent(fileContent.StreamData);
+                }
+                else
+                {
+                    request.Content = new ByteArrayContent(fileContent.Data);
+                }
 
                 request.Content.Headers.ContentType =
                     new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(fileContent.FileName));
@@ -231,7 +250,7 @@ namespace Signicat.Infrastructure
             var response = await HttpClient.SendAsync(requestMessage);
             var content = await response.Content.ReadAsStringAsync();
 
-            var result = BuildResponseData(response, content);
+            var result = BuildResponseData(content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -260,7 +279,7 @@ namespace Signicat.Infrastructure
             }
 
             var errorContent = await response.Content.ReadAsStringAsync();
-            var result = BuildResponseData(response, errorContent);
+            var result = BuildResponseData(errorContent);
 
             throw response.StatusCode switch
             {
@@ -270,12 +289,13 @@ namespace Signicat.Infrastructure
             };
         }
 
-        private static SignicatResponse BuildResponseData(HttpResponseMessage response, string responseJson)
+        private static SignicatResponse BuildResponseData(string responseJson)
         {
             return new SignicatResponse
             {
-                ResponseJson = responseJson
+                ResponseJson = responseJson,
             };
+            
         }
 
         private static SignicatException BuildException(SignicatResponse response, HttpStatusCode statusCode)

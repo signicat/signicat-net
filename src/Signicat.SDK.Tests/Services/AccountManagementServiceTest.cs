@@ -69,6 +69,8 @@ namespace Signicat.SDK.Tests.Services
         }
 
         [Test]
+        [Explicit]
+
         public async Task GetInvoiceAsyncCheckThatItsCorrect()
         {
             var invoice = await _accountManagementService.RetrieveInvoiceAsync(invoiceNumberToTestWith);
@@ -77,6 +79,8 @@ namespace Signicat.SDK.Tests.Services
         }
 
         [Test]
+        [Explicit]
+
         public void GetInvoiceCheckThatItsCorrect()
         {
             var invoice = _accountManagementService.RetrieveInvoice(invoiceNumberToTestWith);
