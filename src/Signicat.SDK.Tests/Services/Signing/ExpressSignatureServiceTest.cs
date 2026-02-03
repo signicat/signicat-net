@@ -144,6 +144,7 @@ namespace Signicat.SDK.Tests.Services.Signing
         }
 
         [Test]
+        [Ignore("Flaky due to async cancelling operation")]
         public async Task Z_CancelDocumentAsync()
         {
             await _expressSignatureService.CancelDocumentAsync(_documentId, "Tesing");

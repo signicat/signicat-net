@@ -27,5 +27,6 @@ namespace Signicat.Services.Signing.Express.Entities
         [EnumMember(Value = "mitid")] Mitid = 21,
 
         [EnumMember(Value = "no_bankid_oidc")] NoBankIdOidc = 22,
+        [EnumMember(Value = "no_bankid_csc")] NoBankIdCsc = 26
     }
 }

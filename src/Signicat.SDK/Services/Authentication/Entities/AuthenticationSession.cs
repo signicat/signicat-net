@@ -131,5 +131,10 @@ namespace Signicat.Authentication
         /// DateTime expiry of session.
         /// </summary>
         public DateTime? ExpiresAt { get; set; }
+
+        /// <summary>
+        /// The Level of Assurance used in the authentication.
+        /// </summary>
+        public string Loa { get; set; }
     }
 }

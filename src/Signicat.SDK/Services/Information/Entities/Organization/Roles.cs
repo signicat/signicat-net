@@ -139,6 +139,87 @@ namespace Signicat.Information.Organization
         /// <summary>
         ///     Partner
         /// </summary>
-        [EnumMember(Value = "partner")] Partner = 8
+        [EnumMember(Value = "partner")] Partner = 8,
+
+        /// <summary>
+        ///     Alternate member
+        /// </summary>
+        [EnumMember(Value = "alternateMember")]
+        AlternateMember = 9,
+
+        /// <summary>
+        ///     Auditor
+        /// </summary>
+        [EnumMember(Value = "auditor")] Auditor = 10,
+
+        /// <summary>
+        ///     Representative
+        /// </summary>
+        [EnumMember(Value = "representative")]
+        Representative = 11,
+
+        /// <summary>
+        ///     Foreign
+        /// </summary>
+        [EnumMember(Value = "foreign")] Foreign = 12,
+
+        /// <summary>
+        ///     Legal entity
+        /// </summary>
+        [EnumMember(Value = "legalEntity")]
+        LegalEntity = 13,
+
+        /// <summary>
+        ///     Shareholder
+        /// </summary>
+        [EnumMember(Value = "shareholder")]
+        Shareholder = 14,
+
+        /// <summary>
+        ///     Owner
+        /// </summary>
+        [EnumMember(Value = "owner")] Owner = 15,
+
+        /// <summary>
+        ///     Legal representative
+        /// </summary>
+        [EnumMember(Value = "legalRepresentative")]
+        LegalRepresentative = 16,
+
+        /// <summary>
+        ///     Tax representative
+        /// </summary>
+        [EnumMember(Value = "taxRepresentative")]
+        TaxRepresentative = 17,
+
+        /// <summary>
+        ///     Public entity
+        /// </summary>
+        [EnumMember(Value = "publicEntity")]
+        PublicEntity = 18,
+
+        /// <summary>
+        ///     House manager
+        /// </summary>
+        [EnumMember(Value = "houseManager")]
+        HouseManager = 19,
+
+        /// <summary>
+        ///     Ceo substitute
+        /// </summary>
+        [EnumMember(Value = "ceoSubstitute")]
+        CeoSubstitute = 20,
+
+        /// <summary>
+        ///     Vice board leader
+        /// </summary>
+        [EnumMember(Value = "viceBoardLeader")]
+        ViceBoardLeader = 21,
+
+        /// <summary>
+        ///     Deputy board member
+        /// </summary>
+        [EnumMember(Value = "deputyBoardMember")]
+        DeputyBoardMember = 22
     }
 }
